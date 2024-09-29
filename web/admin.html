@@ -35,6 +35,20 @@
                 <button type="submit" class="btn">Upload File</button>
             </form>
         </div>
+        <button class="btn" id="delete" onclick="deleteuser1()">Διαγραφη χρηστη</button>
+        <div id="delete-page" style="display: none;">
+            <form id ="apolyshform" onsubmit='DELETEPOST();return false;'>
+            <div id="user1" style="display: none;">
+                <label for="USER1">ID OF User:</label>
+                <input type="number" id="USER1"  name="userid">
+            </div>
+            <div id="butdel" style="display: none;" onclick="deleteuser()" >
+                <button class="btn" id="delemp" type="submit">Πατηστε για την διαγραφή</button>
+            </div>
+            </form>
+        </div>
+        <div id="responseMessage"></div>
+        <span id="pinakas"></span>
         <section class="data-selection">
             <h2>Select Beach Data to View</h2>
            <form id="dataForm" action="GetBeachDataServlet" method="get"> <!-- Change action to your servlet -->

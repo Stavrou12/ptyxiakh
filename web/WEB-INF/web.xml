@@ -40,6 +40,10 @@
         <servlet-name>UpdateBeachDataServlet</servlet-name>
         <servlet-class>Servlets.UpdateBeachDataServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>diagrafh_user</servlet-name>
+        <servlet-class>Servlets.diagrafh_user</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetUser</servlet-name>
         <url-pattern>/GetUser</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>UpdateBeachDataServlet</servlet-name>
         <url-pattern>/UpdateBeachDataServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>diagrafh_user</servlet-name>
+        <url-pattern>/diagrafh_user</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -46,6 +46,7 @@ public class EditUserTable {
     }
 
 
+
     public void printUserDetails(String username, String password) throws SQLException, ClassNotFoundException {
         Connection con = DB_Connection.getConnection();
         Statement stmt = con.createStatement();
@@ -215,10 +216,10 @@ public class EditUserTable {
         stmt.executeUpdate(update);
     }
 
-    public void deleteUser(User user) throws SQLException, ClassNotFoundException {
+    public void deleteUser(int id) throws SQLException, ClassNotFoundException {
         Connection con = DB_Connection.getConnection();
         Statement stmt = con.createStatement();
-        String update = "DELETE FROM users WHERE user_id = '" + user.getUser_id() + "'";
+        String update = "DELETE FROM users WHERE user_id = '" + id + "'";
         stmt.executeUpdate(update);
     }
 

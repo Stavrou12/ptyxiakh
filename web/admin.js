@@ -240,3 +240,87 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     // Send the file data
     xhr.send(formData);
 });
+
+
+function deleteuser1() {
+    document.getElementById("delete-page").style.display = 'flex';
+    document.getElementById("user1").style.display = 'flex';
+    document.getElementById("butdel").style.display = 'flex';
+    
+}
+
+function deleteuser() {
+    var userId = document.getElementById("USER1").value;  // Get the user ID
+    console.log("Deleting user with ID: " + userId);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'diagrafh_user', true);  // POST to your server endpoint
+    xhr.setRequestHeader("Content-type", "application/json");
+
+    // Wrap the userId in a JSON object
+    var jsonData = JSON.stringify({ "user_id": userId });
+    console.log("Sending JSON: ", jsonData);  // For debugging purposes
+
+    xhr.onload = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("User deleted successfully.");
+            console.log(xhr.responseText);
+
+            // You can update the UI here to show that the user was deleted.
+            document.getElementById('responseMessage').innerText = "User deleted successfully.";
+        } else {
+            console.error("Failed to delete user. Status: " + xhr.status);
+            document.getElementById('responseMessage').innerText = "Failed to delete user.";
+        }
+    };
+
+    xhr.onerror = function () {
+        console.error("Request failed.");
+        document.getElementById('responseMessage').innerText = "Request failed.";
+    };
+
+    xhr.send(jsonData);  // Send the user_id in JSON format
+}
+
+function createTableFromJSON(data) {
+    var html = "<table><tr><th>Category</th><th>Value</th></tr>";
+    for (const x in data) {
+        var category = x;
+        var value = data[x];
+        html += "<tr><td>" + category + "</td><td>" + value + "</td></tr>";
+    }
+    html += "</table>";
+    return html;
+
+}
+function DELETEPOST() {
+    let myForm = document.getElementById('apolyshform');
+    let formData = new FormData(myForm);
+    const data = {};
+    formData.forEach((value, key) => (data[key] = value));
+
+    var jsonData = JSON.stringify(data);
+    var xhr = new XMLHttpRequest();
+    console.log(jsonData);
+    xhr.onload = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("mphke");
+            var responseData = JSON.parse(jsonData);
+            console.log(responseData);
+            //   if (document.getElementById("txtTypeUser").value === "emp3") {
+            //     $('#ajaxContent').html("Successful permanentadm Registration.");
+
+            // $('#ajaxContent').html("Successful Registration.");
+            // $('#reg')[0].reset();
+            $('#pinakas').append(createTableFromJSON(responseData));
+        } else if (xhr.status !== 200) {
+            //  document.getElementById("ajaxContent").style.color = "red";
+            // document.getElementById('ajaxContent').innerHTML =
+            //         'Request failed. Returned status of ' + xhr.status + "<br>";
+        }
+    };
+
+    xhr.open('POST', 'diagrafh_user');
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.send(jsonData);
+    }
