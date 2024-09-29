@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>My_form</title>
+        <link rel="stylesheet" type="text/css" href="regc.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="regj.js"></script>
+    </head>
+    <body>
+        <div class="Register">
+            <h1>Εγγραφή Χρήστη</h1>
+            <form id="reg" onsubmit='RegisterPOST();return false;'>
+                <fieldset>
+                    <legend>
+                        Συμπληρώστε την φόρμα:
+                    </legend>
+                    <label for="txtUserName">UserName:</label>
+                    <input type="text" id="txtUserName" name="username" onchange="USERNAME() " autocomplete="on" pattern="[0-9a-zA-Z]{8,}" required="required">
+                    <span id="requsername"></span>
+                    <br>
+                    <div id="Mail">
+                        <label for="txtEmail">E-mail:
+                        </label>
+                        <input type="email" id="txtEmail" name="email" onchange="EMAIL()"  required="required">
+                        <span id="reqemail"></span>
+                    </div>
+                   <div id="pass">
+                        <label>Password:</label>
+                        <div class="password-container">
+                        <input id="p1" type="password" name="password" pattern="(?=.*[A-Za-z])(?=.*[@$!%*#?&])(?=.*[0-9]).{8,12}" required="required" onchange="checkPasswordStrength()">
+                        <i class="fa fa-eye password-icon" id="togglepas" onclick="toggle()"></i>
+                        <p id="strengthMessage"></p>
+                        </div>
+                   </div>
+
+                    <div id="pass2">
+                        <label>
+                            Επιβεβαίωση password:
+                        </label>
+                        <div class="password-container">
+                        <input id="p2" type="password" name="password2" pattern="(?=.*[A-Za-z])(?=.*[@$!%*#?&])(?=.*[0-9]).{8,12}" required="required">
+                        <i class="fa fa-eye password-icon" id="togglepas2" onclick="toggle2()"></i>
+                        <p id="message"></p>
+                        </div>
+                    </div>
+                    
+                    <br>
+                    <label for="txtName">Όνομα:</label>
+                    <input type="text" id="txtName" name="firstname" minlength="3" maxlength="30" size="40" required="required">
+                    <br>
+                    <label for="txtName1">Επώνυμο:</label>
+                    <input type="text" id="txtName1" name="lastname" minlength="3" maxlength="30" size="40" required="required">
+                    <br>
+                </fieldset>
+                <br>
+                <input type="checkbox" id="check" name="check">
+                <label for="check">Συμφωνία με όρους χρήσης</label>
+                <br>
+                <button type="submit">Εγγραφή</button>
+        <button type="reset">Επαναφορά</button>
+            </form>
+        </div>
+        <div id='ajaxContent'></div>
+    </body>
+</html>

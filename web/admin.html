@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Beach Discover</title>
+    <link rel="stylesheet" href="adminc.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="admin.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Beach Discover Admin</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Manage Users</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#" id="logout" onclick="logout();">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Upload New File</h2>
+            <p>Please upload the CSV file containing beach data.</p>
+            <form id="uploadForm" enctype="multipart/form-data" action="uploadServlet" method="post">
+                <div class="file-upload">
+                    <input type="file" id="fileInput" name="file" accept=".csv" required>
+                    <label for="fileInput" class="file-upload-label"><i class="fas fa-upload"></i> Choose a file</label>
+                </div>
+                <button type="submit" class="btn">Upload File</button>
+            </form>
+        </div>
+        <section class="data-selection">
+            <h2>Select Beach Data to View</h2>
+           <form id="dataForm" action="GetBeachDataServlet" method="get"> <!-- Change action to your servlet -->
+    <div class="selection-container">
+        <label for="year-select">Year:</label>
+        <select id="year-select" name="year-select"> <!-- Add name attribute -->
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+        </select>    
+        <label for="month-select">Month:</label>
+        <select id="month-select" name="month-select"> <!-- Add name attribute -->
+            <option value="maios_">May</option>
+            <option value="iounios_">June</option>
+            <option value="ioylios_">July</option>
+            <option value="aygoystos_">August</option>
+            <option value="septemvrios_">September</option>
+            <option value="oktovrios_">October</option>
+        </select>
+        <button type="submit" id="butdata">View Beach Data</button> <!-- Ensure it's a submit button -->
+    </div>
+</form>
+        </section>
+        <div id="beachDataDisplay" class="data-display"></div>
+       <div id="nameoftable" style="display: none;"></div>
+       <button id="saveButton" class="btn">Save All Updates</button> 
+    </main>
+    <footer>
+        <p>&copy; 2024 Beach-Discover Admin Panel. All rights reserved.</p>
+    </footer>  
+</body>
+</html>

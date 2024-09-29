@@ -1,0 +1,218 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+
+header {
+    background: #3c8dbc;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+h2 {
+    color: #333;
+}
+
+.file-upload {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.file-upload-label {
+    background-color: #3c8dbc;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn {
+    background-color: #3c8dbc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #2b6e9c;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background: #3c8dbc;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px;
+}
+
+
+.data-selection {
+    text-align: center;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+}
+
+.selection-container {
+    margin: 20px 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+#butdata {
+    width: 100%;
+    padding: 10px;
+    background-color: #3c8dbc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#butdata:hover {
+    background-color: #2b6e9c;
+}
+
+/* General container styling */
+.data-display {
+    justify-content: center; /* Center content horizontally */
+    margin-top: 20px; /* Space above the table */
+    overflow-x: auto; /* Allow horizontal scrolling */
+}
+
+/* Table Styling */
+#data-table {
+    width: 100%; /* Full width of the container */
+    max-width: 1200px; /* Max width for larger screens */
+    border-collapse: collapse; /* Merge borders */
+}
+
+#data-table th,
+#data-table td {
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 8px; /* Padding for table cells */
+    text-align: left; /* Align text to the left */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+#data-table th {
+    background-color: #4CAF50; /* Green background for headers */
+    color: white; /* White text color */
+}
+
+#data-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray background for even rows */
+}
+
+#data-table tr:hover {
+    background-color: #ddd; /* Darker gray on row hover */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    #data-table,
+    #data-table th,
+    #data-table td {
+        display: block; /* Stack elements */
+        width: 100%; /* Full width for small screens */
+    }
+
+    #data-table th {
+        position: absolute; /* Position headers off-screen */
+        top: -9999px; /* Hide headers */
+        left: -9999px; /* Hide headers */
+    }
+
+    #data-table tr {
+        margin-bottom: 15px; /* Space between rows */
+    }
+
+    #data-table td {
+        text-align: right; /* Align text to the right */
+        padding-left: 50%; /* Space on the left for label */
+        position: relative; /* Allow positioning of labels */
+    }
+
+    #data-table td:before {
+        content: attr(data-label); /* Add label from data attribute */
+        position: absolute; /* Position label */
+        left: 0; /* Align to the left */
+        width: 50%; /* Half-width */
+        padding-left: 10px; /* Space on the left */
+        font-weight: bold; /* Bold label text */
+        text-align: left; /* Left-align label */
+    }
+}
+
+
+

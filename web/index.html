@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beach-Discover</title>
+    <link rel="stylesheet" href="new.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="login.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h1>Beach-Discover</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h2>Welcome to Beach-Discover</h2>
+            <p>Explore the cleanest beaches around you with real-time water quality data.</p>
+
+            <div class="login-container">
+                <form id="myForm" action="#" onsubmit="login_post(event); return false;">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input id="username" name="username" type="text" placeholder="Please enter" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input id="password" name="password" type="password" placeholder="Please enter" required>
+                    </div>
+                    <button class="login-button" id="login-butt" type="submit">Login</button>
+                    <div id="msg-login" class="message"></div>
+                </form>
+
+                <div class="button-group">
+                    <button class="reg-button" id="eggr" onclick="gotoform()">Sign up for free</button>
+                    <button class="guest-button" id="guest-butt" onclick="redirectToHome()">Είσοδος ως επισκέπτης</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Beach-Discover. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
