@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import java.sql.ResultSet;
+
 
 import database.DB_Connection;
 
@@ -49,7 +51,33 @@ public class UploadServlet extends HttpServlet {
 
                 // Create the table using the file name as the table name
                 createTableIfNotExists(conn, tableName);
-
+                 String checkSql = "SELECT COUNT(*) FROM " + tableName;  // Adjust based on your schema
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                
+                try (ResultSet rs = checkStmt.executeQuery()) {
+                    rs.next();
+                    int count = rs.getInt(1);
+                    
+                    // If the record exists, respond or handle accordingly
+                    if (count > 0) {
+                        response.setContentType("text/html");
+                        response.getWriter().write("<html><body>");
+                        response.getWriter().write("<h3>File already exists in the table: " + fileName + "</h3>");
+                        response.getWriter().write("<p>Skipping data insertion.</p>");
+                        
+                                response.getWriter().write("<p>You will be redirected to the admin page in 5 seconds...</p>");
+        
+        // JavaScript for redirection after 5 seconds
+        response.getWriter().write("<script type='text/javascript'>");
+        response.getWriter().write("setTimeout(function() {");
+        response.getWriter().write("window.location.href = 'admin.html';"); // Change to your admin page URL
+        response.getWriter().write("}, 5000);"); // 5000 milliseconds = 5 seconds
+        response.getWriter().write("</script>");
+                        response.getWriter().write("</body></html>");
+                        return;  // Exit to avoid insertion
+                    }
+                }
+            }
                 // Prepare the SQL insert statement
                 String sql = "INSERT INTO " + tableName + " (Perunit, Municipal, Coast, StationCode, Description, "
                            + "SampleDate, SampleTime, DeliveryDate, AnalyseDate, Intenterococci, Ecoli, Tar, "
@@ -95,6 +123,15 @@ public class UploadServlet extends HttpServlet {
                 }
 
                 response.getWriter().write("File uploaded and data inserted into table: " + tableName);
+response.getWriter().write("<p>You will be redirected to the admin page in 5 seconds...</p>");
+        
+        // JavaScript for redirection after 5 seconds
+        response.getWriter().write("<script type='text/javascript'>");
+        response.getWriter().write("setTimeout(function() {");
+        response.getWriter().write("window.location.href = 'admin.html';"); // Change to your admin page URL
+        response.getWriter().write("}, 5000);"); // 5000 milliseconds = 5 seconds
+        response.getWriter().write("</script>");
+response.getWriter().write("</body></html>");
             } catch (SQLException e) {
                 e.printStackTrace();
                 response.getWriter().write("Error: " + e.getMessage());

@@ -80,7 +80,7 @@ public class RemoveTable extends HttpServlet {
         response.setContentType("text/html");
         response.getWriter().write("<html><body>");
         if (isTableRemoved) {
-            response.getWriter().write("<h3>Table '" + tableName + "' has been successfully removed.</h3>");
+           response.sendRedirect("admin.html");
         } else {
             response.getWriter().write("<h3>Failed to remove the table '" + tableName + "'.</h3>");
         }

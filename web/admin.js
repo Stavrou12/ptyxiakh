@@ -2,9 +2,47 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
-$(document).ready(function() {
+$(document).ready(function () {
+    $('#dataForm-2').on('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+        // Get selected values
+        const selectedMonth = $('#month-select-2').val();
+        const selectedYear = $('#year-select-2').val();
+        // Make AJAX request
+        $.ajax({
+            url: 'RemoveTable',
+            method: 'GET',
+            data: {
+                'month-select-2': selectedMonth,
+                'year-select-2': selectedYear
+            },
+            success: function (response) {
+                // Clear previous data
+                $('#tablermmes').empty();
+                // Check if the response has data
+                if (response && response.length > 0) {
+                    // Create a table to display the data
+                    $('#nameoftable').attr('name', selectedMonth + selectedYear);
+                    // Set inner HTML content
+                    $('#nameoftable').html(selectedMonth + selectedYear);
+                    // Optionally log to confirm
+                    console.log($('#nameoftable').attr('name')); // Should output: giannis
+                    console.log($('#nameoftable').html()); // Should output: This is the content for the div.                                
+                    $('#tablermmes').html("Table " + selectedMonth + selectedYear + " was successfully removed"); // Insert the table into the display area
+                } else {
+                    $('#tablermmes').html('<p>No data available for the selected month and year.</p>');
+                }
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error('AJAX Error:', status, error);
+                $('#tablermmes').html('<p>An error occurred while retrieving data. Please try again later.</p>');
+            }
+        });
+    });
+
     // Handle form submission
-    $('#dataForm').on('submit', function(event) {
+    $('#dataForm').on('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission
         // Get selected values
         const selectedMonth = $('#month-select').val();
@@ -17,14 +55,14 @@ $(document).ready(function() {
                 'month-select': selectedMonth,
                 'year-select': selectedYear
             },
-            success: function(response) {
+            success: function (response) {
                 // Clear previous data
                 $('#beachDataDisplay').empty();
-                 
+
                 // Check if the response has data
                 if (response && response.length > 0) {
                     // Create a table to display the data
-                    let table = '<table id="data-table"><thead><tr>';                    
+                    let table = '<table id="data-table"><thead><tr>';
                     // Create table headers (modify according to your data properties)
                     table += '<th>Perunit</th>';
                     table += '<th>Municipal</th>';
@@ -73,29 +111,29 @@ $(document).ready(function() {
                                       <td><button class="updateButton">Update</button></td>
                                   </tr>`;
                     });
-                            // Set the name attribute to "giannis"
-        $('#nameoftable').attr('name', selectedMonth+selectedYear);
-        
-        // Set inner HTML content
-        $('#nameoftable').html(selectedMonth+selectedYear);
+                    // Set the name attribute to "giannis"
+                    $('#nameoftable').attr('name', selectedMonth + selectedYear);
 
-        // Optionally log to confirm
-        console.log($('#nameoftable').attr('name')); // Should output: giannis
-        console.log($('#nameoftable').html()); // Should output: This is the content for the div.
-                    table += '</tbody></table>';                    
+                    // Set inner HTML content
+                    $('#nameoftable').html(selectedMonth + selectedYear);
+
+                    // Optionally log to confirm
+                    console.log($('#nameoftable').attr('name')); // Should output: giannis
+                    console.log($('#nameoftable').html()); // Should output: This is the content for the div.
+                    table += '</tbody></table>';
                     $('#beachDataDisplay').html(table); // Insert the table into the display area
                 } else {
                     $('#beachDataDisplay').html('<p>No data available for the selected month and year.</p>');
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 // Handle errors
                 console.error('AJAX Error:', status, error);
                 $('#beachDataDisplay').html('<p>An error occurred while retrieving data. Please try again later.</p>');
             }
         });
     });
-$('#saveButton').on('click', function() {
+    $('#saveButton').on('click', function () {
         const tableName = document.getElementById("nameoftable").getAttribute("name");
         console.log(tableName);
         const updatedData = saveAllUpdates(); // Get the updated data from the function
@@ -109,15 +147,15 @@ $('#saveButton').on('click', function() {
         $.ajax({
             url: 'UpdateBeachDataServlet', // Change this to the actual servlet URL
             method: 'POST',
-         //   data: JSON.stringify(updatedData), // Send the data as JSON
-          data: JSON.stringify({ tableName, updatedData }),
+            //   data: JSON.stringify(updatedData), // Send the data as JSON
+            data: JSON.stringify({tableName, updatedData}),
             contentType: 'application/json; charset=UTF-8',
-            success: function(response) {
+            success: function (response) {
                 // Handle success (you can show a message or update the UI)
                 console.log('Data updated successfully!');
                 console.log('Server response:', response); // For debugging
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 // Handle error (show an error message to the user)
                 console.error('Update Error:', status, error);
                 console.log('Response:', xhr.responseText); // Log server response for debugging
@@ -127,7 +165,7 @@ $('#saveButton').on('click', function() {
     });
 
 
- $(document).on('click', '.updateButton', function() {
+    $(document).on('click', '.updateButton', function () {
         handleUpdateButtonClick($(this));
     });
 // Save all updates
@@ -139,23 +177,23 @@ function handleUpdateButtonClick(button) {
     const row = button.closest('tr');
     // Get current values from the row
     const fields = row.find('td').slice(0, -1); // Exclude the last cell (Update button)
-    
-    fields.each(function() {
+
+    fields.each(function () {
         const currentValue = $(this).text();
         $(this).html(`<input type='text' value='${currentValue}' />`);
     });
-    
+
     button.prop('disabled', true); // Disable the Update button
 }
 
 function saveAllUpdates() {
     const updatedData = []; // Array to hold the updated rows
 
-    $('#data-table tbody tr').each(function() {
+    $('#data-table tbody tr').each(function () {
         const row = $(this);
         const rowData = {
-           // StationCode: row.data('id'), // Use data attribute for unique ID
-            
+            // StationCode: row.data('id'), // Use data attribute for unique ID
+
             // If the input exists, use its value; otherwise, use the cell text
             Perunit: row.find('td:nth-child(1) input').length ? row.find('td:nth-child(1) input').val() : row.find('td:nth-child(1)').text(),
             Municipal: row.find('td:nth-child(2) input').length ? row.find('td:nth-child(2) input').val() : row.find('td:nth-child(2)').text(),
@@ -178,9 +216,9 @@ function saveAllUpdates() {
             Rainfail: row.find('td:nth-child(19) input').length ? row.find('td:nth-child(19) input').val() : row.find('td:nth-child(19)').text(),
             Yestrainfail: row.find('td:nth-child(20) input').length ? row.find('td:nth-child(20) input').val() : row.find('td:nth-child(20)').text(),
         };
-        
+
         updatedData.push(rowData); // Add the row data to the array
-       // console.log(rowData); // For debugging purposes
+        // console.log(rowData); // For debugging purposes
     });
 
     return updatedData; // Return the array of updated data
@@ -203,7 +241,7 @@ function logout() {
 }
 
 
-document.getElementById('uploadForm').addEventListener('submit', function(event) {
+document.getElementById('uploadForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the default form submission
 
     const fileInput = document.getElementById('fileInput');
@@ -246,7 +284,7 @@ function deleteuser1() {
     document.getElementById("delete-page").style.display = 'flex';
     document.getElementById("user1").style.display = 'flex';
     document.getElementById("butdel").style.display = 'flex';
-    
+
 }
 
 function deleteuser() {
@@ -258,7 +296,7 @@ function deleteuser() {
     xhr.setRequestHeader("Content-type", "application/json");
 
     // Wrap the userId in a JSON object
-    var jsonData = JSON.stringify({ "user_id": userId });
+    var jsonData = JSON.stringify({"user_id": userId});
     console.log("Sending JSON: ", jsonData);  // For debugging purposes
 
     xhr.onload = function () {
@@ -323,4 +361,4 @@ function DELETEPOST() {
     xhr.open('POST', 'diagrafh_user');
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.send(jsonData);
-    }
+}
