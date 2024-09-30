@@ -68,7 +68,7 @@
         <label for="month-select">Month:</label>
         <select id="month-select" name="month-select"> <!-- Add name attribute -->
             <option value="maios_">May</option>
-            <option value="iounios_">June</option>
+            <option value="ioynios_">June</option>
             <option value="ioylios_">July</option>
             <option value="aygoystos_">August</option>
             <option value="septemvrios_">September</option>
@@ -78,6 +78,58 @@
     </div>
 </form>
         </section>
+        
+        
+                <section class="data-table-rm">
+            <h2>Select Table to Remove</h2>
+           <form id="dataForm-2" action="RemoveTable" method="get"> <!-- Change action to your servlet -->
+    <div class="selection-container-2">
+        <label for="year-select-2">Year:</label>
+        <select id="year-select-2" name="year-select-2"> <!-- Add name attribute -->
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+        </select>    
+        <label for="month-select-2">Month:</label>
+        <select id="month-select-2" name="month-select-2"> <!-- Add name attribute -->
+            <option value="maios_">May</option>
+            <option value="_ioynios_">June</option>
+            <option value="ioylios_">July</option>
+            <option value="aygoystos_">August</option>
+            <option value="septemvrios_">September</option>
+            <option value="oktovrios_">October</option>
+        </select>
+        <button type="submit" id="butdata-2">Remove the Table</button> <!-- Ensure it's a submit button -->
+    </div>
+</form>
+        </section>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <div id="beachDataDisplay" class="data-display"></div>
        <div id="nameoftable" style="display: none;"></div>
        <button id="saveButton" class="btn">Save All Updates</button> 

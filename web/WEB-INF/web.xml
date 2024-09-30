@@ -44,6 +44,10 @@
         <servlet-name>diagrafh_user</servlet-name>
         <servlet-class>Servlets.diagrafh_user</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveTable</servlet-name>
+        <servlet-class>Servlets.RemoveTable</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetUser</servlet-name>
         <url-pattern>/GetUser</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>diagrafh_user</servlet-name>
         <url-pattern>/diagrafh_user</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveTable</servlet-name>
+        <url-pattern>/RemoveTable</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
