@@ -52,6 +52,10 @@
         <servlet-name>RemoveBeach</servlet-name>
         <servlet-class>Servlets.RemoveBeach</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InsertDataServlet</servlet-name>
+        <servlet-class>Servlets.InsertDataServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetUser</servlet-name>
         <url-pattern>/GetUser</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>RemoveBeach</servlet-name>
         <url-pattern>/RemoveBeach</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertDataServlet</servlet-name>
+        <url-pattern>/InsertDataServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -3,6 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 $(document).ready(function () {
+    
+     $('#dataForm-3').on('submit', function(event) {
+        event.preventDefault();  // Prevent default form submission
+
+        // Get form data
+        var formData = $(this).serialize();
+
+        // Send form data to backend (servlet)
+        $.ajax({
+            url: 'InsertDataServlet',  // Adjust this URL to match your servlet
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                $('#response').html('<p>Data inserted successfully!</p>');
+            },
+            error: function(xhr, status, error) {
+                $('#response').html('<p>Error: ' + error + '</p>');
+            }
+        });
+    });
+    
+    
+    
     $('#dataForm-2').on('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission
         // Get selected values
