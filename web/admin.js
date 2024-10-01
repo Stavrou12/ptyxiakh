@@ -2,9 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
+
+
+
 $(document).ready(function () {
-    
-     $('#dataForm-3').on('submit', function(event) {
+
+    document.getElementById("btform").addEventListener("click", function () {
+        var newDiv = document.getElementById("secform");
+        newDiv.style.display = "block";  // Make the div visible
+    });
+    $('#dataForm-3').on('submit', function (event) {
         event.preventDefault();  // Prevent default form submission
 
         // Get form data
@@ -12,20 +19,20 @@ $(document).ready(function () {
 
         // Send form data to backend (servlet)
         $.ajax({
-            url: 'InsertDataServlet',  // Adjust this URL to match your servlet
+            url: 'InsertDataServlet', // Adjust this URL to match your servlet
             type: 'POST',
             data: formData,
-            success: function(response) {
+            success: function (response) {
                 $('#response').html('<p>Data inserted successfully!</p>');
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $('#response').html('<p>Error: ' + error + '</p>');
             }
         });
     });
-    
-    
-    
+
+
+
     $('#dataForm-2').on('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission
         // Get selected values
@@ -63,11 +70,11 @@ $(document).ready(function () {
             }
         });
     });
-    
-    
-    
-    
-    
+
+
+
+
+
     $('#dataForm-2-beach').on('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission
         // Get selected values
@@ -82,7 +89,7 @@ $(document).ready(function () {
             data: {
                 'month-select-2-beach': selectedMonth,
                 'year-select-2-beach': selectedYear,
-                'code':beach
+                'code': beach
             },
             success: function (response) {
                 // Clear previous data
@@ -96,7 +103,7 @@ $(document).ready(function () {
                     // Optionally log to confirm
                     console.log($('#nameoftable').attr('name')); // Should output: giannis
                     console.log($('#nameoftable').html()); // Should output: This is the content for the div.                                
-                    $('#tablermmesbeach').html("beach "+beach+" was removed from Table " + selectedMonth + selectedYear); // Insert the table into the display area
+                    $('#tablermmesbeach').html("beach " + beach + " was removed from Table " + selectedMonth + selectedYear); // Insert the table into the display area
                 } else {
                     $('#tablermmesbeach').html('<p>No data available for the selected month and year.</p>');
                 }
@@ -242,6 +249,8 @@ $(document).ready(function () {
 
 function handleUpdateButtonClick(button) {
     console.log('Update button clicked');
+    let es = document.getElementById("saveButton");
+    es.style.display = "block";
     const row = button.closest('tr');
     // Get current values from the row
     const fields = row.find('td').slice(0, -1); // Exclude the last cell (Update button)
