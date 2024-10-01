@@ -40,6 +40,51 @@ $(document).ready(function () {
             }
         });
     });
+    
+    
+    
+    
+    
+    $('#dataForm-2-beach').on('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+        // Get selected values
+        const selectedMonth = $('#month-select-2-beach').val();
+        const selectedYear = $('#year-select-2-beach').val();
+        const beach = $('#code').val();
+        console.log(beach);
+        // Make AJAX request
+        $.ajax({
+            url: 'RemoveBeach',
+            method: 'GET',
+            data: {
+                'month-select-2-beach': selectedMonth,
+                'year-select-2-beach': selectedYear,
+                'code':beach
+            },
+            success: function (response) {
+                // Clear previous data
+                $('#tablermmesbeach').empty();
+                // Check if the response has data
+                if (response && response.length > 0) {
+                    // Create a table to display the data
+                    $('#nameoftable').attr('name', selectedMonth + selectedYear);
+                    // Set inner HTML content
+                    $('#nameoftable').html(selectedMonth + selectedYear);
+                    // Optionally log to confirm
+                    console.log($('#nameoftable').attr('name')); // Should output: giannis
+                    console.log($('#nameoftable').html()); // Should output: This is the content for the div.                                
+                    $('#tablermmesbeach').html("beach "+beach+" was removed from Table " + selectedMonth + selectedYear); // Insert the table into the display area
+                } else {
+                    $('#tablermmesbeach').html('<p>No data available for the selected month and year.</p>');
+                }
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+                console.error('AJAX Error:', status, error);
+                $('#tablermmes').html('<p>An error occurred while retrieving data. Please try again later.</p>');
+            }
+        });
+    });
 
     // Handle form submission
     $('#dataForm').on('submit', function (event) {

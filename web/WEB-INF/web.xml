@@ -48,6 +48,10 @@
         <servlet-name>RemoveTable</servlet-name>
         <servlet-class>Servlets.RemoveTable</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveBeach</servlet-name>
+        <servlet-class>Servlets.RemoveBeach</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetUser</servlet-name>
         <url-pattern>/GetUser</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>RemoveTable</servlet-name>
         <url-pattern>/RemoveTable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveBeach</servlet-name>
+        <url-pattern>/RemoveBeach</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
