@@ -9,19 +9,37 @@
         <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
         <script src="admin.js"></script>
     </head>
-    <body>
-        <header>
-            <div class="logo">
-                <h1>Beach Discover Admin</h1>
-            </div>
-            <nav>
+    <body onload="showSection('uploadForm2')">
+          <header class="logo-header">
+            <h1>Beach Discover</h1> <!-- Replace with your logo if needed -->
+                        <nav>
                 <ul>
                     <li><a href="#" id="logout" onclick="logout();">Logout</a></li>
+                   
                 </ul>
             </nav>
         </header>
-        <main>
+          <div class="container">
+        
+        <!-- Sidebar Menu -->
+        <aside class="sidebar">
+            <h2>Services</h2>
+            <ul>
+                <li><a href="#" onclick="showSection('uploadForm2')">Upload File</a></li>
+                <li><a href="#" onclick="showSection('deleteu')">Delete User</a></li>
+                <li><a href="#" onclick="showSection('dForm')">View Beach Data</a></li>
+                <li><a href="#" onclick="showSection('dForm-2')">Remove Table</a></li>
+                <li><a href="#" onclick="showSection('dForm-2-beach')">Remove Beach</a></li>
+                <li><a href="#" onclick="showSection('secform')">Insert New Beach</a></li>
+            </ul>
+        </aside>
+        
+        <div class="main-content">
+        <header>
+            
 
+        </header>
+             <section id="uploadForm2" class="content-section">
             <div class="container">
                 <h2>Upload New File</h2>
                 <p>Please upload the CSV file containing beach data.</p>
@@ -33,6 +51,9 @@
                     <button type="submit" class="btn">Upload File</button>
                 </form>
             </div>
+          </section>
+            
+            <section id="deleteu" class="content-section" style="display:none;">
             <button class="btn" id="delete" onclick="deleteuser1()">Διαγραφη χρηστη</button>
             <div id="delete-page" style="display: none;">
                 <form id ="apolyshform" onsubmit='DELETEPOST();return false;'>
@@ -47,7 +68,10 @@
             </div>
             <div id="responseMessage"></div>
             <span id="pinakas"></span>
-            <section class="data-selection">
+            </section>
+            
+            
+            <section class="data-selection content-section" id="dForm" style="display:none;">
                 <h2>Select Beach Data to View</h2>
                 <form id="dataForm" action="GetBeachDataServlet" method="get"> <!-- Change action to your servlet -->
                     <div class="selection-container">
@@ -77,12 +101,14 @@
                         <button type="submit" id="butdata">View Beach Data</button> <!-- Ensure it's a submit button -->
                     </div>
                 </form>
-            </section>
+            
 
             <div id="beachDataDisplay" class="data-display"></div>
             <div id="nameoftable" style="display: none;"></div>
             <button id="saveButton" style="display: none;" class="btn">Save All Updates</button> 
-            <section class="data-selection">
+            </section>
+            
+            <section class="data-selection content-section" id = "dForm-2" style="display:none;">
                 <h2>Select Table to Remove</h2>
                 <form id="dataForm-2" action="RemoveTable" method="get"> <!-- Change action to your servlet -->
                     <div class="selection-container-2">
@@ -116,7 +142,7 @@
             </section>
 
 
-            <section class="data-selection">  
+            <section class="data-selection content-section" id ="dForm-2-beach" style="display:none;">  
                 <h2>Select Table base on GRSTATION to Remove</h2>
                 <form id="dataForm-2-beach" action="RemoveBeach" method="get"> <!-- Change action to your servlet -->
                     <div class="selection-container-2-beach">
@@ -154,9 +180,9 @@
 
 
 
-
+            <section class="data-selection  content-section" id ="secform" style="display: none;">
             <button id ="btform" class="btn">Insert new beach</button>
-            <section class="data-selection" id ="secform" style="display: none;">
+            
                 <h2>Insert Data</h2>
                 <form id="dataForm-3" method="post">
                     <label for="Perunit">Perunit:</label>
@@ -221,6 +247,7 @@
 
                     <label for="month-select-3">Month:</label>
                     <select id="month-select-3" name="month-select-3" required>
+                        <option value="" disabled selected>Select a month</option> 
                         <option value="maios_">May</option>
                         <option value="ioynios_">June</option>
                         <option value="ioylios_">July</option>
@@ -231,6 +258,7 @@
 
                     <label for="year-select-3">Year:</label>
                     <select id="year-select-3" name="year-select-3" required>
+                        <option value="" disabled selected>Select a year</option> 
                         <option value="2016">2016</option>
                         <option value="2017">2017</option>
                         <option value="2018">2018</option>
@@ -248,21 +276,17 @@
                 <div id="response"></div>
 
             </section>
-
-
-
-
-
-
-
-
-
-
-
-
-        </main>
-        <footer>
-            <p>&copy; 2024 Beach-Discover Admin Panel. All rights reserved.</p>
-        </footer>  
+         </div>
+          </div>
+        <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Beach Discover. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
     </body>
 </html>

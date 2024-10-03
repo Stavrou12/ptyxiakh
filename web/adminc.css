@@ -1,58 +1,111 @@
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: #f4f4f4;
-}
-
-header {
-    background: #3c8dbc;
-    color: white;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo h1 {
-    margin: 0;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-}
-
-nav ul li {
-    margin-left: 20px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
-}
-
-main {
-    padding: 20px;
+        display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Arrange elements vertically */
+    min-height: 100vh; /* Full height of viewport */
+    margin: 0; /* Remove default margin */
 }
 
 .container {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 600px;
-    margin: auto;
+        display: flex; /* Use flexbox for layout */
+    flex: 1; /* Allow the container to grow */
+    flex-direction: row;
+ 
 }
+/* Main content area */
+.main-content {
+    width: 80%;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.logo-header {
+    width: 100%; /* Full width */
+    display: flex; /* Flexbox for layout */
+    justify-content: space-between; /* Space between logo and nav */
+    align-items: center; /* Center items vertically */
+     margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+    background-color: #1E90FF;
+    
+}
+
+.logo-header h1 {
+    margin: 0; /* Remove default margin */
+    padding-left: 10px; /* Add padding if needed */
+}
+
+.logo-header nav {
+    margin-right: 20px; /* Space from the right edge */
+}
+
+.logo-header nav ul {
+    list-style: none; /* Remove default list style */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    display: flex; /* Flexbox for layout */
+}
+
+.logo-header nav ul li {
+    margin-left: 20px; /* Space between list items */
+}
+
+.logo-header nav ul li a {
+    text-decoration: none; /* Remove underline from links */
+    color: #000; /* Link color */
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.logo-header nav ul li a:hover {
+    color: white; /* Change color on hover */
+}
+
+
+
+.sidebar {
+    width: 200px; /* Fixed width for sidebar */
+    background-color: #333; /* Sidebar background color */
+    color: white; /* Sidebar text color */
+    height: auto; /* Full height */
+    padding: 10px; /* Padding inside sidebar */
+    margin: 0; /* Remove margin */
+}
+
+.sidebar h2 {
+    margin-top: 0; /* Remove margin from sidebar header */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: white; /* Link color */
+    text-decoration: none; /* Remove underline from links */
+    display: block; /* Make links block elements */
+    padding: 8px 10px; /* Padding for links */
+}
+
+.sidebar ul li a:hover {
+    background-color: #34495e;
+}
+
 
 h2 {
     color: #333;
@@ -90,15 +143,40 @@ h2 {
     background-color: #2b6e9c;
 }
 
-footer {
-    text-align: center;
-    padding: 10px 0;
-    background: #3c8dbc;
-    color: white;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    margin-top: 20px;
+.footer {
+    background-color: #4A90E2; /* Background color for the footer */
+    color: white; /* Text color for the footer */
+    text-align: center; /* Center text */
+    padding: 20px 0; /* Padding for spacing */
+    position: relative; /* Relative positioning */
+    bottom: 0; /* Positioning the footer */
+    width: 100%; /* Full width */
+}
+
+.footer-content {
+    max-width: 1200px; /* Max width for content */
+    margin: 0 auto; /* Centering */
+}
+
+.footer-links {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+    margin: 10px 0 0; /* Margin above the list */
+}
+
+.footer-links li {
+    display: inline; /* Inline display for horizontal list */
+    margin: 0 15px; /* Margin between links */
+}
+
+.footer-links a {
+    color: white; /* Link color */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+.footer-links a:hover {
+    color: #ffdd57; /* Change color on hover */
 }
 
 
@@ -234,4 +312,13 @@ select:focus {
 }
 
 
+
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
 
