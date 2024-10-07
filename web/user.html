@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beaches Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
     <style>
         #map {
             height: 600px;
@@ -469,6 +472,144 @@ console.log(lengthOfBeaches); // Output: 2
         marker.bindPopup(`<b>${beach.BeachName}</b><br>${beach.Description}`);
     });
 }
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beach Tracker</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+
+<div id="map2" style="height: 500px;"></div>
+
+<script>
+    // Initialize the Leaflet map
+    const map2 = L.map('map2').setView([35.0, 25.0], 7); // Set to a default location (Crete)
+
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map2);
+
+    // Function to get user's geolocation
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    // Function to show position
+   function showPosition(position) {
+            const userLat = position.coords.latitude;
+            const userLon = position.coords.longitude;
+
+            // Prepare data to send to the server
+            const data = `lat=${userLat}&lon=${userLon}`;
+
+            // Send data using XMLHttpRequest
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'GetCleanBeache', true); // Change URL to your servlet
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const jsonResponse = JSON.parse(xhr.responseText);
+                        plotBeachesOnMap(jsonResponse.beaches); // Plot beaches on the map
+                    } else {
+                        console.error('Error fetching beaches:', xhr.statusText);
+                    }
+                }
+            };
+
+            xhr.send(data); // Send the request with the user's location
+        }
+    
+ function plotBeachesOnMap(beaches) {
+            // Initialize the map and set the view to the user's location
+
+
+            // Loop through the beaches and add markers to the map
+            beaches.forEach(beach => {
+                const { lat, lon, cleanliness } = beach;
+                
+                // Create a marker for each beach
+                const marker = L.marker([lat, lon]).addTo(map2);
+                
+                // Bind a popup to each marker with cleanliness information
+                marker.bindPopup(`Cleanliness Score: ${cleanliness}`);
+            });
+        }
+
+function handleResponse(response) {
+    // Assuming response is the JSON object you got from the servlet
+    const beaches = response.beaches;
+
+    // Call the function to plot the beaches on the map
+    plotBeachesOnMap(beaches);
+}
+
+// Make sure to handle the form submission response correctly
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        const formData = new FormData(event.target);
+        const data = {};
+        formData.forEach((value, key) => { data[key] = value });
+
+        // Sending data using XMLHttpRequest
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', form.action, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    const jsonResponse = JSON.parse(xhr.responseText);
+                    handleResponse(jsonResponse); // Call handleResponse with the JSON data
+                } else {
+                    console.error('Error fetching beaches:', xhr.statusText);
+                }
+            }
+        };
+
+        // Convert the data to URL-encoded string
+        const urlEncodedData = new URLSearchParams(data).toString();
+        xhr.send(urlEncodedData);
+    });
+});
+    // Function to show error messages
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                // Ask user to enable location services manually
+                alert("User denied the request for Geolocation. Please enable location services or input your location manually.");
+                // Optionally, provide a prompt to enter latitude and longitude
+                promptForManualLocation();
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+        }
+    }
+
+
+
+    // Call getLocation to request the user's location
+    getLocation();
 </script>
 
 </body>

@@ -56,6 +56,14 @@
         <servlet-name>InsertDataServlet</servlet-name>
         <servlet-class>Servlets.InsertDataServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetCleanBeache</servlet-name>
+        <servlet-class>Servlets.GetCleanBeache</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    <servlet-name>GetCleanBeache</servlet-name>
+    <url-pattern>/GetCleanBeache</url-pattern> <!-- Ensure this is the correct URL pattern -->
+</servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetUser</servlet-name>
         <url-pattern>/GetUser</url-pattern>
