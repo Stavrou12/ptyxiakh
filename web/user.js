@@ -114,7 +114,7 @@ function toggleFilterMenu() {
         // Prepare data to send to the server
         const data = `lat=${userLat}&lon=${userLon}&year=${selectedYear}&month=${selectedMonth}`;
 clearMarkers();
-        // Send data using XMLHttpRequest
+        
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'GetCleanBeache', true); // Change URL to your servlet
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
