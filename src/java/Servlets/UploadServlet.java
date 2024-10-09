@@ -122,19 +122,6 @@ public class UploadServlet extends HttpServlet {
                     }
                 }
                 
-/*
-                response.getWriter().write("File uploaded and data inserted into table: " + tableName);
-response.getWriter().write("<p>You will be redirected to the admin page in 5 seconds...</p>");
-        
-        // JavaScript for redirection after 5 seconds
-        response.getWriter().write("<script type='text/javascript'>");
-        response.getWriter().write("setTimeout(function() {");
-        response.getWriter().write("window.location.href = 'admin.html';"); // Change to your admin page URL
-        response.getWriter().write("}, 5000);"); // 5000 milliseconds = 5 seconds
-        response.getWriter().write("</script>");
-response.getWriter().write("</body></html>");
-                
-   */
 response.setContentType("text/html");
                         response.getWriter().write("<html><body>");
                         response.getWriter().write("<h3>File was uploaded " + fileName + "</h3>");

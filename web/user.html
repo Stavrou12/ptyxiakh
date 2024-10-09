@@ -8,493 +8,55 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <style>
-        #map {
-            height: 600px;
-            width: 100%;
-            margin-top: 20px;
-        }
-        .btn {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-
-<h1>Crete Beaches Map</h1>
-<button class="btn" onclick="showBeaches()">Click to View All Beaches</button>
-
-<div id="map"></div>
-
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script>
-// Define beaches data
-const beaches = [
-    {
-        "BeachName": "Νέα Χώρα",
-        "Latitude": 35.5141999673108,
-        "Longitude": 24.0066999798946,
-        "Description": "200 μ. από το βορειοανατολικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Μεγάλη Παραλία Ξερόκαμπου",
-        "Latitude": 35.0361843164909,
-        "Longitude": 26.2200942876822,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Γρα Λυγιά",
-        "Latitude": 35.0144941123764,
-        "Longitude": 25.6890398849858,
-        "Description": "Μέσον ακτής - 300μ. δυτικά από τον μόλο"
-    },
-    {
-        "BeachName": "Θόλος",
-        "Latitude": 35.1520983853468,
-        "Longitude": 25.8617227881344,
-        "Description": "90 μ. από το δυτικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Καλαμοκανιάς",
-        "Latitude": 35.0356204396962,
-        "Longitude": 25.9703970744803,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Καλοί Λιμένες",
-        "Latitude": 34.9312999892497,
-        "Longitude": 24.8020999948859,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Χρυσόστομος",
-        "Latitude": 34.9391247777373,
-        "Longitude": 24.8266770770625,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Ψαρή Φοράδα",
-        "Latitude": 34.984383787644,
-        "Longitude": 25.497949109713,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Άρβη",
-        "Latitude": 34.9913408825851,
-        "Longitude": 25.4525687852331,
-        "Description": "70μ. δυτικά από το μόλο"
-    },
-    {
-        "BeachName": "Καστρί",
-        "Latitude": 34.9987902441388,
-        "Longitude": 25.3781594741083,
-        "Description": "Στην έξοδο της επαρχιακής οδού Χόνδρου-Καστρί"
-    },
-    {
-        "BeachName": "Λέντας",
-        "Latitude": 34.9303692547384,
-        "Longitude": 24.9242541030933,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Ταρσανάς",
-        "Latitude": 35.5673252802547,
-        "Longitude": 24.0826312391712,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Παχιά Άμμος Σταυρού",
-        "Latitude": 35.5923266410035,
-        "Longitude": 24.090996959738,
-        "Description": "70μ. από το ανατολικό άκρο της ακτής."
-    },
-    {
-        "BeachName": "Φραγκοκάστελλο",
-        "Latitude": 35.1805282572085,
-        "Longitude": 24.2341149422743,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Ακτή Μαράθι - 2",
-        "Latitude": 35.5053294857518,
-        "Longitude": 24.1749063647993,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Κόκκινος Πύργος - 2",
-        "Latitude": 35.0836210930017,
-        "Longitude": 24.7346499238564,
-        "Description": "470 μέτρα από το νότιο τέλος της ακτής"
-    },
-    {
-        "BeachName": "Πλατιά Περάματα",
-        "Latitude": 34.9382355093153,
-        "Longitude": 24.8612810033786,
-        "Description": "230 μέτρα από το ανατολικό μέρος της ακτής"
-    },
-    {
-        "BeachName": "Τέρτσα",
-        "Latitude": 34.9911673410186,
-        "Longitude": 25.5328983310755,
-        "Description": "Στην έξοδο της επαρχιακής οδού – νότια του οικισμού"
-    },
-    {
-        "BeachName": "Ερημούπολη",
-        "Latitude": 35.2647701564431,
-        "Longitude": 26.2630543207688,
-        "Description": "Νότιο όριο παραλίας"
-    },
-    {
-        "BeachName": "Πολύριζος",
-        "Latitude": 35.185633556752,
-        "Longitude": 24.3053809515795,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Σχοινάρια",
-        "Latitude": 35.1663076308797,
-        "Longitude": 24.4215746223251,
-        "Description": "Μέσον ακτής"
-    },
-       {
-        "BeachName": "Φαλάσαρνα",
-        "Latitude": 35.4955599848336,
-        "Longitude": 23.5796799905281,
-        "Description": "230 μ. από το βόρειο άκρο της ακτής"
-    },
-    {
-        "BeachName": "Γραμβούσα - Παχειά Άμμος",
-        "Latitude": 35.5129767515002,
-        "Longitude": 23.6293202671914,
-        "Description": "100 μ. από το δυτικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Γραμβούσα - Βιγλιά",
-        "Latitude": 35.515921544199,
-        "Longitude": 23.6216115674884,
-        "Description": "330 μ. από το ανατολικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Σφηνάρι",
-        "Latitude": 35.4161860709679,
-        "Longitude": 23.5617633309961,
-        "Description": "180 μ. από το νοτιοδυτικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Κουρφαλώνας - Δραπανιάς - Μήθυμνα - Νοπήγεια",
-        "Latitude": 35.5028425940428,
-        "Longitude": 23.7023605540093,
-        "Description": "1700 μ. από το ανατολικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Κολυμπάρια – Ραπανιανά",
-        "Latitude": 35.5430135591945,
-        "Longitude": 23.7828586643768,
-        "Description": "130 μ. από το δυτικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Μάλεμε",
-        "Latitude": 35.526799967745,
-        "Longitude": 23.842699980348,
-        "Description": "350 μ. από το δυτικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Γεράνι – Πλατανιάς",
-        "Latitude": 35.5200999675988,
-        "Longitude": 23.8964999801913,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Λιμανάκι Πλατανιά",
-        "Latitude": 35.5191171556015,
-        "Longitude": 23.9128409267304,
-        "Description": "Δυτικό άκρο ακτής"
-    },
-    {
-        "BeachName": "Ίλιγγας",
-        "Latitude": 35.2020999694727,
-        "Longitude": 24.124399981344,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Ομπρός Γιαλός",
-        "Latitude": 35.2010144327507,
-        "Longitude": 24.1361095768656,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Άγιος Ονούφριος",
-        "Latitude": 35.548799966814,
-        "Longitude": 24.0630999796466,
-        "Description": "30 μ. από το νότιο άκρο της ακτής"
-    },
-    {
-        "BeachName": "Καλαθάς",
-        "Latitude": 35.5544999666659,
-        "Longitude": 24.0868999795548,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Σταυρός",
-        "Latitude": 35.5911999663958,
-        "Longitude": 24.0955999793,
-        "Description": "200 μ. από το βόρειο άκρο της ακτής"
-    },
-    {
-        "BeachName": "Μαράθι",
-        "Latitude": 35.5044999667867,
-        "Longitude": 24.1734999795184,
-        "Description": "60 μ. από το ανατολικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Λουτράκι (Ακρωτήρι)",
-        "Latitude": 35.4990249839131,
-        "Longitude": 24.1639559898508,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Άγιοι Απόστολοι – ΕΟΤ Ανατολικά",
-        "Latitude": 35.5141999673541,
-        "Longitude": 23.9831999800417,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Άγιοι Απόστολοι – ΕΟΤ Δυτικά",
-        "Latitude": 35.5140543524245,
-        "Longitude": 23.9786922927361,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Χρυσή Ακτή",
-        "Latitude": 35.512399967376,
-        "Longitude": 23.9897999799936,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Αγία Μαρίνα – Στάλος",
-        "Latitude": 35.516699967482,
-        "Longitude": 23.9392999801509,
-        "Description": "320 μ. από το δυτικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Καλαμάκι",
-        "Latitude": 35.5133999673959,
-        "Longitude": 23.9691999800813,
-        "Description": "70 μ. από το βορειοδυτικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Αγία Μαρίνα 3",
-        "Latitude": 35.5192204751404,
-        "Longitude": 23.9194850522497,
-        "Description": "420 μ. από το ανατολικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Αγία Μαρίνα 2",
-        "Latitude": 35.5218059842063,
-        "Longitude": 23.9316309900974,
-        "Description": "90 μ. από το δυτικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Αγία Μαρίνα 1",
-        "Latitude": 35.5199095018135,
-        "Longitude": 23.9246207722802,
-        "Description": "140 μ. από το νοτιοδυτικό άκρο της ακτής"
-    },
-    {
-        "BeachName": "Βλήτες",
-        "Latitude": 35.4970852791124,
-        "Longitude": 24.0613142405665,
-        "Description": "Μέσον ακτής"
-    },
-    {
-        "BeachName": "Κουμ Καπί",
-        "Latitude": 35.5160999671819,
-        "Longitude": 24.02919997989,
-        "Description": "100 μ. από το ανατολικό άκρο της ακτής"
-    },
-    {"BeachName": "Σακτούρια - Άγιος Παύλος", "Latitude": 35.102826210567, "Longitude": 24.5636332641106, "Description": "Μέσον ακτής"},
-    {"BeachName": "Πλακιάς 2", "Latitude": 35.1912832552233, "Longitude": 24.3910063404144, "Description": "80 μ. από το νοτιοανατολικό άκρο της ακτής"},
-    {"BeachName": "Πλακιάς 1", "Latitude": 35.1887999686501, "Longitude": 24.3967999807228, "Description": "420 μ. από το βορειοδυτικό άκρο της ακτής"},
-    {"BeachName": "Σούδα", "Latitude": 35.192019719976, "Longitude": 24.3658401947484, "Description": "Μέσον ακτής"},
-    {"BeachName": "Δαμνόνι", "Latitude": 35.1742999687242, "Longitude": 24.4146999807999, "Description": "Μέσον ακτής"},
-    {"BeachName": "Κόρακας - Ροδάκινο", "Latitude": 35.1871999689649, "Longitude": 24.3156999809037, "Description": "140 μ. από το ανατολικό άκρο της ακτής"},
-    {"BeachName": "Βαρκότοπος", "Latitude": 35.4106999655155, "Longitude": 24.7826999785239, "Description": "40 μ. από το βόρειο άκρο της ακτής"},
-    {"BeachName": "Μπαλί – Λιβάδι", "Latitude": 35.4079807107172, "Longitude": 24.7843273516219, "Description": "120 μ. από το βορειοδυτικό άκρο της ακτής"},
-    {"BeachName": "Πάνορμο", "Latitude": 35.4188999657474, "Longitude": 24.6910999786739, "Description": "30 μ. από το βορειοδυτικό άκρο της ακτής"},
-    {"BeachName": "Πάνορμο – Λίμνη", "Latitude": 35.4193096651099, "Longitude": 24.6880910383617, "Description": "35 μ. από το βόρειο άκρο της ακτής"},
-    {"BeachName": "Παραλία Λιανού Κάβου - Λαύρις", "Latitude": 35.4191799834499, "Longitude": 24.6499699893639, "Description": "Μέσον ακτής"},
-    {"BeachName": "Πηγιανός Κάμπος", "Latitude": 35.3795106460327, "Longitude": 24.5653284849769, "Description": "Μέσον ακτής"},
-    {"BeachName": "Σκαλέτα", "Latitude": 35.3903999662821, "Longitude": 24.6058999791293, "Description": "80 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Επισκοπή 1", "Latitude": 35.3510999675505, "Longitude": 24.3410999799298, "Description": "Μέσον ακτής"},
-    {"BeachName": "Αρκάδι", "Latitude": 35.3723999666757, "Longitude": 24.5322999793965, "Description": "Μέσον ακτής"},
-    {"BeachName": "Ρέθυμνο", "Latitude": 35.3671999669071, "Longitude": 24.4884999794688, "Description": "500 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Κούμπες", "Latitude": 35.3643506898576, "Longitude": 24.4581401890928, "Description": "Μέσον ακτής"},
-    {"BeachName": "Καλύβες", "Latitude": 35.4515999672564, "Longitude": 24.1769999798601, "Description": "200 μ. από το ανατολικό άκρο της ακτής"},
-    {"BeachName": "Κυανή Ακτή", "Latitude": 35.4639999672339, "Longitude": 24.1581999798102, "Description": "600 μ. από το βορειοδυτικό άκρο της ακτής"},
-    {"BeachName": "Αλμυρίδα", "Latitude": 35.4493999671537, "Longitude": 24.2008999798527, "Description": "Μέσον ακτής"},
-    {"BeachName": "Καβρός", "Latitude": 35.3534999676082, "Longitude": 24.2985999801286, "Description": "1670 μ. από το ανατολικό άκρο της ακτής"},
-    {"BeachName": "Γεωργιούπολη", "Latitude": 35.3629873443323, "Longitude": 24.2623298477845, "Description": "Μέσον ακτής"},
-    {"BeachName": "Σούγια", "Latitude": 35.2477999700963, "Longitude": 23.8098999819405, "Description": "470 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Παχειά Άμμος", "Latitude": 35.2318999707321, "Longitude": 23.6778999822571, "Description": "430 μ. από το νότιο άκρο της ακτής"},
-    {"BeachName": "Χαλίκια", "Latitude": 35.2330651688123, "Longitude": 23.6857736514875, "Description": "450 μ. από το νοτιοδυτικό άκρο της ακτής"},
-    {"BeachName": "Βουλισμένη", "Latitude": 35.2708999708821, "Longitude": 23.541899982402, "Description": "Μέσον ακτής"},
-    {"BeachName": "Γραμμένο", "Latitude": 35.2341199859023, "Longitude": 23.6386199912123, "Description": "200 μ. από το νοτιοδυτικό άκρο της ακτής"},
-    {"BeachName": "Ελαφονήσι", "Latitude": 35.2715037256364, "Longitude": 23.5408187706018, "Description": "Νοτιοανατολικό άκρο ακτής"},
-    {"BeachName": "Καστέλλι Κισσάμου Ανατολικά", "Latitude": 35.4979999686152, "Longitude": 23.6588999809198, "Description": "200 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Καστέλλι Κισσάμου Δυτικά", "Latitude": 35.4998699847881, "Longitude": 23.6477099905189, "Description": "Μέσον ακτής"},
-     {"BeachName": "Σίσυ - Λιμάνι", "Latitude": 35.3086999638806, "Longitude": 25.5180999771184, "Description": "Νότιο άκρο ακτής"},
-    {"BeachName": "Μίλατος", "Latitude": 35.3193792917028, "Longitude": 25.5627776496092, "Description": "57 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Ιεράπετρα Δημοτική Πλαζ", "Latitude": 35.0060999656392, "Longitude": 25.7390999781779, "Description": "100 μ. από το βορειοανατολικό άκρο της ακτής"},
-    {"BeachName": "Ιεράπετρα 3", "Latitude": 35.0099999655603, "Longitude": 25.7444999781837, "Description": "Δυτικό άκρο ακτής"},
-    {"BeachName": "Χρυσή – Γαϊδουρονήσι", "Latitude": 34.8763999667226, "Longitude": 25.7213999790167, "Description": "340 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Καθαράδες", "Latitude": 35.0000999654466, "Longitude": 25.8027999781036, "Description": "Μέσον ακτής"},
-    {"BeachName": "Ιεράπετρα", "Latitude": 35.0055999655782, "Longitude": 25.7606999781701, "Description": "740 μ. από το βορειοδυτικό άκρο της ακτής."},
-    {"BeachName": "Άγιος Ιωάννης", "Latitude": 35.0097999652438, "Longitude": 25.8352999779261, "Description": "480 μ. από το ανατολικό άκρο της ακτής"},
-    {"BeachName": "Φέρμα", "Latitude": 35.0183999651476, "Longitude": 25.859099977827, "Description": "50 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Κουτσουνάρι", "Latitude": 35.01131589408, "Longitude": 25.8400325557242, "Description": "Μέσον ακτής"},
-    {"BeachName": "Μύρτος", "Latitude": 35.0034373756321, "Longitude": 25.5841717479713, "Description": "Μέσον ακτής"},
-    {"BeachName": "Παχειά Άμμος", "Latitude": 35.1107999645397, "Longitude": 25.8038999774679, "Description": "90 μ. από το βορειοδυτικό άκρο της ακτής"},
-    {"BeachName": "Κοινοτική Πλαζ Μακρυγιαλού", "Latitude": 35.0388999645164, "Longitude": 25.9754999774166, "Description": "150 μ. από το βορειοανατολικό άκρο της ακτής"},
-    {"BeachName": "Ανάληψη", "Latitude": 35.0388999645221, "Longitude": 25.9811999773444, "Description": "Μέσον ακτής"},
-    {"BeachName": "Διασκάρι", "Latitude": 35.0334999645482, "Longitude": 25.9930999774109, "Description": "80 μ. από το βορειοδυτικό άκρο της ακτής"},
-    {"BeachName": "Λαγκούφα", "Latitude": 35.0376999645613, "Longitude": 25.9859999773385, "Description": "Μέσον ακτής"},
-    {"BeachName": "Αχλιά Σχινοκαψάλων", "Latitude": 35.0267999649257, "Longitude": 25.8916999776525, "Description": "Μέσον ακτής"},
-    {"BeachName": "Αγιά Φωτιά", "Latitude": 35.0221999650135, "Longitude": 25.8764999776984, "Description": "Μέσον ακτής"},
-    {"BeachName": "Άγιος Παντελεήμων", "Latitude": 35.0302299828468, "Longitude": 25.9111899888476, "Description": "40 μ. από το βορειοδυτικό άκρο της ακτής"},
-    {"BeachName": "Βάι – Φοινικόδασος", "Latitude": 35.2535999617986, "Longitude": 26.2650999753776, "Description": "Νότιο άκρο ακτής"},
-    {"BeachName": "Κουρεμένος", "Latitude": 35.2117999621464, "Longitude": 26.2675999755631, "Description": "430 μ. από το βόρειο άκρο της ακτής"},
-    {"BeachName": "Χιώνα", "Latitude": 35.197999962198, "Longitude": 26.2770999756623, "Description": "Μέσον ακτής"},
-    {"BeachName": "Κάτω Ζάκρος", "Latitude": 35.0962999631061, "Longitude": 26.2634999762529, "Description": "Μέσον ακτής"},
-    {"BeachName": "Βούρλια", "Latitude": 35.0415964610584, "Longitude": 26.2338812604346, "Description": "70 μ. από το βόρειο άκρο της ακτής"},
-    {"BeachName": "Λιμανάκι - Γούδουρα", "Latitude": 35.0093999644031, "Longitude": 26.0955999772019, "Description": "140 μ. από το νοτιοανατολικό άκρο της ακτής"},
-    {"BeachName": "Ανάλουκας", "Latitude": 35.2118999624116, "Longitude": 26.185599975853, "Description": "70 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Σητεία", "Latitude": 35.2051999627058, "Longitude": 26.1091999760269, "Description": "Βορειοδυτικό άκρο ακτής"},
-    {"BeachName": "Παπαδιόκαμπος", "Latitude": 35.2258999628598, "Longitude": 26.0388999762106, "Description": "40 μ. από το βορειοδυτικό άκρο της ακτής"},
-    {"BeachName": "Μόχλος - Ξεροστέρνια", "Latitude": 35.1789999636378, "Longitude": 25.9201999767179, "Description": "Μέσον ακτής"},
-    {"BeachName": "Αγία Γαλήνη", "Latitude": 35.0979999684577, "Longitude": 24.6915999804432, "Description": "Μέσον ακτής"},
-    {"BeachName": "Ακουμιανή Γιαλιά - Τριόπετρα Μεγάλη", "Latitude": 35.118375952237, "Longitude": 24.5462156350445, "Description": "470 μ. από το νοτιοανατολικό άκρο της ακτής"},
-    {"BeachName": "Ακουμιανή Γιαλιά - Τριόπετρα Μικρή", "Latitude": 35.1157827944723, "Longitude": 24.5523535707601, "Description": "Μέσον ακτής"},
-    {"BeachName": "Ασώματος - Πρέβελη", "Latitude": 35.1520885686966, "Longitude": 24.4730848128759, "Description": "Εκβολή ποταμού Κουρταλιώτη"},
-     {"BeachName": "Άγιος Νικόλαος 1", "Latitude": 35.2055999640261, "Longitude": 25.7182999771183, "Description": "20 μ. από το βόρειο άκρο της ακτής"},
-    {"BeachName": "Άγιος Νικόλαος 2", "Latitude": 35.2040536857561, "Longitude": 25.7189939079335, "Description": "60 μ. από το βόρειο άκρο της ακτής"},
-    {"BeachName": "Άγιος Νικόλαος 3", "Latitude": 35.1991999641364, "Longitude": 25.7148999771832, "Description": "17 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Αλμυρός", "Latitude": 35.1766852969042, "Longitude": 25.7095235211215, "Description": "Μέσον ακτής"},
-    {"BeachName": "Άμμος (Μαρίνα)", "Latitude": 35.1869999642018, "Longitude": 25.7159999772717, "Description": "Μέσον ακτής"},
-    {"BeachName": "Αμμούδι", "Latitude": 35.1979999641339, "Longitude": 25.7127999771714, "Description": "30 μ. από το νότιο άκρο της ακτής"},
-    {"BeachName": "Γαργαδωρός", "Latitude": 35.1821999642751, "Longitude": 25.7123999773207, "Description": "20 μ. από το βορειοανατολικό άκρο της ακτής"},
-    {"BeachName": "Δημοτική Ακτή Χαβάνια Βόρεια", "Latitude": 35.2149673225528, "Longitude": 25.7130599067975, "Description": "16 μ. από το νοτιοδυτικό άκρο της ακτής"},
-    {"BeachName": "Δημοτική Ακτή Χαβάνια", "Latitude": 35.2129999640417, "Longitude": 25.7123999771568, "Description": "Μέσον ακτής"},
-    {"BeachName": "Άμμος", "Latitude": 35.1848999642311, "Longitude": 25.7141999772196, "Description": "30 μ. από το βορειοανατολικό άκρο της ακτής"},
-    {"BeachName": "Κιτροπλατεία", "Latitude": 35.1889999641748, "Longitude": 25.7210999772352, "Description": "30 μ. από το νοτιοδυτικό άκρο της ακτής"},
-    {"BeachName": "Μιραμπέλλο", "Latitude": 35.2095292812856, "Longitude": 25.7137497557213, "Description": "30 μ. από το νοτιοανατολικό άκρο της ακτής"},
-    {"BeachName": "Δρηρός", "Latitude": 35.2895470743708, "Longitude": 25.7304371696776, "Description": "Μέσον ακτής"},
-    {"BeachName": "Ελούντα", "Latitude": 35.2447999637237, "Longitude": 25.731199976893, "Description": "Νότιο άκρο της ακτής"},
-    {"BeachName": "Ελούντα", "Latitude": 35.2772999634492, "Longitude": 25.7242999767016, "Description": "25 μ. από το βόρειο άκρο της ακτής"},
-    {"BeachName": "Πόρος Βόρεια", "Latitude": 35.2521999636114, "Longitude": 25.730499976824, "Description": "17 μ. από το βόρειο άκρο της ακτής"},
-    {"BeachName": "Πόρος", "Latitude": 35.2489999636949, "Longitude": 25.73149997687, "Description": "Μέσον ακτής"},
-    {"BeachName": "Σχίσμα", "Latitude": 35.2644999635868, "Longitude": 25.7222999767697, "Description": "100 μ. από το βόρειο άκρο της ακτής"},
-    {"BeachName": "Χιόνα", "Latitude": 35.2574999636071, "Longitude": 25.7311999768033, "Description": "45 μ. από το νοτιοανατολικό άκρο της ακτής"},
-    {"BeachName": "Πλάκα", "Latitude": 35.2951999632692, "Longitude": 25.7278999766559, "Description": "Μέσον ακτής"},
-    {"BeachName": "Πηγαδάκια Ελούντα", "Latitude": 35.2397999636967, "Longitude": 25.7351999769384, "Description": "Μέσον ακτής"},
-    {"BeachName": "Βούλισμα", "Latitude": 35.1254089729589, "Longitude": 25.7436864335504, "Description": "Μέσον ακτής"},
-    {"BeachName": "Καλό Χωριό", "Latitude": 35.1256999645897, "Longitude": 25.7541999774913, "Description": "100 μ. από το ανατολικό άκρο της ακτής"},
-    {"BeachName": "Καραβοστάσι", "Latitude": 35.1316999646216, "Longitude": 25.7251999775042, "Description": "70 μ. από το βορειοδυτικό άκρο της ακτής"},
-    {"BeachName": "Αμμουδάρα", "Latitude": 35.1666999644183, "Longitude": 25.7109999774022, "Description": "Μέσον ακτής"},
-    {"BeachName": "Άγιος Παντελεήμων", "Latitude": 35.1267699827958, "Longitude": 25.7344199888142, "Description": "215 μ. από το ανατολικό άκρο της ακτής"},
-    {"BeachName": "Αγία Βαρβάρα", "Latitude": 35.2993999640806, "Longitude": 25.4986999772682, "Description": "Μέσον ακτής"},
-    {"BeachName": "Μπούφου", "Latitude": 35.3122459535913, "Longitude": 25.5301754641297, "Description": "Μέσον ακτής"},
-     {"BeachName": "Αρκαλοχώρι", "Latitude": 35.283500, "Longitude": 25.281590, "Description": "170 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Καρτερός", "Latitude": 35.333200, "Longitude": 25.193300, "Description": "240 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Αμμουδάρα", "Latitude": 35.337900, "Longitude": 25.078200, "Description": "1300 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Μαδέ", "Latitude": 35.400200, "Longitude": 25.034100, "Description": "Μέσον ακτής"},
-    {"BeachName": "Αγία Πελαγία", "Latitude": 35.406240, "Longitude": 25.018330, "Description": "Μέσον ακτής"},
-    {"BeachName": "Κλαδισσός", "Latitude": 35.410600, "Longitude": 25.018100, "Description": "45 μ. από το βόρειο άκρο της ακτής"},
-    {"BeachName": "Λυγαριά", "Latitude": 35.398900, "Longitude": 25.027300, "Description": "150 μ. από το ανατολικό άκρο της ακτής"},
-    {"BeachName": "Μονοναύτης", "Latitude": 35.416400, "Longitude": 25.018700, "Description": "60 μ. από το βόρειο άκρο της ακτής"},
-    {"BeachName": "Λινοπεράματα", "Latitude": 35.340400, "Longitude": 25.059000, "Description": "195 μ. από το ανατολικό άκρο της ακτής"},
-    {"BeachName": "Παλαιόκαστρο", "Latitude": 35.366200, "Longitude": 25.038800, "Description": "Μέσον ακτής"},
-    {"BeachName": "Φόδελε", "Latitude": 35.402600, "Longitude": 24.953900, "Description": "110 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Τσούτσουρας 1", "Latitude": 34.985770, "Longitude": 25.287800, "Description": "170 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Κόκκινος Πύργος", "Latitude": 35.080500, "Longitude": 24.740900, "Description": "170 μ. από το βορειοδυτικό άκρο της ακτής"},
-    {"BeachName": "Ακτή Κόμου", "Latitude": 35.012000, "Longitude": 24.760000, "Description": "630 μ. από το νότιο άκρο της ακτής"},
-    {"BeachName": "Μάταλα", "Latitude": 34.993960, "Longitude": 24.749340, "Description": "Μέσον ακτής"},
-    {"BeachName": "Γούβες 1", "Latitude": 35.335200, "Longitude": 25.322900, "Description": "Μέσον ακτής"},
-    {"BeachName": "Κάτω Γούβες", "Latitude": 35.334600, "Longitude": 25.298700, "Description": "Μέσον ακτής"},
-    {"BeachName": "Γούβες 2", "Latitude": 35.336600, "Longitude": 25.303800, "Description": "Μέσον ακτής"},
-    {"BeachName": "Γούβες 3", "Latitude": 35.334700, "Longitude": 25.318100, "Description": "Μέσον ακτής"},
-    {"BeachName": "Κοκκίνη Χάνι", "Latitude": 35.332200, "Longitude": 25.262200, "Description": "60 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Κοκκίνη Χάνι", "Latitude": 35.332800, "Longitude": 25.268400, "Description": "25 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Αμνισσός", "Latitude": 35.332400, "Longitude": 25.209300, "Description": "560 μ. από το ανατολικό άκρο της ακτής"},
-    {"BeachName": "Εσταυρωμένος", "Latitude": 35.332800, "Longitude": 25.243100, "Description": "Ανατολικό άκρο της ακτής"},
-    {"BeachName": "Αγία Πελαγία", "Latitude": 35.291999, "Longitude": 25.450699, "Description": "50 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Κλωντζάνη", "Latitude": 35.293400, "Longitude": 25.459800, "Description": "45 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Ποταμός", "Latitude": 35.295500, "Longitude": 25.478100, "Description": "300 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Ποταμός 1", "Latitude": 35.296600, "Longitude": 25.485800, "Description": "55 μ. δυτικά του ποταμού"},
-    {"BeachName": "Σταλίδα", "Latitude": 35.294300, "Longitude": 25.428300, "Description": "450 μ. από το βορειοδυτικό άκρο της ακτής"},
-    {"BeachName": "Άγιος Δημήτριος", "Latitude": 35.292100, "Longitude": 25.439800, "Description": "130 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Άγιος Γεώργιος", "Latitude": 35.337900, "Longitude": 25.381700, "Description": "35 μ. δυτικά της χερσονησίδας"},
-    {"BeachName": "Ανάληψη", "Latitude": 35.336900, "Longitude": 25.351800, "Description": "Μέσον ακτής"},
-    {"BeachName": "Δράπανος", "Latitude": 35.305200, "Longitude": 25.420700, "Description": "50 μ. από το ανατολικό άκρο της ακτής"},
-    {"BeachName": "Ακτή Ναυάρχου Νεάρχου", "Latitude": 35.324300, "Longitude": 25.388100, "Description": "150 μ. από το δυτικό άκρο της ακτής"},
-    {"BeachName": "Χερσόνησος", "Latitude": 35.316900, "Longitude": 25.393400, "Description": "170 μ. από το νοτιοανατολικό άκρο της ακτής"},
-    {"BeachName": "Βλυχάδα", "Latitude": 35.310400, "Longitude": 25.404400, "Description": "Μέσον ακτής"},
-    {"BeachName": "Λιμήν Χερσονήσου 1", "Latitude": 35.312800, "Longitude": 25.399400, "Description": "20 μ. από το ανατολικό άκρο της ακτής"},
-    {"BeachName": "Λιμήν Χερσονήσου 2", "Latitude": 35.307370, "Longitude": 25.407870, "Description": "Μέσον ακτής"},
-    {"BeachName": "Λιμανάκι Ανάληψης", "Latitude": 35.335450, "Longitude": 25.331650, "Description": "Μέσον ακτής"},
-    {"BeachName": "Σαραντάρι", "Latitude": 35.331230, "Longitude": 25.385530, "Description": "Μέσον ακτής"}
-    
-];
 
 
 
-// Initialize the map
-const map = L.map('map').setView([35.2, 25.1], 9);  // Center the map around Crete
 
-// Add OpenStreetMap tile layer
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-// Function to show beaches on map
-function showBeaches() {
-    const lengthOfBeaches = beaches.length;
-
-console.log(lengthOfBeaches); // Output: 2
-    beaches.forEach(beach => {
-        const marker = L.marker([beach.Latitude, beach.Longitude]).addTo(map);
-        marker.bindPopup(`<b>${beach.BeachName}</b><br>${beach.Description}`);
-    });
-}
-</script>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beach Tracker</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-</head>
-<body>
 
 <div id="map2" style="height: 500px;"></div>
+<button id="findBeachBtn">Find the Cleanest Beach</button>
+
+<!-- Filter Menu for selecting year and month -->
+<div id="filterMenu">
+    <label for="year">Select Year:</label>
+    <select id="year">
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+        <option value="2020">2020</option>
+        <option value="2019">2019</option>
+        <option value="2018">2018</option>
+        <option value="2017">2017</option>
+        <option value="2016">2016</option>
+    </select>
+
+    <label for="month">Select Month:</label>
+    <select id="month">
+        <option value="maios_">May</option>
+        <option value="ioynios_">June</option>
+        <option value="ioylios_">July</option>
+        <option value="aygoystos_">August</option>
+        <option value="septemvrios_">September</option>
+        <option value="oktovrios_">October</option>
+    </select>
+
+    <button id="filterBtn">Apply Filter</button>
+</div>
 
 <script>
     // Initialize the Leaflet map
-    const map2 = L.map('map2').setView([35.0, 25.0], 7); // Set to a default location (Crete)
+    let map2, currentMarkers = [];
 
-    // Add OpenStreetMap tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map2);
+    // Initialize the Leaflet map
+    function initializeMap() {
+        map2 = L.map('map2').setView([35.0, 25.0], 7); // Set to a default location (Crete)
 
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 100,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map2);
+    }
     // Function to get user's geolocation
     function getLocation() {
         if (navigator.geolocation) {
@@ -503,12 +65,14 @@ console.log(lengthOfBeaches); // Output: 2
             alert("Geolocation is not supported by this browser.");
         }
     }
-
+   let userLat;
+   let userLon;
     // Function to show position
    function showPosition(position) {
-            const userLat = position.coords.latitude;
-            const userLon = position.coords.longitude;
-
+       
+             userLat = position.coords.latitude;
+             userLon = position.coords.longitude;
+         clearMarkers();
             // Prepare data to send to the server
             const data = `lat=${userLat}&lon=${userLon}`;
 
@@ -530,61 +94,36 @@ console.log(lengthOfBeaches); // Output: 2
 
             xhr.send(data); // Send the request with the user's location
         }
-    
- function plotBeachesOnMap(beaches) {
-            // Initialize the map and set the view to the user's location
+    function plotBeachesOnMap(beaches) {
+            clearMarkers(); // Ensure previous markers are cleared
 
-
-            // Loop through the beaches and add markers to the map
             beaches.forEach(beach => {
-                const { lat, lon, cleanliness } = beach;
-                
+                const { name, lat, lon, cleanliness } = beach;
+
                 // Create a marker for each beach
                 const marker = L.marker([lat, lon]).addTo(map2);
+                currentMarkers.push(marker); // Add to current markers array
                 
-                // Bind a popup to each marker with cleanliness information
-                marker.bindPopup(`Cleanliness Score: ${cleanliness}`);
+                marker.bindPopup(`Cleanliness Score: ${cleanliness}<br>Name: ${name}`);
+                console.log("Added marker:", marker); // Debug log for added marker
             });
+
+            console.log("Total markers after plotting:", currentMarkers.length); // Debug log
         }
-
-function handleResponse(response) {
-    // Assuming response is the JSON object you got from the servlet
-    const beaches = response.beaches;
-
-    // Call the function to plot the beaches on the map
-    plotBeachesOnMap(beaches);
-}
-
-// Make sure to handle the form submission response correctly
-document.addEventListener('DOMContentLoaded', () => {
-    document.body.addEventListener('submit', (event) => {
-        event.preventDefault(); // Prevent default form submission
-
-        const formData = new FormData(event.target);
-        const data = {};
-        formData.forEach((value, key) => { data[key] = value });
-
-        // Sending data using XMLHttpRequest
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', form.action, true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    const jsonResponse = JSON.parse(xhr.responseText);
-                    handleResponse(jsonResponse); // Call handleResponse with the JSON data
-                } else {
-                    console.error('Error fetching beaches:', xhr.statusText);
-                }
+    // Function to clear all markers from the map
+    function clearMarkers() {
+        if (currentMarkers.length > 0) {
+                currentMarkers.forEach(marker => {
+                    map2.removeLayer(marker); // Remove marker from the map
+                });
+                currentMarkers = []; // Clear the array
+                console.log("Markers cleared successfully."); // Debugging log
+            } else {
+                currentMarkers = [];
+                console.log("No markers to clear."); // Debugging log
             }
-        };
-
-        // Convert the data to URL-encoded string
-        const urlEncodedData = new URLSearchParams(data).toString();
-        xhr.send(urlEncodedData);
-    });
-});
+            
+    }
     // Function to show error messages
     function showError(error) {
         switch(error.code) {
@@ -607,9 +146,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+     function applyFilter() {
+         
+         //const userLat = position.coords.latitude;
+           // const userLon = position.coords.longitude;
+        const selectedYear = document.getElementById('year').value;
+        const selectedMonth = document.getElementById('month').value;
 
+        // Prepare data to send to the server
+        const data = `lat=${userLat}&lon=${userLon}&year=${selectedYear}&month=${selectedMonth}`;
+clearMarkers();
+        // Send data using XMLHttpRequest
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'GetCleanBeache', true); // Change URL to your servlet
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    const jsonResponse = JSON.parse(xhr.responseText);
+                    plotBeachesOnMap(jsonResponse.beaches); // Plot beaches on the map
+                } else {
+                    console.error('Error fetching beaches:', xhr.statusText);
+                }
+            }
+            
+        };
+        xhr.send(data); // Send the request with the filter data
+    }
+    
     // Call getLocation to request the user's location
-    getLocation();
+        // Event listener for "Find the Cleanest Beach" button
+    document.getElementById('findBeachBtn').addEventListener('click', () => {
+        getLocation();
+    });
+
+    // Event listener for "Apply Filter" button
+    document.getElementById('filterBtn').addEventListener('click', () => {
+        applyFilter();
+    });
+     document.addEventListener('DOMContentLoaded', initializeMap);
 </script>
 
 </body>

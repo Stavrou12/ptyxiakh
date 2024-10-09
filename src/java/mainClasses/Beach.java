@@ -5,11 +5,11 @@ public class Beach {
     private double lat;
     private double lon;
     private double cleanliness;
-  
+   private String description;
     private double distance;
     
-    public Beach(double lat, double lon, double cleanlinessScore, double distance) {
-   
+    public Beach(String name,double lat, double lon, double cleanlinessScore, double distance) {
+        this.name = name;
         this.lat = lat;
         this.lon = lon;
         this.cleanliness = cleanlinessScore;

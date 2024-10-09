@@ -76,3 +76,27 @@ public class DB_Connection {
         return object;
     }
 }
+
+
+
+    /*
+    String sql = "SELECT sp.acth as nam, sp.Y AS lat, sp.X AS lon, "
+               + "(m.Ecoli + m.Intenterococci) AS cleanlinessScore, "
+               + "(6371 * acos(cos(radians(?)) * cos(radians(sp.Y)) * cos(radians(sp.X) - radians(?)) "
+               + "+ sin(radians(?)) * sin(radians(sp.Y)))) AS distance "
+               + "FROM maios_2016 m "
+               + "JOIN simeia_parakoloythisis_2019 sp ON m.StationCode = sp.code_1 "
+               + "WHERE m.Ecoli <1 AND m.Intenterococci <2 "
+               + "ORDER BY cleanlinessScore ASC, distance ASC "
+               + "LIMIT 10";
+*/
+ /*
+            double lat = rs.getDouble("lat");
+            double lon = rs.getDouble("lon");
+            double cleanlinessScore = rs.getDouble("cleanlinessScore");
+            double distance = rs.getDouble("distance");
+            String d = rs.getString("nam");
+            System.out.printf("name:%s Latitude: %.6f, Longitude: %.6f, Cleanliness: %.2f, Distance: %.2f km%n", 
+                 d,lat, lon, cleanlinessScore, distance);
+            cleanBeaches.add(new Beach(lat, lon, cleanlinessScore, distance));
+           // System.out.println("Beach found: " + description + ", Distance: " + distance);     */
