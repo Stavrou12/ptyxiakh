@@ -3,190 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beaches Map</title>
+    <title>Clean Beaches Locator</title>
+    <link rel="stylesheet" href="stylesheet.css"> <!-- Link to your CSS file -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Find the Cleanest Beaches</h1>
+            <p>Explore and filter beaches based on cleanliness, location, and more.</p>
+        </div>
+    </header>
 
+    <!-- Main Section with Map and Controls -->
+    <main>
+        <div class="container">
+            <!-- Map -->
+            <div id="mapContainer">
+                <div id="map2"></div>
+            </div>
 
+            <!-- Control Panel -->
+            <div class="controls">
+                <button id="findBeachBtn" class="btn-primary">Find the Cleanest Beach</button>
+                <button id="toggleFilterBtn" class="btn-secondary">Filter Beaches</button>
 
+                <!-- Filter Menu -->
+                <div id="filterMenu" class="filter-menu hidden">
+                    <h3>Filter by</h3>
+                    <label for="year">Select Year:</label>
+                    <select id="year">
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2019">2018</option>
+                        <option value="2019">2017</option>
+                        <option value="2019">2016</option>
+                        
+                    </select>
 
+                    <label for="month">Select Month:</label>
+                    <select id="month">
+                        <option value="maios_">May</option>
+                        <option value="ioynios_">June</option>
+                        <option value="ioylios_">July</option>
+                        <option value="aygoystos_">August</option>
+                        <option value="septemvrios_">September</option>
+                        <option value="oktovrios_">October</option>
+                    </select>
 
+                    <button id="filterBtn" class="btn-primary">Apply Filter</button>
+                </div>
+            </div>
+        </div>
+    </main>
 
-<div id="map2" style="height: 500px;"></div>
-<button id="findBeachBtn">Find the Cleanest Beach</button>
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Clean Beaches Locator. All rights reserved.</p>
+        </div>
+    </footer>
 
-<!-- Filter Menu for selecting year and month -->
-<div id="filterMenu">
-    <label for="year">Select Year:</label>
-    <select id="year">
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-        <option value="2021">2021</option>
-        <option value="2020">2020</option>
-        <option value="2019">2019</option>
-        <option value="2018">2018</option>
-        <option value="2017">2017</option>
-        <option value="2016">2016</option>
-    </select>
-
-    <label for="month">Select Month:</label>
-    <select id="month">
-        <option value="maios_">May</option>
-        <option value="ioynios_">June</option>
-        <option value="ioylios_">July</option>
-        <option value="aygoystos_">August</option>
-        <option value="septemvrios_">September</option>
-        <option value="oktovrios_">October</option>
-    </select>
-
-    <button id="filterBtn">Apply Filter</button>
-</div>
-
-<script>
-    // Initialize the Leaflet map
-    let map2, currentMarkers = [];
-
-    // Initialize the Leaflet map
-    function initializeMap() {
-        map2 = L.map('map2').setView([35.0, 25.0], 7); // Set to a default location (Crete)
-
-        // Add OpenStreetMap tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 100,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map2);
-    }
-    // Function to get user's geolocation
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition, showError);
-        } else {
-            alert("Geolocation is not supported by this browser.");
-        }
-    }
-   let userLat;
-   let userLon;
-    // Function to show position
-   function showPosition(position) {
-       
-             userLat = position.coords.latitude;
-             userLon = position.coords.longitude;
-         clearMarkers();
-            // Prepare data to send to the server
-            const data = `lat=${userLat}&lon=${userLon}`;
-
-            // Send data using XMLHttpRequest
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'GetCleanBeache', true); // Change URL to your servlet
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        const jsonResponse = JSON.parse(xhr.responseText);
-                        plotBeachesOnMap(jsonResponse.beaches); // Plot beaches on the map
-                    } else {
-                        console.error('Error fetching beaches:', xhr.statusText);
-                    }
-                }
-            };
-
-            xhr.send(data); // Send the request with the user's location
-        }
-    function plotBeachesOnMap(beaches) {
-            clearMarkers(); // Ensure previous markers are cleared
-
-            beaches.forEach(beach => {
-                const { name, lat, lon, cleanliness } = beach;
-
-                // Create a marker for each beach
-                const marker = L.marker([lat, lon]).addTo(map2);
-                currentMarkers.push(marker); // Add to current markers array
-                
-                marker.bindPopup(`Cleanliness Score: ${cleanliness}<br>Name: ${name}`);
-                console.log("Added marker:", marker); // Debug log for added marker
-            });
-
-            console.log("Total markers after plotting:", currentMarkers.length); // Debug log
-        }
-    // Function to clear all markers from the map
-    function clearMarkers() {
-        if (currentMarkers.length > 0) {
-                currentMarkers.forEach(marker => {
-                    map2.removeLayer(marker); // Remove marker from the map
-                });
-                currentMarkers = []; // Clear the array
-                console.log("Markers cleared successfully."); // Debugging log
-            } else {
-                currentMarkers = [];
-                console.log("No markers to clear."); // Debugging log
-            }
-            
-    }
-    // Function to show error messages
-    function showError(error) {
-        switch(error.code) {
-            case error.PERMISSION_DENIED:
-                // Ask user to enable location services manually
-                alert("User denied the request for Geolocation. Please enable location services or input your location manually.");
-                // Optionally, provide a prompt to enter latitude and longitude
-                promptForManualLocation();
-                break;
-            case error.POSITION_UNAVAILABLE:
-                alert("Location information is unavailable.");
-                break;
-            case error.TIMEOUT:
-                alert("The request to get user location timed out.");
-                break;
-            case error.UNKNOWN_ERROR:
-                alert("An unknown error occurred.");
-                break;
-        }
-    }
-
-
-     function applyFilter() {
-         
-         //const userLat = position.coords.latitude;
-           // const userLon = position.coords.longitude;
-        const selectedYear = document.getElementById('year').value;
-        const selectedMonth = document.getElementById('month').value;
-
-        // Prepare data to send to the server
-        const data = `lat=${userLat}&lon=${userLon}&year=${selectedYear}&month=${selectedMonth}`;
-clearMarkers();
-        // Send data using XMLHttpRequest
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'GetCleanBeache', true); // Change URL to your servlet
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    const jsonResponse = JSON.parse(xhr.responseText);
-                    plotBeachesOnMap(jsonResponse.beaches); // Plot beaches on the map
-                } else {
-                    console.error('Error fetching beaches:', xhr.statusText);
-                }
-            }
-            
-        };
-        xhr.send(data); // Send the request with the filter data
-    }
-    
-    // Call getLocation to request the user's location
-        // Event listener for "Find the Cleanest Beach" button
-    document.getElementById('findBeachBtn').addEventListener('click', () => {
-        getLocation();
-    });
-
-    // Event listener for "Apply Filter" button
-    document.getElementById('filterBtn').addEventListener('click', () => {
-        applyFilter();
-    });
-     document.addEventListener('DOMContentLoaded', initializeMap);
-</script>
-
+    <script src="user.js"></script>
 </body>
 </html>
