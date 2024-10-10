@@ -36,7 +36,7 @@ main {
 
 /* Map container on the left (70% width) */
 #mapContainer {
-    flex-basis: 70%;
+    flex-basis: 80%;
     height: 100%; /* Ensure map container takes full height */
     padding-right: 10px; /* Add some spacing between map and filter */
     display: flex; /* Added to ensure children respect full height */
@@ -48,6 +48,8 @@ main {
     height: 100%; /* Ensure map takes full height of its container */
     background-color: #e0e0e0; /* Temporary background color */
 }
+
+
 
 /* Filter menu container on the right (30% width) */
 .filter_container {

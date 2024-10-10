@@ -61,16 +61,27 @@
 
                         <label for="garbage">Garbage:</label>
                         <input type="checkbox" id="garbage" name="garbage" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Garbage -->
+                        <label for="intenterococciRange">Select Intenterococci:</label>
+                        <div class="range-slider">
+                            <input type="range" id="intenterococciRange" name="intenterococci" min="0" max="100" value="0" oninput="updateIntenterococciValue(this.value)">
+                            <span id="intenterococciValue">0</span> / 100
+                        </div>
 
+                        <!-- Ecoli Range Slider -->
+                        <label for="ecoliRange">Select Ecoli:</label>
+                        <div class="range-slider">
+                            <input type="range" id="ecoliRange" name="ecoli" min="0" max="100" value="0" oninput="updateEcoliValue(this.value)">
+                            <span id="ecoliValue">0</span> / 100
+                        </div>
                         <button id="filterBtn" class="btn-primary">Apply Filter</button>
                     </div>
                 </aside>
-                 <button id="findBeachBtn" class="btn-primary">Find the Cleanest Beach</button> 
+                <button id="findBeachBtn" class="btn-primary">Find the Cleanest Beach</button> 
             </div>
-                <div id="mapContainer">
-                    <div id="map2"></div>
-                </div>
-                 
+            <div id="mapContainer">
+                <div id="map2"></div>
+            </div>
+
         </main>
 
         <!-- Footer Section -->

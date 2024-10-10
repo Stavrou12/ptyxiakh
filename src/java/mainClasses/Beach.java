@@ -15,9 +15,13 @@ public class Beach {
     private String Plastic;
     private String Caoutchouc;
     private String Garbage;
+    private String Intenterococci;
+    private String Ecoli;
     
-    public Beach(String name,double lat,double lon,double cleanlinessScore,double distance,String tarVal,String glassVal,
+    public Beach(String ecoli, String inter,String name,double lat,double lon,double cleanlinessScore,double distance,String tarVal,String glassVal,
             String plasticVal,String caoutchoucVal,String garbageVal){
+        this.Ecoli= ecoli;
+        this.Intenterococci=inter;
         this.name = name;
         this.lat = lat;
         this.lon = lon;
@@ -30,6 +34,24 @@ public class Beach {
         this.Plastic = plasticVal;
         
     }
+    
+    public String getEcoli() {
+        return Ecoli;
+    }
+
+    public void setEcoli(String e) {
+        this.Ecoli = e;
+    }
+    
+    public String getIntenterococci() {
+        return Intenterococci;
+    }
+
+    public void setIntenterococci(String i) {
+        this.Intenterococci = i;
+    }
+    
+    
     public String getTar() {
         return Tar;
     }

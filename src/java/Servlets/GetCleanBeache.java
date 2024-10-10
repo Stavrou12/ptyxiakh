@@ -1,5 +1,4 @@
 package Servlets;
-
 import java.time.LocalDate;
 import database.DB_Connection;
 import javax.servlet.ServletException;
@@ -12,9 +11,7 @@ import java.util.logging.Logger;
 import mainClasses.Beach;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 public class GetCleanBeache extends HttpServlet {
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json; charset=UTF-8"); // Set response encoding to UTF-8
@@ -31,6 +28,8 @@ public class GetCleanBeache extends HttpServlet {
         String plasticParam = request.getParameter("plastic");
         String caoutchoucParam = request.getParameter("caoutchouc");
         String garbageParam = request.getParameter("garbage");
+         String intenterococciParam = request.getParameter("intenterococci");
+        String ecoliParam = request.getParameter("ecoli");
         
         System.out.println("Received parameters:");
 System.out.println("Lat: " + latParam);
@@ -42,6 +41,8 @@ System.out.println("Glass: " + glassParam);
 System.out.println("Plastic: " + plasticParam);
 System.out.println("Caoutchouc: " + caoutchoucParam);
 System.out.println("Garbage: " + garbageParam);
+System.out.println("inte: " + intenterococciParam);
+System.out.println("ecoli: " + ecoliParam);
 
    
         double userLat = 0.0;
@@ -61,7 +62,7 @@ System.out.println("Garbage: " + garbageParam);
 
             // If both year and month are provided, filter by them and the environmental factors
             if (yearParam != null && monthParam != null) {
-                cleanBeaches = getFilteredBeaches(userLat, userLon, yearParam, monthParam, tarParam, glassParam, plasticParam, caoutchoucParam, garbageParam, response);
+                cleanBeaches = getFilteredBeaches(intenterococciParam,ecoliParam,userLat, userLon, yearParam, monthParam, tarParam, glassParam, plasticParam, caoutchoucParam, garbageParam, response);
             
             } else {
                 // Use the current month if no year and month are provided
@@ -85,7 +86,7 @@ System.out.println("Garbage: " + garbageParam);
         }
     }
     // Method to filter beaches by year, month, and environmental factors
-    private ArrayList<Beach> getFilteredBeaches(double userLat, double userLon, String year, String month, String tar, String glass, String plastic, String caoutchouc, String garbage, HttpServletResponse response) throws SQLException, UnsupportedEncodingException, IOException {
+    private ArrayList<Beach> getFilteredBeaches(String ecoli,String inter,double userLat, double userLon, String year, String month, String tar, String glass, String plastic, String caoutchouc, String garbage, HttpServletResponse response) throws SQLException, UnsupportedEncodingException, IOException {
         ArrayList<Beach> cleanBeaches = new ArrayList<>();
         String result = month; // e.g., "maios_", "ioynios_", etc.
         Connection conn = null;
@@ -93,7 +94,7 @@ System.out.println("Garbage: " + garbageParam);
         response.setContentType("application/json; charset=UTF-8");
         try {
             conn = DB_Connection.getConnection();
-            String sql = "SELECT sp.acth as name, sp.Y AS lat, sp.X AS lon, "
+            String sql = "SELECT m.Ecoli as Ecoli, m.Intenterococci as Intenterococci  ,sp.acth as name, sp.Y AS lat, sp.X AS lon, "
                     + "(m.Ecoli + m.Intenterococci) AS cleanlinessScore, "
                     + "m.Tar, m.Glass, m.Plastic, m.Caoutchouc, m.Garbage, "
                     + "(6371 * acos(cos(radians(?)) * cos(radians(sp.Y)) * cos(radians(sp.X) - radians(?)) "
@@ -101,8 +102,10 @@ System.out.println("Garbage: " + garbageParam);
                     + "FROM " + result + year + " m "
                     + "JOIN simeia_parakoloythisis_2019 sp ON m.StationCode = sp.code_1 "
                     + "WHERE m.Tar = ? AND m.Glass = ? AND m.Plastic = ? AND m.Caoutchouc = ? AND m.Garbage = ? "
+                    + "AND m.Ecoli >= ? "        // Add this line for Ecoli filter
+                    + "AND m.Intenterococci >=  ? " // Add this line for Intenterococci filter
                     + "ORDER BY cleanlinessScore ASC, distance ASC "
-                    + "LIMIT 50";
+                    + "LIMIT 70";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setDouble(1, userLat);
                 stmt.setDouble(2, userLon);
@@ -112,6 +115,8 @@ System.out.println("Garbage: " + garbageParam);
                 stmt.setString(6, plastic);
                 stmt.setString(7, caoutchouc);
                 stmt.setString(8, garbage);
+                stmt.setString(9, ecoli);
+                stmt.setString(10,inter);
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
                     String name = rs.getString("name");
@@ -125,7 +130,10 @@ System.out.println("Garbage: " + garbageParam);
                     String plasticVal = rs.getString("Plastic");
                     String caoutchoucVal = rs.getString("Caoutchouc");
                     String garbageVal = rs.getString("Garbage");
-                    cleanBeaches.add(new Beach(name, lat, lon, cleanlinessScore, distance, tarVal, glassVal, plasticVal, caoutchoucVal, garbageVal));
+                    String ecoliVal = rs.getString("Ecoli");
+                    String inteVal = rs.getString("Intenterococci");
+                   
+                    cleanBeaches.add(new Beach(ecoliVal,inteVal,name, lat, lon, cleanlinessScore, distance, tarVal, glassVal, plasticVal, caoutchoucVal, garbageVal));
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -149,16 +157,15 @@ System.out.println("Garbage: " + garbageParam);
         response.setContentType("application/json; charset=UTF-8");
         try {
             conn = DB_Connection.getConnection();
-            String sql = "SELECT sp.acth as name, sp.Y AS lat, sp.X AS lon, "
+            String sql = "SELECT m.Ecoli as Ecoli, m.Intenterococci as Intenterococci,sp.acth as name, sp.Y AS lat, sp.X AS lon, "
                     + "(m.Ecoli + m.Intenterococci) AS cleanlinessScore, "
                     + "m.Tar, m.Glass, m.Plastic, m.Caoutchouc, m.Garbage, "
                     + "(6371 * acos(cos(radians(?)) * cos(radians(sp.Y)) * cos(radians(sp.X) - radians(?)) "
                     + "+ sin(radians(?)) * sin(radians(sp.Y)))) AS distance "
                     + "FROM " + result + "2023 m "
                     + "JOIN simeia_parakoloythisis_2019 sp ON m.StationCode = sp.code_1 "
-                    // + "WHERE m.Tar = ? AND m.Glass = ? AND m.Plastic = ? AND m.Caoutchouc = ? AND m.Garbage = ? "
                     + "ORDER BY cleanlinessScore ASC, distance ASC "
-                    + "LIMIT 50";
+                    + "LIMIT 10";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setDouble(1, userLat);
                 stmt.setDouble(2, userLon);
@@ -173,13 +180,15 @@ System.out.println("Garbage: " + garbageParam);
                     double lon = rs.getDouble("lon");
                     double cleanlinessScore = rs.getDouble("cleanlinessScore");
                     double distance = rs.getDouble("distance"); // Fetch distance
-
                     String tarVal = rs.getString("Tar");
                     String glassVal = rs.getString("Glass");
                     String plasticVal = rs.getString("Plastic");
                     String caoutchoucVal = rs.getString("Caoutchouc");
                     String garbageVal = rs.getString("Garbage");
-                    cleanBeaches.add(new Beach(name, lat, lon, cleanlinessScore, distance, tarVal, glassVal, plasticVal, caoutchoucVal, garbageVal));
+                     String ecoliVal = rs.getString("Ecoli");
+                    String inteVal = rs.getString("Intenterococci");
+                   
+                    cleanBeaches.add(new Beach(ecoliVal ,inteVal,name, lat, lon, cleanlinessScore, distance, tarVal, glassVal, plasticVal, caoutchoucVal, garbageVal));
                 }
             }
         } catch (ClassNotFoundException ex) {
