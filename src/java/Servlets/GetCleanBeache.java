@@ -84,7 +84,6 @@ System.out.println("Garbage: " + garbageParam);
             out.flush();
         }
     }
-
     // Method to filter beaches by year, month, and environmental factors
     private ArrayList<Beach> getFilteredBeaches(double userLat, double userLon, String year, String month, String tar, String glass, String plastic, String caoutchouc, String garbage, HttpServletResponse response) throws SQLException, UnsupportedEncodingException, IOException {
         ArrayList<Beach> cleanBeaches = new ArrayList<>();
@@ -103,7 +102,7 @@ System.out.println("Garbage: " + garbageParam);
                     + "JOIN simeia_parakoloythisis_2019 sp ON m.StationCode = sp.code_1 "
                     + "WHERE m.Tar = ? AND m.Glass = ? AND m.Plastic = ? AND m.Caoutchouc = ? AND m.Garbage = ? "
                     + "ORDER BY cleanlinessScore ASC, distance ASC "
-                    + "LIMIT 10";
+                    + "LIMIT 50";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setDouble(1, userLat);
                 stmt.setDouble(2, userLon);
@@ -159,7 +158,7 @@ System.out.println("Garbage: " + garbageParam);
                     + "JOIN simeia_parakoloythisis_2019 sp ON m.StationCode = sp.code_1 "
                     // + "WHERE m.Tar = ? AND m.Glass = ? AND m.Plastic = ? AND m.Caoutchouc = ? AND m.Garbage = ? "
                     + "ORDER BY cleanlinessScore ASC, distance ASC "
-                    + "LIMIT 10";
+                    + "LIMIT 50";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setDouble(1, userLat);
                 stmt.setDouble(2, userLon);

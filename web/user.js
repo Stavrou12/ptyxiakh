@@ -2,6 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
+  document.addEventListener('DOMContentLoaded', initializeMap);
+  
+function updateCheckboxValue(checkbox) {
+    // If the checkbox is checked, its value is "YES"
+    // If unchecked, we don't need to change the value since it won't be submitted
+    if (checkbox.checked) {
+        checkbox.value = "YES"; // Set to NO if unchecked
+    }
+    if (!checkbox.checked) {
+        checkbox.value = "NO"; // Set to NO if unchecked
+    }
+}
+
+
  let map2, currentMarkers = [];
     // Initialize the Leaflet map
     function initializeMap() {
@@ -160,6 +174,6 @@ function applyFilter() {
     document.getElementById('filterBtn').addEventListener('click', () => {
         applyFilter();
     });
-     document.addEventListener('DOMContentLoaded', initializeMap);
+   
      
   

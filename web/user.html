@@ -11,85 +11,71 @@
     <body>
         <!-- Header Section -->
         <header>
-            <div class="container">
+            <div class="header_container">
                 <h1>Find the Cleanest Beaches</h1>
                 <p>Explore and filter beaches based on cleanliness, location, and more.</p>
             </div>
         </header>
         <!-- Main Section with Map and Controls -->
         <main>
-            <div class="container">
-                <!-- Map -->
-                <div id="mapContainer">
-                    <div id="map2"></div>
-                </div>
-                <!-- Control Panel -->
-                <div class="controls">
-                    <button id="findBeachBtn" class="btn-primary">Find the Cleanest Beach</button>      
-                    <!-- Filter Menu -->
-                    <div id="filterMenu" class="filter-menu hidden">
-                        <h3>Filter by</h3>
-                        <label for="year">Select Year:</label>
-                        <select id="year" name="year">
-                            <option value="2023">2023</option>
-                            <option value="2022">2022</option>
-                            <option value="2021">2021</option>
-                            <option value="2020">2020</option>
-                            <option value="2019">2019</option>
-                            <option value="2018">2018</option>
-                            <option value="2017">2017</option>
-                            <option value="2016">2016</option>                    
-                        </select>
-                        <label for="month">Select Month:</label>
-                        <select id="month" name="month">
-                            <option value="maios_">May</option>
-                            <option value="ioynios_">June</option>
-                            <option value="ioylios_">July</option>
-                            <option value="aygoystos_">August</option>
-                            <option value="septemvrios_">September</option>
-                            <option value="oktovrios_">October</option>
-                        </select>              
+
+            <!-- Control Panel -->
+            <div class="filter_container">
+
+                <!-- Filter Menu -->
+                <aside id="filterMenu" class="filter-menu hidden">
+                    <h3>Filter by</h3>
+                    <label for="year">Select Year:</label>
+                    <select id="year" name="year">
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>                    
+                    </select>
+                    <label for="month">Select Month:</label>
+                    <select id="month" name="month">
+                        <option value="maios_">May</option>
+                        <option value="ioynios_">June</option>
+                        <option value="ioylios_">July</option>
+                        <option value="aygoystos_">August</option>
+                        <option value="septemvrios_">September</option>
+                        <option value="oktovrios_">October</option>
+                    </select> 
+
+                    <div class="checkbox-group">
                         <label for="tar">Tar:</label>
-                        <label for="tar">Tar:</label>
-                        <select id="tar" name="tar">  <!-- Adding the name attribute -->
-                            <option value="NO">ΟΧΙ</option>
-                            <option value="YES">ΝΑΙ</option>
-                        </select>
+                        <input type="checkbox" id="tar" name="tar" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Tar -->
 
                         <label for="glass">Glass:</label>
-                        <select id="glass" name="glass"> <!-- Adding the name attribute -->
-                            <option value="NO">ΟΧΙ</option>
-                            <option value="YES">ΝΑΙ</option>
-                        </select>
+                        <input type="checkbox" id="glass" name="glass" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Glass -->
 
                         <label for="plastic">Plastic:</label>
-                        <select id="plastic" name="plastic"> <!-- Adding the name attribute -->
-                            <option value="NO">ΟΧΙ</option>
-                            <option value="YES">ΝΑΙ</option>
-                        </select>
+                        <input type="checkbox" id="plastic" name="plastic" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Plastic -->
 
                         <label for="caoutchouc">Caoutchouc:</label>
-                        <select id="caoutchouc" name="caoutchouc"> <!-- Adding the name attribute -->
-                            <option value="NO">ΟΧΙ</option>
-                            <option value="YES">ΝΑΙ</option>
-                        </select>
+                        <input type="checkbox" id="caoutchouc" name="caoutchouc" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Caoutchouc -->
 
                         <label for="garbage">Garbage:</label>
-                        <select id="garbage" name="garbage"> <!-- Adding the name attribute -->
-                            <option value="NO">ΟΧΙ</option>
-                            <option value="YES">ΝΑΙ</option>
-                        </select>
-
+                        <input type="checkbox" id="garbage" name="garbage" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Garbage -->
 
                         <button id="filterBtn" class="btn-primary">Apply Filter</button>
                     </div>
-                </div>
+                </aside>
+                 <button id="findBeachBtn" class="btn-primary">Find the Cleanest Beach</button> 
             </div>
+                <div id="mapContainer">
+                    <div id="map2"></div>
+                </div>
+                 
         </main>
 
         <!-- Footer Section -->
         <footer>
-            <div class="container">
+            <div class="footer_container">
                 <p>&copy; 2024 Clean Beaches Locator. All rights reserved.</p>
             </div>
         </footer>

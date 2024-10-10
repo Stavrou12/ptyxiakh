@@ -1,144 +1,126 @@
-/* General Reset */
+/* General styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
 }
 
-/* Container */
-.container {
-    width: 90%;
-    margin: 0 auto;
-    max-width: 1200px;
-}
-
-/* Header */
+/* Header styling */
 header {
-    background: #4CAF50;
-    color: white;
-    padding: 20px 0;
     text-align: center;
+    background-color: #f2f2f2;
+    padding: 20px 0;
 }
 
 header h1 {
-    font-size: 2.5em;
+    font-size: 2em;
     margin-bottom: 10px;
 }
 
 header p {
     font-size: 1.2em;
+    color: #555;
 }
 
-/* Main Section */
+/* Main section container */
 main {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
+    height: calc(100vh - 120px); /* Full viewport height minus the header and footer space */
+    padding: 10px;
 }
 
+/* Map container on the left (70% width) */
 #mapContainer {
-    width: 100%;
-    height: 500px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex-basis: 70%;
+    height: 100%; /* Ensure map container takes full height */
+    padding-right: 10px; /* Add some spacing between map and filter */
+    display: flex; /* Added to ensure children respect full height */
 }
 
 #map2 {
+    flex-grow: 1;
     width: 100%;
-    height: 100%;
+    height: 100%; /* Ensure map takes full height of its container */
+    background-color: #e0e0e0; /* Temporary background color */
 }
 
-/* Control Panel */
-.controls {
-    text-align: center;
-}
-
-.btn-primary {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.3s;
-}
-
-.btn-primary:hover {
-    background-color: #45a049;
-}
-
-.btn-secondary {
-    background-color: #f0ad4e;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.3s;
-}
-
-.btn-secondary:hover {
-    background-color: #ec971f;
-}
-
-/* Filter Menu */
-.filter-menu {
-    background: #fff;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-top: 10px;
-    width: 250px;
+/* Filter menu container on the right (30% width) */
+.filter_container {
+    flex-basis: 20%;
+    height: 100%; /* Ensure filter menu takes full height */
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-left: 1px solid #ddd;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column; /* Ensure items are arranged vertically */
+}
+
+/* Filter menu styling */
+#filterMenu {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: auto; /* Auto height, based on content */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
 }
 
 .filter-menu h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-.filter-menu label {
-    font-weight: bold;
-    margin: 10px 0 5px;
-}
-
-.filter-menu select {
-    padding: 5px;
-    font-size: 1.1em;
+.filter-menu label, 
+.filter-menu select, 
+.filter-menu input {
+    display: block;
     width: 100%;
     margin-bottom: 10px;
 }
 
-.filter-menu button {
-    align-self: center;
+.checkbox-group {
+    margin-top: 20px;
 }
 
-/* Hidden class to toggle visibility */
-.hidden {
-    display: none;
-}
-
-/* Footer */
-footer {
-    background-color: #333;
+.btn-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
     color: white;
-    text-align: center;
-    padding: 20px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
 }
 
-footer p {
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Footer styling */
+footer {
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 10px;
+}
+
+.footer_container p {
     margin: 0;
-    font-size: 0.9em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+
+    #mapContainer, .filter_container {
+        flex-basis: 100%;
+        padding: 10px 0;
+    }
 }
