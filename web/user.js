@@ -12,6 +12,7 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map2);
     }
+    
     // Function to get user's geolocation
     function getLocation() {
         if (navigator.geolocation) {
@@ -20,51 +21,80 @@
             alert("Geolocation is not supported by this browser.");
         }
     }
+    
    let userLat;
    let userLon;
     // Function to show position
    function showPosition(position) {
+       toggleFilterMenu();
              userLat = position.coords.latitude;
              userLon = position.coords.longitude;
          clearMarkers();
             // Prepare data to send to the server
             const data = `lat=${userLat}&lon=${userLon}`;
+            sendRequest(`lat=${userLat}&lon=${userLon}`);
 
             // Send data using XMLHttpRequest
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'GetCleanBeache', true); // Change URL to your servlet
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        }
+        
+        function sendRequest(data) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'GetCleanBeache', true); // Change URL to your servlet
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        const jsonResponse = JSON.parse(xhr.responseText);
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              try {
+                    const jsonResponse = JSON.parse(xhr.responseText);
+                    console.log("Server response:", jsonResponse); // Log the response for debugging
+
+                    // Check if beaches is defined and is an array
+                    if (Array.isArray(jsonResponse.beaches)) {
                         plotBeachesOnMap(jsonResponse.beaches); // Plot beaches on the map
-                        toggleFilterMenu();
                     } else {
-                        console.error('Error fetching beaches:', xhr.statusText);
+                        console.error('Beaches data is undefined or not an array:', jsonResponse.beaches);
                     }
+                } catch (e) {
+                    console.error('Error parsing JSON response:', e);
                 }
-            };
-
-            xhr.send(data); // Send the request with the user's location
+                 
+            } else {
+                console.error('Error fetching beaches:', xhr.statusText);
+            }
         }
+    };
+
+    xhr.send(data); // Send the request with the user's location
+}
     function plotBeachesOnMap(beaches) {
-            clearMarkers(); // Ensure previous markers are cleared
+    clearMarkers(); // Ensure previous markers are cleared
+     if (beaches.length === 0) {
+        console.log("No beaches to plot.");
+        return; // Early exit if there are no beaches to plot
+    }
+    beaches.forEach(beach => {
+        const { name, lat, lon, cleanliness, tar, glass, plastic, caoutchouc, garbage } = beach;
+        const marker = L.marker([lat, lon]).addTo(map2);
+        currentMarkers.push(marker); // Add to current markers array
 
-            beaches.forEach(beach => {
-                const { name, lat, lon, cleanliness } = beach;
+        marker.bindPopup(` <div>
+        <h4>${name}</h4>
+        <p>Cleanliness Score: ${cleanliness}</p>
+        <ul>
+            <li>Tar: ${tar}</li>
+            <li>Glass: ${glass}</li>
+            <li>Plastic: ${plastic}</li>
+            <li>Caoutchouc: ${caoutchouc}</li>
+            <li>Garbage: ${garbage}</li>
+        </ul>
+    </div>`);
+        
+    });
 
-                // Create a marker for each beach
-                const marker = L.marker([lat, lon]).addTo(map2);
-                currentMarkers.push(marker); // Add to current markers array
-                
-                marker.bindPopup(`Cleanliness Score: ${cleanliness}<br>Name: ${name}`);
-                console.log("Added marker:", marker); // Debug log for added marker
-            });
+   
+}
 
-            console.log("Total markers after plotting:", currentMarkers.length); // Debug log
-        }
     // Function to clear all markers from the map
     function clearMarkers() {
         if (currentMarkers.length > 0) {
@@ -72,12 +102,10 @@
                     map2.removeLayer(marker); // Remove marker from the map
                 });
                 currentMarkers = []; // Clear the array
-                console.log("Markers cleared successfully."); // Debugging log
+                
             } else {
                 currentMarkers = [];
-                console.log("No markers to clear."); // Debugging log
-            }
-            
+            }       
     }
     // Function to show error messages
     function showError(error) {
@@ -99,39 +127,28 @@
                 break;
         }
     }
+    
+    
 function toggleFilterMenu() {
     const filterMenu = document.getElementById('filterMenu');
     filterMenu.classList.toggle('hidden'); // Toggle hidden class
 }
 
-     function applyFilter() {
-         
-         //const userLat = position.coords.latitude;
-           // const userLon = position.coords.longitude;
-        const selectedYear = document.getElementById('year').value;
-        const selectedMonth = document.getElementById('month').value;
+function applyFilter() {
+    const selectedYear = document.getElementById('year').value;
+    const selectedMonth = document.getElementById('month').value;
+    const tar = document.getElementById('tar').value;
+    const glass = document.getElementById('glass').value;
+    const plastic = document.getElementById('plastic').value;
+    const caoutchouc = document.getElementById('caoutchouc').value;
+    const garbage = document.getElementById('garbage').value;
+    
+    const data = `lat=${userLat}&lon=${userLon}&year=${selectedYear}&month=${selectedMonth}&tar=${tar}&glass=${glass}&plastic=${plastic}&caoutchouc=${caoutchouc}&garbage=${garbage}`;
+    console.log("Requesting beaches with data:", data);
+    clearMarkers();
+    sendRequest(data); // Reuse the sendRequest function
+}
 
-        // Prepare data to send to the server
-        const data = `lat=${userLat}&lon=${userLon}&year=${selectedYear}&month=${selectedMonth}`;
-clearMarkers();
-        
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'GetCleanBeache', true); // Change URL to your servlet
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    const jsonResponse = JSON.parse(xhr.responseText);
-                    plotBeachesOnMap(jsonResponse.beaches); // Plot beaches on the map
-                } else {
-                    console.error('Error fetching beaches:', xhr.statusText);
-                }
-            }
-            
-        };
-        xhr.send(data); // Send the request with the filter data
-    }
     
     // Call getLocation to request the user's location
         // Event listener for "Find the Cleanest Beach" button
@@ -145,4 +162,4 @@ clearMarkers();
     });
      document.addEventListener('DOMContentLoaded', initializeMap);
      
-     document.getElementById('toggleFilterBtn').addEventListener('click', toggleFilterMenu);
+  

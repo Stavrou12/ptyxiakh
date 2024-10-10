@@ -1,74 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clean Beaches Locator</title>
-    <link rel="stylesheet" href="stylesheet.css"> <!-- Link to your CSS file -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-</head>
-<body>
-    <!-- Header Section -->
-    <header>
-        <div class="container">
-            <h1>Find the Cleanest Beaches</h1>
-            <p>Explore and filter beaches based on cleanliness, location, and more.</p>
-        </div>
-    </header>
-
-    <!-- Main Section with Map and Controls -->
-    <main>
-        <div class="container">
-            <!-- Map -->
-            <div id="mapContainer">
-                <div id="map2"></div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Clean Beaches Locator</title>
+        <link rel="stylesheet" href="stylesheet.css"> <!-- Link to your CSS file -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    </head>
+    <body>
+        <!-- Header Section -->
+        <header>
+            <div class="container">
+                <h1>Find the Cleanest Beaches</h1>
+                <p>Explore and filter beaches based on cleanliness, location, and more.</p>
             </div>
+        </header>
+        <!-- Main Section with Map and Controls -->
+        <main>
+            <div class="container">
+                <!-- Map -->
+                <div id="mapContainer">
+                    <div id="map2"></div>
+                </div>
+                <!-- Control Panel -->
+                <div class="controls">
+                    <button id="findBeachBtn" class="btn-primary">Find the Cleanest Beach</button>      
+                    <!-- Filter Menu -->
+                    <div id="filterMenu" class="filter-menu hidden">
+                        <h3>Filter by</h3>
+                        <label for="year">Select Year:</label>
+                        <select id="year" name="year">
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                            <option value="2016">2016</option>                    
+                        </select>
+                        <label for="month">Select Month:</label>
+                        <select id="month" name="month">
+                            <option value="maios_">May</option>
+                            <option value="ioynios_">June</option>
+                            <option value="ioylios_">July</option>
+                            <option value="aygoystos_">August</option>
+                            <option value="septemvrios_">September</option>
+                            <option value="oktovrios_">October</option>
+                        </select>              
+                        <label for="tar">Tar:</label>
+                        <label for="tar">Tar:</label>
+                        <select id="tar" name="tar">  <!-- Adding the name attribute -->
+                            <option value="NO">ΟΧΙ</option>
+                            <option value="YES">ΝΑΙ</option>
+                        </select>
 
-            <!-- Control Panel -->
-            <div class="controls">
-                <button id="findBeachBtn" class="btn-primary">Find the Cleanest Beach</button>
-                <button id="toggleFilterBtn" class="btn-secondary">Filter Beaches</button>
+                        <label for="glass">Glass:</label>
+                        <select id="glass" name="glass"> <!-- Adding the name attribute -->
+                            <option value="NO">ΟΧΙ</option>
+                            <option value="YES">ΝΑΙ</option>
+                        </select>
 
-                <!-- Filter Menu -->
-                <div id="filterMenu" class="filter-menu hidden">
-                    <h3>Filter by</h3>
-                    <label for="year">Select Year:</label>
-                    <select id="year">
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                        <option value="2020">2020</option>
-                        <option value="2019">2019</option>
-                        <option value="2019">2018</option>
-                        <option value="2019">2017</option>
-                        <option value="2019">2016</option>
-                        
-                    </select>
+                        <label for="plastic">Plastic:</label>
+                        <select id="plastic" name="plastic"> <!-- Adding the name attribute -->
+                            <option value="NO">ΟΧΙ</option>
+                            <option value="YES">ΝΑΙ</option>
+                        </select>
 
-                    <label for="month">Select Month:</label>
-                    <select id="month">
-                        <option value="maios_">May</option>
-                        <option value="ioynios_">June</option>
-                        <option value="ioylios_">July</option>
-                        <option value="aygoystos_">August</option>
-                        <option value="septemvrios_">September</option>
-                        <option value="oktovrios_">October</option>
-                    </select>
+                        <label for="caoutchouc">Caoutchouc:</label>
+                        <select id="caoutchouc" name="caoutchouc"> <!-- Adding the name attribute -->
+                            <option value="NO">ΟΧΙ</option>
+                            <option value="YES">ΝΑΙ</option>
+                        </select>
 
-                    <button id="filterBtn" class="btn-primary">Apply Filter</button>
+                        <label for="garbage">Garbage:</label>
+                        <select id="garbage" name="garbage"> <!-- Adding the name attribute -->
+                            <option value="NO">ΟΧΙ</option>
+                            <option value="YES">ΝΑΙ</option>
+                        </select>
+
+
+                        <button id="filterBtn" class="btn-primary">Apply Filter</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
 
-    <!-- Footer Section -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Clean Beaches Locator. All rights reserved.</p>
-        </div>
-    </footer>
+        <!-- Footer Section -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Clean Beaches Locator. All rights reserved.</p>
+            </div>
+        </footer>
 
-    <script src="user.js"></script>
-</body>
+        <script src="user.js"></script>
+    </body>
 </html>
