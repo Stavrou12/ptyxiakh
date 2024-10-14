@@ -151,7 +151,9 @@ System.out.println("ecoli: " + ecoliParam);
         ArrayList<Beach> cleanBeaches = new ArrayList<>();
         LocalDate currentDate = LocalDate.now();
         int currentMonth = currentDate.getMonthValue();
+        System.out.println(currentMonth);
         String result = getMonthString(currentMonth);
+        System.out.println(result);
         Connection conn = null;
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=UTF-8");
@@ -165,7 +167,7 @@ System.out.println("ecoli: " + ecoliParam);
                     + "FROM " + result + "2023 m "
                     + "JOIN simeia_parakoloythisis_2019 sp ON m.StationCode = sp.code_1 "
                     + "ORDER BY cleanlinessScore ASC, distance ASC "
-                    + "LIMIT 10";
+                    + "LIMIT 20";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setDouble(1, userLat);
                 stmt.setDouble(2, userLon);
@@ -214,8 +216,12 @@ System.out.println("ecoli: " + ecoliParam);
                 return "aygoystos_";
             case 9:
                 return "septemvrios_";
-            default:
-                return "aygoystos_"; // default to August for fallback
-        }
+            case 10:
+                return "oktovrios_"; // default to August for fallback
+           
     }
+        return null;
 }
+    
+}
+

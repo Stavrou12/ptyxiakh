@@ -1,8 +1,71 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
- */
 document.addEventListener('DOMContentLoaded', initializeMap);
+
+
+function openGoogleMaps(userLat, userLng, destinationLat, destinationLng) {
+    const url = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${destinationLat},${destinationLng}&travelmode=driving`;
+    window.open(url, '_blank');
+}
+
+
+function createBeachPopup(beachName, destinationLat, destinationLng) {
+    // Content for the popup with a Find Path button
+    const popupContent = `
+        <div>
+            <h3>${beachName}</h3>
+            <button onclick="findPathToBeach(${destinationLat}, ${destinationLng})" class="btn-primary">Find Path</button>
+        </div>
+    `;
+
+    return popupContent;
+}
+function getUserLocation(callback) {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const userLat = position.coords.latitude;
+            const userLng = position.coords.longitude;
+            console.log("User coordinates:", userLat, userLng); // Log user coordinates
+            callback(userLat, userLng);
+        }, (error) => {
+            showError(error); // Handle errors if location fetching fails
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+// Function to find path to the beach when "Find Path" button is clicked
+function findPathToBeach(destinationLat, destinationLng) {
+    getUserLocation((userLat, userLng) => {
+        openGoogleMaps(userLat, userLng, destinationLat, destinationLng);
+    });
+}
+
+// Example of adding a popup to a map marker (Leaflet example)
+
+    
+    
+document.getElementById('sortBtn').addEventListener('click', () => {
+    const sortOption = document.getElementById('sortOption').value;
+
+    // Fetch table rows data
+    let tableRows = Array.from(document.querySelectorAll('#beachesTable tbody tr'));
+
+    // Sort rows based on the selected option
+    if (sortOption === 'cleanliness_asc') {
+        tableRows.sort((a, b) => parseFloat(a.cells[1].innerText) - parseFloat(b.cells[1].innerText));
+    } else if (sortOption === 'cleanliness_desc') {
+        tableRows.sort((a, b) => parseFloat(b.cells[1].innerText) - parseFloat(a.cells[1].innerText));
+    } else if (sortOption === 'distance_asc') {
+        tableRows.sort((a, b) => parseFloat(a.cells[2].innerText) - parseFloat(b.cells[2].innerText));
+    } else if (sortOption === 'distance_desc') {
+        tableRows.sort((a, b) => parseFloat(b.cells[2].innerText) - parseFloat(a.cells[2].innerText));
+    }
+
+    // Clear the table body and append the sorted rows
+    const beachesTableBody = document.querySelector('#beachesTable tbody');
+    beachesTableBody.innerHTML = '';
+    tableRows.forEach(row => beachesTableBody.appendChild(row));
+});
+
 
 function updateIntenterococciValue(value) {
     document.getElementById('intenterococciValue').textContent = value;
@@ -85,17 +148,29 @@ function sendRequest(data) {
     };
     xhr.send(data); // Send the request with the user's location
 }
+
+
+
 function plotBeachesOnMap(beaches) {
-    clearMarkers(); // Ensure previous markers are cleared
+
+clearMarkers(); // Ensure previous markers are cleared
     console.log(beaches);
+    
+    const beachesTableBody = document.querySelector('#beachesTable tbody');
+    beachesTableBody.innerHTML = ''; // Clear any previous table rows
+
     if (beaches.length === 0) {
         console.log("No beaches to plot.");
         return; // Early exit if there are no beaches to plot
     }
     beaches.forEach(beach => {
         const {ecoli,intenterococci,name, lat, lon, cleanliness, tar, glass, plastic, caoutchouc, garbage} = beach;
-        const marker = L.marker([lat, lon]).addTo(map2);
+        const marker = L.marker([lat, lon]) // Create a marker
+            .addTo(map2) // Add it to the map
+            .bindPopup(createBeachPopup(name, lat, lon)) // Bind the popup to this marker
+            .on('popupopen', () => console.log(`Popup opened for: ${name}`)); // Log when popup is opened
         currentMarkers.push(marker); // Add to current markers array
+       
 
         marker.bindPopup(` <div>
         <h4>${name}</h4>
@@ -109,10 +184,51 @@ function plotBeachesOnMap(beaches) {
             <li>Intenterococci: ${intenterococci}</li>
             <li>Ecoli: ${ecoli}</li>
         </ul>
+        <button onclick="findPathToBeach(${lat}, ${lon})" class="btn-primary">Find Path</button>
     </div>`);
 
-    });
+    //});
+   
+   
+     const distance = calculateDistance(userLat, userLon, lat, lon);
+      const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${name}</td>
+            <td>${cleanliness}</td>
+               <td>${distance.toFixed(2)}</td> 
+            <td>${tar}</td>
+            <td>${glass}</td>
+            <td>${plastic}</td>
+            <td>${caoutchouc}</td>
+            <td>${garbage}</td>
+            <td>${intenterococci}</td>
+            <td>${ecoli}</td>
+        `;
+        beachesTableBody.appendChild(row);
+ 
+      });
+    // Show the table container after plotting beaches
+    document.getElementById('beachesTableContainer').classList.remove('hidden');
 }
+
+
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radius of the Earth in km
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; // Distance in km
+    return distance;
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+}
+
 
 // Function to clear all markers from the map
 function clearMarkers() {
@@ -183,6 +299,4 @@ document.getElementById('findBeachBtn').addEventListener('click', () => {
 document.getElementById('filterBtn').addEventListener('click', () => {
     applyFilter();
 });
-
-
 

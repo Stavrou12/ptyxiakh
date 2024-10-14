@@ -8,6 +8,8 @@
 body, html {
     height: 100%;
     font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column; /* This ensures footer is pushed down */
 }
 
 /* Header styling */
@@ -30,11 +32,12 @@ header p {
 /* Main section container */
 main {
     display: flex;
-    height: calc(100vh - 120px); /* Full viewport height minus the header and footer space */
+    flex-grow: 1; /* Ensures main content expands to fill available space */
     padding: 10px;
+    overflow: auto; /* Ensures overflow content like large tables will scroll */
 }
 
-/* Map container on the left (70% width) */
+/* Map container on the left (80% width) */
 #mapContainer {
     flex-basis: 80%;
     height: 100%; /* Ensure map container takes full height */
@@ -49,9 +52,7 @@ main {
     background-color: #e0e0e0; /* Temporary background color */
 }
 
-
-
-/* Filter menu container on the right (30% width) */
+/* Filter menu container on the right (20% width) */
 .filter_container {
     flex-basis: 20%;
     height: 100%; /* Ensure filter menu takes full height */
@@ -109,10 +110,35 @@ footer {
     background-color: #f2f2f2;
     text-align: center;
     padding: 10px;
+    margin-top: auto; /* This keeps the footer at the bottom */
+    width: 100%;
 }
 
-.footer_container p {
-    margin: 0;
+/* Table container */
+#beachesTableContainer {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: auto; /* Ensures that large tables scroll */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
 }
 
 /* Responsive Design */
