@@ -212,7 +212,7 @@ function plotBeachesOnMap(beaches) {
             <td>${ecoli}</td>
         `;
         beachesTableBody.appendChild(row);
-    stcode = stationCode;
+   // stcode = stationCode;
     });
     // Show the table container after plotting beaches
     document.getElementById('beachesTableContainer').classList.remove('hidden');
