@@ -60,10 +60,15 @@
         <servlet-name>GetCleanBeache</servlet-name>
         <servlet-class>Servlets.GetCleanBeache</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubmitReviewServlet</servlet-name>
+        <servlet-class>Servlets.SubmitReviewServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
-    <servlet-name>GetCleanBeache</servlet-name>
-    <url-pattern>/GetCleanBeache</url-pattern> <!-- Ensure this is the correct URL pattern -->
-</servlet-mapping>
+        <servlet-name>GetCleanBeache</servlet-name>
+        <url-pattern>/GetCleanBeache</url-pattern>
+        <!-- Ensure this is the correct URL pattern -->
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetUser</servlet-name>
         <url-pattern>/GetUser</url-pattern>
@@ -119,6 +124,10 @@
     <servlet-mapping>
         <servlet-name>InsertDataServlet</servlet-name>
         <url-pattern>/InsertDataServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitReviewServlet</servlet-name>
+        <url-pattern>/SubmitReviewServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

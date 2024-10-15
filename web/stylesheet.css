@@ -5,6 +5,22 @@
     box-sizing: border-box;
 }
 
+.hidden2 { display: none; }
+ .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  .close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+
+     
+  
 body, html {
     height: 100%;
     font-family: Arial, sans-serif;

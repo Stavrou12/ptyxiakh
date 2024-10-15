@@ -41,8 +41,8 @@ function findPathToBeach(destinationLat, destinationLng) {
 
 // Example of adding a popup to a map marker (Leaflet example)
 
-    
-    
+
+
 document.getElementById('sortBtn').addEventListener('click', () => {
     const sortOption = document.getElementById('sortOption').value;
 
@@ -113,10 +113,13 @@ function showPosition(position) {
     toggleFilterMenu();
     userLat = position.coords.latitude;
     userLon = position.coords.longitude;
-    clearMarkers();
+    console.log(userLat, userLon);
+
     // Prepare data to send to the server
     const data = `lat=${userLat}&lon=${userLon}`;
-    sendRequest(`lat=${userLat}&lon=${userLon}`);
+    console.log("Requesting beaches with data:", data);
+    clearMarkers();
+    sendRequest(data);
 
     // Send data using XMLHttpRequest
 }
@@ -153,9 +156,9 @@ function sendRequest(data) {
 
 function plotBeachesOnMap(beaches) {
 
-clearMarkers(); // Ensure previous markers are cleared
+    clearMarkers(); // Ensure previous markers are cleared
     console.log(beaches);
-    
+
     const beachesTableBody = document.querySelector('#beachesTable tbody');
     beachesTableBody.innerHTML = ''; // Clear any previous table rows
 
@@ -164,16 +167,17 @@ clearMarkers(); // Ensure previous markers are cleared
         return; // Early exit if there are no beaches to plot
     }
     beaches.forEach(beach => {
-        const {ecoli,intenterococci,name, lat, lon, cleanliness, tar, glass, plastic, caoutchouc, garbage} = beach;
+        const {stationCode, ecoli, intenterococci, name, lat, lon, cleanliness, tar, glass, plastic, caoutchouc, garbage} = beach;
         const marker = L.marker([lat, lon]) // Create a marker
-            .addTo(map2) // Add it to the map
-            .bindPopup(createBeachPopup(name, lat, lon)) // Bind the popup to this marker
-            .on('popupopen', () => console.log(`Popup opened for: ${name}`)); // Log when popup is opened
+                .addTo(map2) // Add it to the map
+                .bindPopup(createBeachPopup(name, lat, lon)) // Bind the popup to this marker
+                .on('popupopen', () => console.log(`Popup opened for: ${name}`)); // Log when popup is opened
         currentMarkers.push(marker); // Add to current markers array
-       
+
 
         marker.bindPopup(` <div>
         <h4>${name}</h4>
+        <h4>${stationCode}</h4>
         <p>Cleanliness Score: ${cleanliness}</p>
         <ul>
             <li>Tar: ${tar}</li>
@@ -185,15 +189,18 @@ clearMarkers(); // Ensure previous markers are cleared
             <li>Ecoli: ${ecoli}</li>
         </ul>
         <button onclick="findPathToBeach(${lat}, ${lon})" class="btn-primary">Find Path</button>
+        <button onclick="openReviewForm('${name}', ${lat}, ${lon},'${stationCode}')" class="btn-primary">Write a Review</button>
+        <div id="reviewForm-${lat}-${lon}" class="reviewForm hidden"></div>
     </div>`);
 
-    //});
-   
-   
-     const distance = calculateDistance(userLat, userLon, lat, lon);
-      const row = document.createElement('tr');
+        //});
+
+
+        const distance = calculateDistance(userLat, userLon, lat, lon);
+        const row = document.createElement('tr');
         row.innerHTML = `
             <td>${name}</td>
+        
             <td>${cleanliness}</td>
                <td>${distance.toFixed(2)}</td> 
             <td>${tar}</td>
@@ -205,8 +212,8 @@ clearMarkers(); // Ensure previous markers are cleared
             <td>${ecoli}</td>
         `;
         beachesTableBody.appendChild(row);
- 
-      });
+
+    });
     // Show the table container after plotting beaches
     document.getElementById('beachesTableContainer').classList.remove('hidden');
 }
@@ -217,9 +224,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     const dLat = deg2rad(lat2 - lat1);
     const dLon = deg2rad(lon2 - lon1);
     const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c; // Distance in km
     return distance;
@@ -269,7 +276,7 @@ function toggleFilterMenu() {
     filterMenu.classList.toggle('hidden'); // Toggle hidden class
 }
 
-function applyFilter() {    
+function applyFilter() {
     const selectedYear = document.getElementById('year').value;
     const selectedMonth = document.getElementById('month').value;
     const tar = document.getElementById('tar').value;
@@ -277,11 +284,11 @@ function applyFilter() {
     const plastic = document.getElementById('plastic').value;
     const caoutchouc = document.getElementById('caoutchouc').value;
     const garbage = document.getElementById('garbage').value;
-    
+
     const ecoli = document.getElementById('ecoliRange').value.toString();
-const intenterococci = document.getElementById('intenterococciRange').value.toString();
-    
-    
+    const intenterococci = document.getElementById('intenterococciRange').value.toString();
+
+
     const data = `lat=${userLat}&lon=${userLon}&year=${selectedYear}&month=${selectedMonth}&tar=${tar}&glass=${glass}&plastic=${plastic}&caoutchouc=${caoutchouc}&garbage=${garbage}&intenterococci=${intenterococci}&ecoli=${ecoli}`;
     console.log("Requesting beaches with data:", data);
     clearMarkers();
@@ -299,4 +306,34 @@ document.getElementById('findBeachBtn').addEventListener('click', () => {
 document.getElementById('filterBtn').addEventListener('click', () => {
     applyFilter();
 });
+
+let currentBeachName = '';
+let currentLat = '';
+let currentLon = '';
+
+function openReviewForm(beachName, lat, lon, stationCode) {
+    // Store the beach info in global variables for later submission
+    currentBeachName = beachName;
+    currentLat = lat;
+    currentLon = lon;
+
+    // Update modal content
+    document.getElementById('modalBeachName').innerText = `Write a Review for ${beachName}`;
+    document.getElementById('stationCode').value = stationCode;
+
+    // Show the modal
+    document.getElementById('reviewModal').classList.remove('hidden2');
+}
+
+function closeReviewForm() {
+    // Clear the form
+    document.getElementById('review_text').value = '';
+    document.getElementById('review_photo').value = '';
+
+    // Hide the modal
+    document.getElementById('reviewModal').classList.add('hidden2');
+}
+
+
+
 

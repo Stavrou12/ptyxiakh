@@ -85,6 +85,8 @@ public class servlet_login extends HttpServlet {
                 response.setStatus(401);
             } else {
                 session.setAttribute("loggedIn", username);
+                session.setAttribute("username", user_table.databaseToUser(username, password).getUsername());
+                System.out.println(session.getAttribute("username"));
                 response.setStatus(200);
             }
 

@@ -31,6 +31,7 @@ public class GetCleanBeache extends HttpServlet {
          String intenterococciParam = request.getParameter("intenterococci");
         String ecoliParam = request.getParameter("ecoli");
         
+        
         System.out.println("Received parameters:");
 System.out.println("Lat: " + latParam);
 System.out.println("Lon: " + lonParam);
@@ -89,12 +90,13 @@ System.out.println("ecoli: " + ecoliParam);
     private ArrayList<Beach> getFilteredBeaches(String ecoli,String inter,double userLat, double userLon, String year, String month, String tar, String glass, String plastic, String caoutchouc, String garbage, HttpServletResponse response) throws SQLException, UnsupportedEncodingException, IOException {
         ArrayList<Beach> cleanBeaches = new ArrayList<>();
         String result = month; // e.g., "maios_", "ioynios_", etc.
+        System.out.println("month " +result);
         Connection conn = null;
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=UTF-8");
         try {
             conn = DB_Connection.getConnection();
-            String sql = "SELECT m.Ecoli as Ecoli, m.Intenterococci as Intenterococci  ,sp.acth as name, sp.Y AS lat, sp.X AS lon, "
+            String sql = "SELECT sp.code_1 as st, m.Ecoli as Ecoli, m.Intenterococci as Intenterococci  ,sp.acth as name, sp.Y AS lat, sp.X AS lon, "
                     + "(m.Ecoli + m.Intenterococci) AS cleanlinessScore, "
                     + "m.Tar, m.Glass, m.Plastic, m.Caoutchouc, m.Garbage, "
                     + "(6371 * acos(cos(radians(?)) * cos(radians(sp.Y)) * cos(radians(sp.X) - radians(?)) "
@@ -105,7 +107,7 @@ System.out.println("ecoli: " + ecoliParam);
                     + "AND m.Ecoli >= ? "        // Add this line for Ecoli filter
                     + "AND m.Intenterococci >=  ? " // Add this line for Intenterococci filter
                     + "ORDER BY cleanlinessScore ASC, distance ASC "
-                    + "LIMIT 70";
+                    + "LIMIT 20";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setDouble(1, userLat);
                 stmt.setDouble(2, userLon);
@@ -132,8 +134,9 @@ System.out.println("ecoli: " + ecoliParam);
                     String garbageVal = rs.getString("Garbage");
                     String ecoliVal = rs.getString("Ecoli");
                     String inteVal = rs.getString("Intenterococci");
+                    String stVal = rs.getString("st");
                    
-                    cleanBeaches.add(new Beach(ecoliVal,inteVal,name, lat, lon, cleanlinessScore, distance, tarVal, glassVal, plasticVal, caoutchoucVal, garbageVal));
+                    cleanBeaches.add(new Beach(stVal,ecoliVal,inteVal,name, lat, lon, cleanlinessScore, distance, tarVal, glassVal, plasticVal, caoutchoucVal, garbageVal));
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -151,7 +154,7 @@ System.out.println("ecoli: " + ecoliParam);
         ArrayList<Beach> cleanBeaches = new ArrayList<>();
         LocalDate currentDate = LocalDate.now();
         int currentMonth = currentDate.getMonthValue();
-        System.out.println(currentMonth);
+  
         String result = getMonthString(currentMonth);
         System.out.println(result);
         Connection conn = null;
@@ -159,7 +162,7 @@ System.out.println("ecoli: " + ecoliParam);
         response.setContentType("application/json; charset=UTF-8");
         try {
             conn = DB_Connection.getConnection();
-            String sql = "SELECT m.Ecoli as Ecoli, m.Intenterococci as Intenterococci,sp.acth as name, sp.Y AS lat, sp.X AS lon, "
+            String sql = "SELECT sp.code_1 as stationcode, m.Ecoli as Ecoli, m.Intenterococci as Intenterococci,sp.acth as name, sp.Y AS lat, sp.X AS lon, "
                     + "(m.Ecoli + m.Intenterococci) AS cleanlinessScore, "
                     + "m.Tar, m.Glass, m.Plastic, m.Caoutchouc, m.Garbage, "
                     + "(6371 * acos(cos(radians(?)) * cos(radians(sp.Y)) * cos(radians(sp.X) - radians(?)) "
@@ -173,10 +176,9 @@ System.out.println("ecoli: " + ecoliParam);
                 stmt.setDouble(2, userLon);
                 stmt.setDouble(3, userLat);
                 ResultSet rs = stmt.executeQuery();
-                if (!rs.next()) {
-                    return cleanBeaches; // Return empty list if no results
-                }
                 while (rs.next()) {
+                     String stVal = rs.getString("stationcode");
+    System.out.println("Station Code Retrieved: " + stVal); // Add this line
                     String name = rs.getString("name");
                     double lat = rs.getDouble("lat");
                     double lon = rs.getDouble("lon");
@@ -189,8 +191,9 @@ System.out.println("ecoli: " + ecoliParam);
                     String garbageVal = rs.getString("Garbage");
                      String ecoliVal = rs.getString("Ecoli");
                     String inteVal = rs.getString("Intenterococci");
+                    
                    
-                    cleanBeaches.add(new Beach(ecoliVal ,inteVal,name, lat, lon, cleanlinessScore, distance, tarVal, glassVal, plasticVal, caoutchoucVal, garbageVal));
+                    cleanBeaches.add(new Beach(stVal,ecoliVal ,inteVal,name, lat, lon, cleanlinessScore, distance, tarVal, glassVal, plasticVal, caoutchoucVal, garbageVal));
                 }
             }
         } catch (ClassNotFoundException ex) {

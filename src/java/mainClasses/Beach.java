@@ -7,7 +7,7 @@ public class Beach {
     private double cleanliness;
    private String description;
     private double distance;
-    
+    private String StationCode;
     private String Tar;
     
     private String Glass;
@@ -18,8 +18,9 @@ public class Beach {
     private String Intenterococci;
     private String Ecoli;
     
-    public Beach(String ecoli, String inter,String name,double lat,double lon,double cleanlinessScore,double distance,String tarVal,String glassVal,
+    public Beach(String stationcode,String ecoli, String inter,String name,double lat,double lon,double cleanlinessScore,double distance,String tarVal,String glassVal,
             String plasticVal,String caoutchoucVal,String garbageVal){
+        this.StationCode = stationcode;
         this.Ecoli= ecoli;
         this.Intenterococci=inter;
         this.name = name;
@@ -34,7 +35,13 @@ public class Beach {
         this.Plastic = plasticVal;
         
     }
-    
+     public String getStationCode() {
+        return StationCode;
+    }
+
+    public void setStationCode(String e) {
+        this.StationCode = e;
+    }
     public String getEcoli() {
         return Ecoli;
     }

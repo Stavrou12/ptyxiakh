@@ -82,50 +82,48 @@
             <div id="mapContainer">
                 <div id="map2"></div>
             </div>
-            
-            
-            
-<div id="beachesTableContainer" class="hidden">
-    <h2>List of Beaches</h2>
-    <label for="sortOption">Sort by:</label>
-    <select id="sortOption" name="sortOption">
-        <option value="cleanliness_asc">Cleanliness (Ascending)</option>
-        <option value="cleanliness_desc">Cleanliness (Descending)</option>
-        <option value="distance_asc">Distance (Ascending)</option>
-        <option value="distance_desc">Distance (Descending)</option>
-    </select>
-    <button id="sortBtn" class="btn-primary">Sort</button>
+            <div id="beachesTableContainer" class="hidden">
+                <h2>List of Beaches</h2>
+                <label for="sortOption">Sort by:</label>
+                <select id="sortOption" name="sortOption">
+                    <option value="cleanliness_asc">Cleanliness (Ascending)</option>
+                    <option value="cleanliness_desc">Cleanliness (Descending)</option>
+                    <option value="distance_asc">Distance (Ascending)</option>
+                    <option value="distance_desc">Distance (Descending)</option>
+                </select>
+                <button id="sortBtn" class="btn-primary">Sort</button>
 
-    <table id="beachesTable">
-        <thead>
-            <tr>
-                <th>Beach Name</th>
-                <th>Cleanliness Score</th>
-                <th>Distance (km)</th>
-                <th>Tar</th>
-                <th>Glass</th>
-                <th>Plastic</th>
-                <th>Caoutchouc</th>
-                <th>Garbage</th>
-                <th>Intenterococci</th>
-                <th>E. Coli</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be populated dynamically -->
-        </tbody>
-    </table>
-</div>
+                <table id="beachesTable">
+                    <thead>
+                        <tr>
+                            <th>Beach Name</th>
 
+                            <th>Cleanliness Score</th>
+                            <th>Distance (km)</th>
+                            <th>Tar</th>
+                            <th>Glass</th>
+                            <th>Plastic</th>
+                            <th>Caoutchouc</th>
+                            <th>Garbage</th>
+                            <th>Intenterococci</th>
+                            <th>E. Coli</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            
+            <!-- Some CSS for the modal -->
         </main>
-
         <!-- Footer Section -->
         <footer>
             <div class="footer_container">
                 <p>&copy; 2024 Clean Beaches Locator. All rights reserved.</p>
             </div>
         </footer>
-
         <script src="user.js"></script>
     </body>
 </html>
