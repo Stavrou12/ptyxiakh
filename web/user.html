@@ -118,6 +118,20 @@
             
             <!-- Some CSS for the modal -->
         </main>
+        
+        <div id="reviewModal" class="hidden2">
+  <div class="modal-content">
+    <span class="close" onclick="closeReviewForm()">×</span>
+    <h2 id="modalBeachName">Write a Review</h2>
+    
+    <form action="SubmitRev" method="POST">
+    <textarea name="review_text" placeholder="Write your review here" required></textarea>
+    <input type="hidden" id = "stCode" name="stCode" value="stationCodeFromJS">
+    <button type="submit">Submit Review</button>
+</form>
+
+  </div>
+</div>
         <!-- Footer Section -->
         <footer>
             <div class="footer_container">

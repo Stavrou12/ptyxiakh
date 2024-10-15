@@ -64,6 +64,10 @@
         <servlet-name>SubmitReviewServlet</servlet-name>
         <servlet-class>Servlets.SubmitReviewServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubmitRev</servlet-name>
+        <servlet-class>Servlets.SubmitRev</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetCleanBeache</servlet-name>
         <url-pattern>/GetCleanBeache</url-pattern>
@@ -128,6 +132,10 @@
     <servlet-mapping>
         <servlet-name>SubmitReviewServlet</servlet-name>
         <url-pattern>/SubmitReviewServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitRev</servlet-name>
+        <url-pattern>/SubmitRev</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

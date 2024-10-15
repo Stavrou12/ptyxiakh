@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', initializeMap);
 
-
+let stcode;
 function openGoogleMaps(userLat, userLng, destinationLat, destinationLng) {
     const url = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${destinationLat},${destinationLng}&travelmode=driving`;
     window.open(url, '_blank');
@@ -190,7 +190,7 @@ function plotBeachesOnMap(beaches) {
         </ul>
         <button onclick="findPathToBeach(${lat}, ${lon})" class="btn-primary">Find Path</button>
         <button onclick="openReviewForm('${name}', ${lat}, ${lon},'${stationCode}')" class="btn-primary">Write a Review</button>
-        <div id="reviewForm-${lat}-${lon}" class="reviewForm hidden"></div>
+        <div id="reviewForm-${stationCode}}" class="reviewForm hidden"></div>
     </div>`);
 
         //});
@@ -212,7 +212,7 @@ function plotBeachesOnMap(beaches) {
             <td>${ecoli}</td>
         `;
         beachesTableBody.appendChild(row);
-
+    stcode = stationCode;
     });
     // Show the table container after plotting beaches
     document.getElementById('beachesTableContainer').classList.remove('hidden');
@@ -319,7 +319,13 @@ function openReviewForm(beachName, lat, lon, stationCode) {
 
     // Update modal content
     document.getElementById('modalBeachName').innerText = `Write a Review for ${beachName}`;
-    document.getElementById('stationCode').value = stationCode;
+     const stationCodeInput = document.getElementById('stCode');
+     stationCodeInput.value = stationCode;
+     console.log(stationCodeInput.value);
+    if (!stationCodeInput) {
+        console.error("stationCode element not found!");
+        return; // Early exit if element is not found
+    }
 
     // Show the modal
     document.getElementById('reviewModal').classList.remove('hidden2');
@@ -333,6 +339,31 @@ function closeReviewForm() {
     // Hide the modal
     document.getElementById('reviewModal').classList.add('hidden2');
 }
+
+document.getElementById('reviewForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(this); // Use FormData to handle file upload
+    console.log(formData);
+    // Submit the form via AJAX (no need to send the username here)
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/SubmitRev', true); // Adjust to the correct server endpoint
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                 const jsonResponse = JSON.parse(xhr.responseText);
+                    console.log("Server response:", jsonResponse); // Log the response for debugging
+                alert('Review submitted successfully!');
+                closeReviewForm(); // Close the form on success
+            } else {
+                const jsonResponse = JSON.parse(xhr.responseText);
+                    console.log("Server response:", jsonResponse); // Log the response for debugging
+                alert('Error submitting review. Please try again.');
+            }
+        }
+    };
+    xhr.send(formData);
+});
 
 
 
