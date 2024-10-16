@@ -15,7 +15,6 @@ function createBeachPopup(beachName, destinationLat, destinationLng) {
             <button onclick="findPathToBeach(${destinationLat}, ${destinationLng})" class="btn-primary">Find Path</button>
         </div>
     `;
-
     return popupContent;
 }
 function getUserLocation(callback) {
@@ -89,12 +88,13 @@ function updateCheckboxValue(checkbox) {
 let map2, currentMarkers = [];
 // Initialize the Leaflet map
 function initializeMap() {
+    
     map2 = L.map('map2').setView([35.0, 25.0], 7); // Set to a default location (Crete)
     // Add OpenStreetMap tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 100,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map2);
+    }).addTo(map2);  
 }
 
 // Function to get user's geolocation
@@ -154,6 +154,8 @@ function sendRequest(data) {
 
 
 function fetchReviews(stationCode) {
+    document.getElementById('reviewModal').classList.add('hidden');
+    document.getElementById('Reviews').classList.remove('hidden');
     const xhr = new XMLHttpRequest();
     // Construct the URL with the station code as a query parameter
     const url = `GetReviewsServlet?StationCode=${stationCode}`;
@@ -182,30 +184,46 @@ function fetchReviews(stationCode) {
 
 
 function displayReviews(reviews, stationCode) {
-    const reviewsContainer = document.getElementById(`reviewsContainer-${stationCode}`);
+    const reviewsContainer = document.getElementById("Reviews");
     
     // Clear previous content
     reviewsContainer.innerHTML = '';
 
     if (reviews.length > 0) {
         // Create a list to display reviews
-        const reviewsList = document.createElement('ul');
+        const reviewsList = document.createElement('ul'); // Create a new <ul> for reviews
+
         reviews.forEach(review => {
-            const listItem = document.createElement('li');
-             let mediaHTML = '';
+            const listItem = document.createElement('li'); // Create a new <li> for each review
+
+            // Check for media and set the innerHTML accordingly
             if (review.media) {
-                mediaHTML = `<img src="${review.media}" alt="Review Media" style="max-width: 100px; max-height: 100px; margin: 5px;">`;
+                listItem.innerHTML = `
+                    <img src="${review.media}" alt="Review Media" style="max-width: 720px; max-height: 720px; margin: 2px;">
+                    <div>
+                        <strong>${review.username}:</strong> <span>${review.reviewText}</span><br>
+                        <span>Rating: ${review.starRating}</span>
+                    </div>`;
+            } else {
+                listItem.innerHTML = `
+                    <span class="close" onclick="closeReviews()">&times;</span>
+                    <div>
+                        <strong>${review.username}:</strong> <span>${review.reviewText}</span><br>
+                        <span>Rating: ${review.starRating}</span>
+                    </div>`;
             }
-            listItem.innerHTML = mediaHTML+`<strong>${review.username}:</strong> ${review.reviewText} <br> Rating: ${review.starRating}`;
-            
+
+            // Append the current list item to the reviews list
             reviewsList.appendChild(listItem);
         });
 
-        reviewsContainer.appendChild(reviewsList); // Append the list to the container
+        // Append the reviews list to the container
+        reviewsContainer.appendChild(reviewsList);
     } else {
         reviewsContainer.innerHTML = '<p>No reviews available for this beach.</p>';
     }
 }
+
 
 function plotBeachesOnMap(beaches) {
 
@@ -251,9 +269,9 @@ function plotBeachesOnMap(beaches) {
         
         const distance = calculateDistance(userLat, userLon, lat, lon);
         const row = document.createElement('tr');
-        const row2 = document.createElement('div');
+        const row2 = document.getElementById("Reviews");
         
-        row2.innerHTML = `<div id="reviewsContainer-${stationCode}" class="reviewsContainer hidden"></div>`;
+       // row2.innerHTML = `<div id="reviewsContainer-${stationCode}" class="reviewsContainer hidden"></div>`;
         row.innerHTML = `
             <td>${name}</td>
         
@@ -268,12 +286,12 @@ function plotBeachesOnMap(beaches) {
             <td>${ecoli}</td>
         `;
         beachesTableBody.appendChild(row);
-        rev.appendChild(row2);
+      //  rev.appendChild(row2);
    // stcode = stationCode;
     });
     // Show the table container after plotting beaches
     document.getElementById('beachesTableContainer').classList.remove('hidden');
-     document.getElementById('Reviews').classList.remove('hidden');
+    document.getElementById('Reviews').classList.remove('hidden');
 }
 
 
@@ -358,6 +376,8 @@ function applyFilter() {
 // Event listener for "Find the Cleanest Beach" button
 document.getElementById('findBeachBtn').addEventListener('click', () => {
     getLocation();
+    document.getElementById('filterMenu').classList.remove('filter-section hidden');
+    document.getElementById('beachesTableContainer').classList.remove('hidden');
 });
 
 // Event listener for "Apply Filter" button
@@ -386,16 +406,25 @@ function openReviewForm(beachName, lat, lon, stationCode) {
     }
 
     // Show the modal
-    document.getElementById('reviewModal').classList.remove('hidden2');
+     document.getElementById('Reviews').classList.add('hidden');
+    document.getElementById('reviewModal').classList.remove('hidden');
+  
 }
 
 function closeReviewForm() {
     // Clear the form
-    document.getElementById('review_text').value = '';
-    document.getElementById('review_photo').value = '';
-
+    document.getElementById('revv').reset(); // Reset the form
+    document.getElementById('reviewModal').classList.add('hidden');
     // Hide the modal
-    document.getElementById('reviewModal').classList.add('hidden2');
+   
+}
+
+function closeReviews() {
+    // Clear the form
+    //document.getElementById('revv').reset(); // Reset the form
+    document.getElementById('Reviews').classList.add('hidden');
+    // Hide the modal
+   
 }
 
 document.getElementById('reviewForm').addEventListener('submit', function(event) {

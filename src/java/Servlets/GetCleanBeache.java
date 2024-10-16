@@ -30,7 +30,26 @@ public class GetCleanBeache extends HttpServlet {
         String garbageParam = request.getParameter("garbage");
          String intenterococciParam = request.getParameter("intenterococci");
         String ecoliParam = request.getParameter("ecoli");
-        
+        int ecoli = 0;
+    int intenterococci = 0;
+        if (ecoliParam != null && !ecoliParam.isEmpty()) {
+        try {
+            ecoli = Integer.parseInt(ecoliParam);  // Converts string to integer
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid Ecoli value: " + ecoliParam);
+            // Handle the invalid case as per your logic, like assigning a default value
+        }
+    }
+
+    // Convert Intenterococci to Integer (check if it's not null or empty before converting)
+    if (intenterococciParam != null && !intenterococciParam.isEmpty()) {
+        try {
+            intenterococci = Integer.parseInt(intenterococciParam);  // Converts string to integer
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid Intenterococci value: " + intenterococciParam);
+            // Handle the invalid case as per your logic, like assigning a default value
+        }
+    }
         
         System.out.println("Received parameters:");
 System.out.println("Lat: " + latParam);
@@ -63,8 +82,8 @@ System.out.println("ecoli: " + ecoliParam);
 
             // If both year and month are provided, filter by them and the environmental factors
             if (yearParam != null && monthParam != null) {
-                cleanBeaches = getFilteredBeaches(intenterococciParam,ecoliParam,userLat, userLon, yearParam, monthParam, tarParam, glassParam, plasticParam, caoutchoucParam, garbageParam, response);
-            
+                cleanBeaches = getFilteredBeaches(ecoliParam,intenterococciParam,userLat, userLon, yearParam, monthParam, tarParam, glassParam, plasticParam, caoutchoucParam, garbageParam, response);
+                
             } else {
                 // Use the current month if no year and month are provided
                 cleanBeaches = getCleanBeaches(userLat, userLon, response);
@@ -91,12 +110,18 @@ System.out.println("ecoli: " + ecoliParam);
         ArrayList<Beach> cleanBeaches = new ArrayList<>();
         String result = month; // e.g., "maios_", "ioynios_", etc.
         System.out.println("month " +result);
+        System.out.println(ecoli);
+        System.out.println(inter);
+        int ecoli2 = Integer.parseInt(ecoli);
+        int inter2 = Integer.parseInt(inter);
         Connection conn = null;
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=UTF-8");
         try {
             conn = DB_Connection.getConnection();
-            String sql = "SELECT sp.code_1 as st, m.Ecoli as Ecoli, m.Intenterococci as Intenterococci  ,sp.acth as name, sp.Y AS lat, sp.X AS lon, "
+            String sql = "SELECT sp.code_1 as st, "
+                    + "CAST(m.Ecoli AS INTEGER) AS Ecoli," +
+                    " CAST(m.Intenterococci AS INTEGER) AS Intenterococci,sp.acth as name, sp.Y AS lat, sp.X AS lon, "
                     + "(m.Ecoli + m.Intenterococci) AS cleanlinessScore, "
                     + "m.Tar, m.Glass, m.Plastic, m.Caoutchouc, m.Garbage, "
                     + "(6371 * acos(cos(radians(?)) * cos(radians(sp.Y)) * cos(radians(sp.X) - radians(?)) "
@@ -104,8 +129,8 @@ System.out.println("ecoli: " + ecoliParam);
                     + "FROM " + result + year + " m "
                     + "JOIN simeia_parakoloythisis_2019 sp ON m.StationCode = sp.code_1 "
                     + "WHERE m.Tar = ? AND m.Glass = ? AND m.Plastic = ? AND m.Caoutchouc = ? AND m.Garbage = ? "
-                    + "AND m.Ecoli >= ? "        // Add this line for Ecoli filter
-                    + "AND m.Intenterococci >=  ? " // Add this line for Intenterococci filter
+                    + "AND CAST(m.Ecoli AS INTEGER) >= ? "        // Add this line for Ecoli filter
+                    + "AND CAST(m.Intenterococci AS INTEGER) >= ? " // Add this line for Intenterococci filter
                     + "ORDER BY cleanlinessScore ASC, distance ASC "
                     + "LIMIT 20";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -117,8 +142,8 @@ System.out.println("ecoli: " + ecoliParam);
                 stmt.setString(6, plastic);
                 stmt.setString(7, caoutchouc);
                 stmt.setString(8, garbage);
-                stmt.setString(9, ecoli);
-                stmt.setString(10,inter);
+                stmt.setInt(9, ecoli2);
+                stmt.setInt(10,inter2);
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
                     String name = rs.getString("name");
@@ -135,6 +160,7 @@ System.out.println("ecoli: " + ecoliParam);
                     String ecoliVal = rs.getString("Ecoli");
                     String inteVal = rs.getString("Intenterococci");
                     String stVal = rs.getString("st");
+                    System.out.println(ecoliVal +" "+inteVal );
                    
                     cleanBeaches.add(new Beach(stVal,ecoliVal,inteVal,name, lat, lon, cleanlinessScore, distance, tarVal, glassVal, plasticVal, caoutchoucVal, garbageVal));
                 }
