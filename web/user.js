@@ -153,12 +153,65 @@ function sendRequest(data) {
 }
 
 
+function fetchReviews(stationCode) {
+    const xhr = new XMLHttpRequest();
+    // Construct the URL with the station code as a query parameter
+    const url = `GetReviewsServlet?StationCode=${stationCode}`;
+    xhr.open('GET', url, true); // Initialize a GET request
+
+    xhr.onreadystatechange = function () {
+        // Check if the request is complete
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            // Check the status of the response
+            if (xhr.status === 200) {
+                // Parse the JSON response
+                const reviews = JSON.parse(xhr.responseText);
+                console.log(reviews);
+                displayReviews(reviews, stationCode); // Call the function to display reviews
+            } else {
+                // Handle errors
+                console.error('Request failed:', xhr.status, xhr.statusText);
+                const reviewsContainer = document.getElementById(`reviewsContainer-${stationCode}`);
+                reviewsContainer.innerHTML = '<p>Failed to load reviews. Please try again later.</p>';
+            }
+        }
+    };
+
+    xhr.send(); // Send the request
+}
+
+
+function displayReviews(reviews, stationCode) {
+    const reviewsContainer = document.getElementById(`reviewsContainer-${stationCode}`);
+    
+    // Clear previous content
+    reviewsContainer.innerHTML = '';
+
+    if (reviews.length > 0) {
+        // Create a list to display reviews
+        const reviewsList = document.createElement('ul');
+        reviews.forEach(review => {
+            const listItem = document.createElement('li');
+             let mediaHTML = '';
+            if (review.media) {
+                mediaHTML = `<img src="${review.media}" alt="Review Media" style="max-width: 100px; max-height: 100px; margin: 5px;">`;
+            }
+            listItem.innerHTML = mediaHTML+`<strong>${review.username}:</strong> ${review.reviewText} <br> Rating: ${review.starRating}`;
+            
+            reviewsList.appendChild(listItem);
+        });
+
+        reviewsContainer.appendChild(reviewsList); // Append the list to the container
+    } else {
+        reviewsContainer.innerHTML = '<p>No reviews available for this beach.</p>';
+    }
+}
 
 function plotBeachesOnMap(beaches) {
 
     clearMarkers(); // Ensure previous markers are cleared
     console.log(beaches);
-
+    const rev = document.getElementById("Reviews");
     const beachesTableBody = document.querySelector('#beachesTable tbody');
     beachesTableBody.innerHTML = ''; // Clear any previous table rows
 
@@ -190,14 +243,17 @@ function plotBeachesOnMap(beaches) {
         </ul>
         <button onclick="findPathToBeach(${lat}, ${lon})" class="btn-primary">Find Path</button>
         <button onclick="openReviewForm('${name}', ${lat}, ${lon},'${stationCode}')" class="btn-primary">Write a Review</button>
+        <button onclick="fetchReviews('${stationCode}')" class="btn-primary">See Reviews</button>
+        
         <div id="reviewForm-${stationCode}}" class="reviewForm hidden"></div>
+        
     </div>`);
-
-        //});
-
-
+        
         const distance = calculateDistance(userLat, userLon, lat, lon);
         const row = document.createElement('tr');
+        const row2 = document.createElement('div');
+        
+        row2.innerHTML = `<div id="reviewsContainer-${stationCode}" class="reviewsContainer hidden"></div>`;
         row.innerHTML = `
             <td>${name}</td>
         
@@ -212,10 +268,12 @@ function plotBeachesOnMap(beaches) {
             <td>${ecoli}</td>
         `;
         beachesTableBody.appendChild(row);
+        rev.appendChild(row2);
    // stcode = stationCode;
     });
     // Show the table container after plotting beaches
     document.getElementById('beachesTableContainer').classList.remove('hidden');
+     document.getElementById('Reviews').classList.remove('hidden');
 }
 
 

@@ -68,6 +68,10 @@
         <servlet-name>SubmitRev</servlet-name>
         <servlet-class>Servlets.SubmitRev</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetReviewsServlet</servlet-name>
+        <servlet-class>Servlets.GetReviewsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetCleanBeache</servlet-name>
         <url-pattern>/GetCleanBeache</url-pattern>
@@ -136,6 +140,10 @@
     <servlet-mapping>
         <servlet-name>SubmitRev</servlet-name>
         <url-pattern>/SubmitRev</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetReviewsServlet</servlet-name>
+        <url-pattern>/GetReviewsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
