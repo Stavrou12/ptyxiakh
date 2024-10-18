@@ -85,12 +85,14 @@ button:hover {
     grid-template-columns: 50% 25% 25%;
     height: 30%;
     gap: 10px;
+    margin-top: 20px; /* Add margin to prevent touching first-section */
 }
 
 .first-section {
     display: grid;
     grid-template-columns: 80% 20%;
-    height: 70%;
+    height: 60%;
+    
 }
 
 
@@ -195,14 +197,16 @@ table th {
 }
 
 .reviews-section {
+    z-index: 1;
         position: relative;
+        flex-grow: 1;
+         overflow-y: auto;
     width: 100%; /* 2/8th of the screen */
-    bottom: 0;
+    height: auto;
     left: 0;
-    height: 50vh;
     background-color: #ffffff;
-   
-
+    margin-top: 20px;
+    padding-bottom: 40px; 
 }
 
 
@@ -212,12 +216,16 @@ table th {
 }
 
 .review-form{
-    position: relative;
+     z-index: 1;
+        position: relative;
+        flex-grow: 1;
+         overflow-y: auto;
     width: 100%; /* 2/8th of the screen */
-    bottom: 0;
+    height: auto;
     left: 0;
-    height: 50vh;
     background-color: #ffffff;
+    margin-top: 20px;
+    padding-bottom: 40px; 
     
 }
 .review-item {
@@ -227,11 +235,16 @@ table th {
     padding: 15px;
     border-bottom: 1px solid #ddd;
     margin-bottom: 20px;
+            flex-grow: 1;
+         overflow-y: auto;
 }
 
 /* Review content (name, rating, text) */
 .review-content {
     max-width: 100%;
+            flex-grow: 1;
+         overflow-y: auto;
+         margin: auto;
 }
 
 /* Reviewer name */
@@ -494,3 +507,132 @@ table th {
 .filter-section button:hover {
     background-color: #0056b3;
 }
+
+footer {
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
+    padding: 20px 0;
+    text-align: center;
+    font-size: 14px;
+    width: 100%;
+    margin-top: auto; /* Ensure footer stays at the bottom */
+    z-index: 1000;
+}
+
+footer .footer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    flex-wrap: wrap;
+}
+
+footer .footer-section {
+    flex: 1;
+    margin: 10px 20px;
+}
+
+footer .footer-section h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #fff;
+}
+
+footer .footer-section p,
+footer .footer-section ul {
+    font-size: 14px;
+    color: #ddd;
+}
+
+footer .footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .footer-section ul li {
+    margin-bottom: 10px;
+}
+
+footer .footer-section ul li a {
+    color: #ddd;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer .footer-section ul li a:hover {
+    color: #007bff;
+}
+
+footer .social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #fff;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+footer .social-icons a:hover {
+    color: #007bff;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: #222;
+    color: #bbb;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .first-section {
+        grid-template-columns: 100%;
+        height: 55%;
+    }
+
+    .second-section {
+        grid-template-columns: 100%;
+        height: 30%;
+    }
+
+    .third-section {
+        height: 15%;
+    }
+
+    footer .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    footer .footer-section {
+        margin: 20px 0;
+    }
+}
+.third-section {
+    height: 10%; /* Adjusted height for footer */
+    background-color: #333; /* Dark footer background */
+    color: #fff;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    gap: 10px;
+     margin-top: 20px; /* Add margin to prevent touching second-section */
+}
+
+/* Footer content styling */
+.third-section p {
+    margin: 0;
+    font-size: 14px;
+    color: #bbb;
+}
+
+

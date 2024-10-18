@@ -284,7 +284,7 @@ function displayReviews(reviews, stationCode) {
 
     // Clear previous content
     reviewsContainer.innerHTML = '';
-    const spanx = document.createElement('div');
+    const spanx = document.getElementById("Reviews");
     spanx.innerHTML = ` <span id="clsr" class="close2" onclick="closeReviews()">&times;</span>`;
     if (reviews.length > 0) {
          const totalStars = reviews.reduce((sum, review) => sum + review.starRating, 0);
@@ -401,7 +401,7 @@ function plotBeachesOnMap(beaches) {
     });
     // Show the table container after plotting beaches
     document.getElementById('beachesTableContainer').classList.remove('hidden');
-    document.getElementById('Reviews').classList.remove('hidden');
+   // document.getElementById('Reviews').classList.remove('hidden');
 }
 
 
