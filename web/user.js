@@ -1,11 +1,37 @@
-document.addEventListener('DOMContentLoaded', initializeMap);
 
 let stcode;
+let userLat;
+let userLon;
+
 function openGoogleMaps(userLat, userLng, destinationLat, destinationLng) {
     const url = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${destinationLat},${destinationLng}&travelmode=driving`;
     window.open(url, '_blank');
 }
 
+function handleLocationSelection() {
+    const trackLocationRadio = document.getElementById('trackLocation');
+    const chooseOnMapRadio = document.getElementById('chooseOnMap');
+    const findBeachBtn = document.getElementById('findBeachBtn');
+    const mapContainer = document.getElementById('map2');
+
+    if (trackLocationRadio.checked) {
+        // Hide the map container if tracking is selected
+        mapContainer.style.display = 'block';
+        mapContainer.classList.remove("hidden");  // Show the map first
+        // Track user location via geolocation
+        initializeMap();
+        document.getElementById('findBeachBtn').disabled = false;
+        //getLocation();
+    } else if (chooseOnMapRadio.checked) {
+        // Show the map for manual location selection
+        mapContainer.style.display = 'block';
+        mapContainer.classList.remove("hidden");  // Show the map first
+
+        // Initialize or display your map
+        initializeMap();
+        document.getElementById('findBeachBtn').disabled = false;
+    }
+}
 
 function createBeachPopup(beachName, destinationLat, destinationLng) {
     // Content for the popup with a Find Path button
@@ -38,16 +64,10 @@ function findPathToBeach(destinationLat, destinationLng) {
     });
 }
 
-// Example of adding a popup to a map marker (Leaflet example)
-
-
-
 document.getElementById('sortBtn').addEventListener('click', () => {
     const sortOption = document.getElementById('sortOption').value;
-
     // Fetch table rows data
     let tableRows = Array.from(document.querySelectorAll('#beachesTable tbody tr'));
-
     // Sort rows based on the selected option
     if (sortOption === 'cleanliness_asc') {
         tableRows.sort((a, b) => parseFloat(a.cells[1].innerText) - parseFloat(b.cells[1].innerText));
@@ -58,7 +78,6 @@ document.getElementById('sortBtn').addEventListener('click', () => {
     } else if (sortOption === 'distance_desc') {
         tableRows.sort((a, b) => parseFloat(b.cells[2].innerText) - parseFloat(a.cells[2].innerText));
     }
-
     // Clear the table body and append the sorted rows
     const beachesTableBody = document.querySelector('#beachesTable tbody');
     beachesTableBody.innerHTML = '';
@@ -86,41 +105,63 @@ function updateCheckboxValue(checkbox) {
 }
 
 let map2, currentMarkers = [];
-// Initialize the Leaflet map
+// Initialize the Leaflet filter
 function initializeMap() {
-    
+    if (map2) {
+        console.log("Map is already initialized.");
+        return; // Exit the function if map2 is already defined
+    }
     map2 = L.map('map2').setView([35.0, 25.0], 7); // Set to a default location (Crete)
     // Add OpenStreetMap tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 100,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map2);  
-}
+    }).addTo(map2);
 
+    map2.on('click', function (e) {
+        userLat = e.latlng.lat;
+        userLon = e.latlng.lng;
+        clearMarkers();
+    });
+}
 // Function to get user's geolocation
 function getLocation() {
+    const mapDiv = document.getElementById("map2");
+    mapDiv.classList.remove("hidden");  // Show the map first
+    const f = document.getElementById("filterMenu");
+    f.classList.remove('hidden');  // Show the map first
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
     } else {
         alert("Geolocation is not supported by this browser.");
     }
-}
 
-let userLat;
-let userLon;
+    setTimeout(() => {
+        initializeMap();  // Delay the map initialization slightly to ensure the element is visible
+
+    }, 1);  // Add a small delay to allow the div to be fully visible before initializing
+}
 // Function to show position
 function showPosition(position) {
     toggleFilterMenu();
-    userLat = position.coords.latitude;
-    userLon = position.coords.longitude;
-    console.log(userLat, userLon);
 
-    // Prepare data to send to the server
-    const data = `lat=${userLat}&lon=${userLon}`;
-    console.log("Requesting beaches with data:", data);
-    clearMarkers();
-    sendRequest(data);
-
+    const trackLocationRadio = document.getElementById('trackLocation');
+    const chooseOnMapRadio = document.getElementById('chooseOnMap');
+    if (trackLocationRadio.checked) {
+        userLat = position.coords.latitude;
+        userLon = position.coords.longitude;
+        console.log(userLat, userLon);
+        // Prepare data to send to the server
+        const data = `lat=${userLat}&lon=${userLon}`;
+        console.log("Requesting beaches with data:", data);
+        clearMarkers();
+        sendRequest(data);
+    } else if (chooseOnMapRadio.checked) {
+        const data = `lat=${userLat}&lon=${userLon}`;
+        console.log("Requesting beaches with data:", data);
+        clearMarkers();
+        sendRequest(data);
+    }
     // Send data using XMLHttpRequest
 }
 
@@ -182,47 +223,116 @@ function fetchReviews(stationCode) {
     xhr.send(); // Send the request
 }
 
+function createImageModal() {
+    // Check if the modal already exists to avoid duplication
+    if (document.getElementById("imageModal"))
+        return;
+
+    // Create the modal elements
+    const modal = document.createElement('div');
+    modal.id = "imageModal";
+    modal.className = "modal";
+    modal.style.display = "none";  // Initially hidden
+    modal.onclick = closeModal;    // Close when clicked outside the image
+
+    const closeBtn = document.createElement('span');
+    closeBtn.className = "close";
+    closeBtn.innerHTML = "&times;";
+    closeBtn.onclick = closeModal; // Close when clicking the 'x'
+
+    const modalImage = document.createElement('img');
+    modalImage.className = "modal-content";
+    modalImage.id = "modalImage";
+
+    // Append the modal structure
+    modal.appendChild(closeBtn);
+    modal.appendChild(modalImage);
+
+    // Append the modal to the body
+    document.body.appendChild(modal);
+}
+
+// Function to open the modal and display the full-size image
+function openModal(imageSrc) {
+    createImageModal();  // Ensure the modal exists
+
+    const modal = document.getElementById("imageModal");
+    const modalImage = document.getElementById("modalImage");
+
+    if (modal && modalImage) {
+        modal.style.display = "block";
+        modalImage.src = imageSrc;
+    } else {
+        console.error("Modal elements not found.");
+    }
+}
+
+// Function to close the modal
+function closeModal() {
+    const modal = document.getElementById("imageModal");
+
+    if (modal) {
+        modal.style.display = "none";
+    } else {
+        console.error("Modal elements not found.");
+    }
+}
+
 
 function displayReviews(reviews, stationCode) {
     const reviewsContainer = document.getElementById("Reviews");
-    
+
     // Clear previous content
     reviewsContainer.innerHTML = '';
-
+    const spanx = document.createElement('div');
+    spanx.innerHTML = ` <span id="clsr" class="close2" onclick="closeReviews()">&times;</span>`;
     if (reviews.length > 0) {
-        // Create a list to display reviews
-        const reviewsList = document.createElement('ul'); // Create a new <ul> for reviews
-
+         const totalStars = reviews.reduce((sum, review) => sum + review.starRating, 0);
+        const averageRating = (totalStars / reviews.length).toFixed(1); // Round to one decimal place
+        
+        // Display average rating
+        const averageRatingDiv = document.createElement('div');
+        averageRatingDiv.classList.add('average-rating');
+        averageRatingDiv.innerHTML = `
+            <h4>Average Rating: <span class="average-score">${averageRating}</span></h4>
+        `;
+        reviewsContainer.appendChild(averageRatingDiv);
+        // Loop through each review and create the structure
         reviews.forEach(review => {
-            const listItem = document.createElement('li'); // Create a new <li> for each review
+            const reviewItem = document.createElement('div');
+            reviewItem.classList.add('review-item');
 
-            // Check for media and set the innerHTML accordingly
+            // Create review content (name, text, rating)
+            const reviewContent = document.createElement('div');
+            reviewContent.classList.add('review-content');
+            reviewContent.innerHTML = `
+                <h4 class="reviewer-name">${review.username}</h4>
+                <div class="rating">${'★'.repeat(review.starRating)}${'☆'.repeat(5 - review.starRating)}</div>
+                <p class="review-text">${review.reviewText}</p>
+            `;
+
+            // Append review content to review item
+            reviewItem.appendChild(reviewContent);
+
+            // Check if review has media (image) and add it
             if (review.media) {
-                listItem.innerHTML = `
-                    <img src="${review.media}" alt="Review Media" style="max-width: 720px; max-height: 720px; margin: 2px;">
-                    <div>
-                        <strong>${review.username}:</strong> <span>${review.reviewText}</span><br>
-                        <span>Rating: ${review.starRating}</span>
-                    </div>`;
-            } else {
-                listItem.innerHTML = `
-                    <span class="close" onclick="closeReviews()">&times;</span>
-                    <div>
-                        <strong>${review.username}:</strong> <span>${review.reviewText}</span><br>
-                        <span>Rating: ${review.starRating}</span>
-                    </div>`;
+                const reviewImage = document.createElement('div');
+                reviewImage.classList.add('review-image');
+                reviewImage.innerHTML = `<img src="${review.media}" alt="Review Media" style="max-width: 150px; border-radius: 8px; margin-left: 20px;" cursor: pointer;" onclick="openModal('${review.media}')">`;
+
+                // Append the image to review item
+                reviewItem.appendChild(reviewImage);
             }
 
-            // Append the current list item to the reviews list
-            reviewsList.appendChild(listItem);
+            // Append the review item to the reviews container
+            reviewsContainer.appendChild(reviewItem);
         });
-
-        // Append the reviews list to the container
-        reviewsContainer.appendChild(reviewsList);
+        reviewsContainer.appendChild(spanx);
     } else {
         reviewsContainer.innerHTML = '<p>No reviews available for this beach.</p>';
     }
 }
+
 
 
 function plotBeachesOnMap(beaches) {
@@ -266,12 +376,12 @@ function plotBeachesOnMap(beaches) {
         <div id="reviewForm-${stationCode}}" class="reviewForm hidden"></div>
         
     </div>`);
-        
+
         const distance = calculateDistance(userLat, userLon, lat, lon);
         const row = document.createElement('tr');
         const row2 = document.getElementById("Reviews");
-        
-       // row2.innerHTML = `<div id="reviewsContainer-${stationCode}" class="reviewsContainer hidden"></div>`;
+
+        // row2.innerHTML = `<div id="reviewsContainer-${stationCode}" class="reviewsContainer hidden"></div>`;
         row.innerHTML = `
             <td>${name}</td>
         
@@ -286,8 +396,8 @@ function plotBeachesOnMap(beaches) {
             <td>${ecoli}</td>
         `;
         beachesTableBody.appendChild(row);
-      //  rev.appendChild(row2);
-   // stcode = stationCode;
+        //  rev.appendChild(row2);
+        // stcode = stationCode;
     });
     // Show the table container after plotting beaches
     document.getElementById('beachesTableContainer').classList.remove('hidden');
@@ -346,10 +456,9 @@ function showError(error) {
     }
 }
 
-
 function toggleFilterMenu() {
-    const filterMenu = document.getElementById('filterMenu');
-    filterMenu.classList.toggle('hidden'); // Toggle hidden class
+    const filterMenu = document.getElementById("filterMenu");
+    filterMenu.classList.remove('hidden'); // Toggle hidden class
 }
 
 function applyFilter() {
@@ -364,11 +473,14 @@ function applyFilter() {
     const ecoli = document.getElementById('ecoliRange').value.toString();
     const intenterococci = document.getElementById('intenterococciRange').value.toString();
 
+    const limit = 25;
+    document.getElementById("beachesLimit").value = limit;
 
     const data = `lat=${userLat}&lon=${userLon}&year=${selectedYear}&month=${selectedMonth}&tar=${tar}&glass=${glass}&plastic=${plastic}&caoutchouc=${caoutchouc}&garbage=${garbage}&intenterococci=${intenterococci}&ecoli=${ecoli}`;
     console.log("Requesting beaches with data:", data);
     clearMarkers();
     sendRequest(data); // Reuse the sendRequest function
+
 }
 
 
@@ -376,8 +488,10 @@ function applyFilter() {
 // Event listener for "Find the Cleanest Beach" button
 document.getElementById('findBeachBtn').addEventListener('click', () => {
     getLocation();
-    document.getElementById('filterMenu').classList.remove('filter-section hidden');
-    document.getElementById('beachesTableContainer').classList.remove('hidden');
+    const limit = 25;
+    document.getElementById("beachesLimit").value = limit;
+    document.getElementById("filterMenu").classList.remove('hidden');
+    document.getElementById("beachesTableContainer").classList.remove('hidden');
 });
 
 // Event listener for "Apply Filter" button
@@ -394,21 +508,18 @@ function openReviewForm(beachName, lat, lon, stationCode) {
     currentBeachName = beachName;
     currentLat = lat;
     currentLon = lon;
-
     // Update modal content
     document.getElementById('modalBeachName').innerText = `Write a Review for ${beachName}`;
-     const stationCodeInput = document.getElementById('stCode');
-     stationCodeInput.value = stationCode;
-     console.log(stationCodeInput.value);
+    const stationCodeInput = document.getElementById('stCode');
+    stationCodeInput.value = stationCode;
+    console.log(stationCodeInput.value);
     if (!stationCodeInput) {
         console.error("stationCode element not found!");
         return; // Early exit if element is not found
     }
-
     // Show the modal
-     document.getElementById('Reviews').classList.add('hidden');
+    document.getElementById('Reviews').classList.add('hidden');
     document.getElementById('reviewModal').classList.remove('hidden');
-  
 }
 
 function closeReviewForm() {
@@ -416,7 +527,7 @@ function closeReviewForm() {
     document.getElementById('revv').reset(); // Reset the form
     document.getElementById('reviewModal').classList.add('hidden');
     // Hide the modal
-   
+
 }
 
 function closeReviews() {
@@ -424,10 +535,10 @@ function closeReviews() {
     //document.getElementById('revv').reset(); // Reset the form
     document.getElementById('Reviews').classList.add('hidden');
     // Hide the modal
-   
+
 }
 
-document.getElementById('reviewForm').addEventListener('submit', function(event) {
+document.getElementById('reviewForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the default form submission
 
     const formData = new FormData(this); // Use FormData to handle file upload
@@ -435,16 +546,16 @@ document.getElementById('reviewForm').addEventListener('submit', function(event)
     // Submit the form via AJAX (no need to send the username here)
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/SubmitRev', true); // Adjust to the correct server endpoint
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
-                 const jsonResponse = JSON.parse(xhr.responseText);
-                    console.log("Server response:", jsonResponse); // Log the response for debugging
+                const jsonResponse = JSON.parse(xhr.responseText);
+                console.log("Server response:", jsonResponse); // Log the response for debugging
                 alert('Review submitted successfully!');
                 closeReviewForm(); // Close the form on success
             } else {
                 const jsonResponse = JSON.parse(xhr.responseText);
-                    console.log("Server response:", jsonResponse); // Log the response for debugging
+                console.log("Server response:", jsonResponse); // Log the response for debugging
                 alert('Error submitting review. Please try again.');
             }
         }
@@ -452,6 +563,70 @@ document.getElementById('reviewForm').addEventListener('submit', function(event)
     xhr.send(formData);
 });
 
+document.getElementById("changePasswordForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
+    const oldPassword = document.getElementById("oldPassword").value;
+    const newPassword = document.getElementById("newPassword").value;
+    const confirmNewPassword = document.getElementById("confirmNewPassword").value;
+    // Check if new passwords match
+    if (newPassword !== confirmNewPassword) {
+        alert("New passwords do not match. Please try again.");
+        return;
+    }
+
+     const formData = new FormData(this); // Use FormData to handle file upload
+    console.log(formData);
+    // Submit the form via AJAX (no need to send the username here)
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/ChangePassword', true); // Adjust to the correct server endpoint
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const jsonResponse = JSON.parse(xhr.responseText);
+                console.log("Server response:", jsonResponse); // Log the response for debugging
+                alert('password submitted successfully!');
+                closeReviewForm(); // Close the form on success
+            } else {
+                const jsonResponse = JSON.parse(xhr.responseText);
+                console.log("Server response:", jsonResponse); // Log the response for debugging
+                alert('Error submitting password. Please try again.');
+            }
+        }
+    };
+    xhr.send(formData);
+});
+
+function onBeachLimitChange() {
+    var selectedLimit = document.getElementById("beachesLimit").value;
+    // Make an AJAX request to the servlet with the selected limit
+    const data = `lat=${userLat}&lon=${userLon}&limit=${selectedLimit}`;
+
+    clearMarkers();
+    // Plot the new beaches on the map
+    sendRequest(data);
+
+}
+
+function openSettings() {
+    document.getElementById('settingsModal').classList.remove('hidden');
+}
+
+// Function to close the settings modal
+function closeSettings() {
+    document.getElementById('settingsModal').classList.add('hidden');
+}
+
+// Open Change Password Modal
+function openChangePasswordModal() {
+    document.getElementById("changePasswordModal").classList.remove("hidden");
+}
+
+// Close Change Password Modal
+function closeChangePasswordModal() {
+    document.getElementById("changePasswordModal").classList.add("hidden");
+}
+
+// Handle Change Password Form Submission
 
 
 

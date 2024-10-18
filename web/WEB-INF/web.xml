@@ -72,6 +72,10 @@
         <servlet-name>GetReviewsServlet</servlet-name>
         <servlet-class>Servlets.GetReviewsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangePassword</servlet-name>
+        <servlet-class>Servlets.ChangePassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetCleanBeache</servlet-name>
         <url-pattern>/GetCleanBeache</url-pattern>
@@ -144,6 +148,10 @@
     <servlet-mapping>
         <servlet-name>GetReviewsServlet</servlet-name>
         <url-pattern>/GetReviewsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/ChangePassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

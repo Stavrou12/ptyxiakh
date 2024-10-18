@@ -10,75 +10,83 @@
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     </head>
     <body>
-
         <div class="layout-container">
-
             <header>
                 <div class="header_container">
                     <h1>Find the Cleanest Beaches</h1>
                     <p>Explore and filter beaches based on cleanliness, location, and more.</p>
                 </div>
+                <div class="settings-container">
+                <span class="gear-icon" onclick="openSettings()">&#9881;</span> <!-- Gear icon -->
+            </div>
             </header>
-
+            <h2>How would you like to select your location?</h2>
+            <!-- Option to track user's location -->
+            <div>
+                <input type="radio" id="trackLocation" name="locationOption" value="track" onchange="handleLocationSelection()">
+                <label for="trackLocation">Allow browser to track my location</label>
+            </div>
+            <!-- Option to choose location on the map -->
+            <div>
+                <input type="radio" id="chooseOnMap" name="locationOption" value="map" onchange="handleLocationSelection()">
+                <label for="chooseOnMap">Pick location on the map</label>
+            </div>
+            <!-- Your map will be initialized here (e.g., Leaflet or Google Maps) -->
             <div class="header">
                 <button id="findBeachBtn" class="btn-primary">Find the Cleanest Beach</button>
             </div>
-            
-        <div class="first-section">
-             <div id="map2" class="map-section"></div>
-             
-            <!-- Filter Menu -->
-            <div id="filterMenu" class="filter-section hidden">
-                <h3>Filter by</h3>
-                <label for="year">Select Year:</label>
-                <select id="year" name="year">
-                    <option value="2023">2023</option>
-                    <option value="2022">2022</option>
-                    <option value="2021">2021</option>
-                    <option value="2020">2020</option>
-                    <option value="2019">2019</option>
-                    <option value="2018">2018</option>
-                    <option value="2017">2017</option>
-                    <option value="2016">2016</option>                    
-                </select>
-                <label for="month">Select Month:</label>
-                <select id="month" name="month">
-                    <option value="maios_">May</option>
-                    <option value="ioynios_">June</option>
-                    <option value="ioylios_">July</option>
-                    <option value="aygoystos_">August</option>
-                    <option value="septemvrios_">September</option>
-                    <option value="oktovrios_">October</option>
-                </select> 
-                <div class="checkbox-group">
-                    <label for="tar">Tar:</label>
-                    <input type="checkbox" id="tar" name="tar" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Tar -->
-                    <label for="glass">Glass:</label>
-                    <input type="checkbox" id="glass" name="glass" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Glass -->
-                    <label for="plastic">Plastic:</label>
-                    <input type="checkbox" id="plastic" name="plastic" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Plastic -->
-                    <label for="caoutchouc">Caoutchouc:</label>
-                    <input type="checkbox" id="caoutchouc" name="caoutchouc" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Caoutchouc -->
-                    <label for="garbage">Garbage:</label>
-                    <input type="checkbox" id="garbage" name="garbage" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Garbage -->
-                    <label for="intenterococciRange">Select Intenterococci:</label>
-                    <div class="range-slider">
-                        <input type="range" id="intenterococciRange" name="intenterococci" min="0" max="100" value="0" oninput="updateIntenterococciValue(this.value)">
-                        <span id="intenterococciValue">0</span> / 100
+            <div class="first-section">
+                <div id="map2" class="map-section hidden"></div>
+                <!-- Filter Menu -->
+                <div id="filterMenu" class="filter-section hidden">
+                    <h3>Filter by</h3>
+                    <label for="year">Select Year:</label>
+                    <select id="year" name="year">
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>                    
+                    </select>
+                    <label for="month">Select Month:</label>
+                    <select id="month" name="month">
+                        <option value="maios_">May</option>
+                        <option value="ioynios_">June</option>
+                        <option value="ioylios_">July</option>
+                        <option value="aygoystos_">August</option>
+                        <option value="septemvrios_">September</option>
+                        <option value="oktovrios_">October</option>
+                    </select> 
+                    <div class="checkbox-group">
+                        <label for="tar">Tar:</label>
+                        <input type="checkbox" id="tar" name="tar" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Tar -->
+                        <label for="glass">Glass:</label>
+                        <input type="checkbox" id="glass" name="glass" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Glass -->
+                        <label for="plastic">Plastic:</label>
+                        <input type="checkbox" id="plastic" name="plastic" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Plastic -->
+                        <label for="caoutchouc">Caoutchouc:</label>
+                        <input type="checkbox" id="caoutchouc" name="caoutchouc" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Caoutchouc -->
+                        <label for="garbage">Garbage:</label>
+                        <input type="checkbox" id="garbage" name="garbage" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Garbage -->
+                        <label for="intenterococciRange">Select Intenterococci:</label>
+                        <div class="range-slider">
+                            <input type="range" id="intenterococciRange" name="intenterococci" min="0" max="100" value="0" oninput="updateIntenterococciValue(this.value)">
+                            <span id="intenterococciValue">0</span> / 100
+                        </div>
+                        <label for="ecoliRange">Select Ecoli:</label>
+                        <div class="range-slider">
+                            <input type="range" id="ecoliRange" name="ecoli" min="0" max="100" value="0" oninput="updateEcoliValue(this.value)">
+                            <span id="ecoliValue">0</span> / 100
+                        </div>
+                        <button id="filterBtn" class="btn-primary">Apply Filter</button>
                     </div>
-                    <label for="ecoliRange">Select Ecoli:</label>
-                    <div class="range-slider">
-                        <input type="range" id="ecoliRange" name="ecoli" min="0" max="100" value="0" oninput="updateEcoliValue(this.value)">
-                        <span id="ecoliValue">0</span> / 100
-                    </div>
-                    <button id="filterBtn" class="btn-primary">Apply Filter</button>
                 </div>
-            </div>
-            
-        </div>
-            <div class="second-section">
-               
 
+            </div>
+            <div class="second-section">
                 <div id="beachesTableContainer" class="table-section hidden">
                     <h2>List of Beaches</h2>
                     <label for="sortOption">Sort by:</label>
@@ -108,8 +116,15 @@
                             <!-- Rows will be populated dynamically -->
                         </tbody>
                     </table>
+                     <label for="beachesLimit">Number of Beaches to Display:</label>
+                     <select id="beachesLimit" name="beachesLimit" onchange="onBeachLimitChange()">
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="75">75</option>
+        <option value="100">100</option>
+        <option value="150">150</option>
+    </select>
                 </div>     
-              
                 <div id="reviewModal" class="review-form hidden">
                     <div class="modal-content">
                         <span class="close" onclick="closeReviewForm()">&times;</span>
@@ -120,16 +135,12 @@
                             <div>
                                 <input type="radio" id="rating1" name="star_rating" value="1" required>
                                 <label for="rating1">1</label>
-
                                 <input type="radio" id="rating2" name="star_rating" value="2">
                                 <label for="rating2">2</label>
-
                                 <input type="radio" id="rating3" name="star_rating" value="3">
                                 <label for="rating3">3</label>
-
                                 <input type="radio" id="rating4" name="star_rating" value="4">
                                 <label for="rating4">4</label>
-
                                 <input type="radio" id="rating5" name="star_rating" value="5">
                                 <label for="rating5">5</label>
                             </div>
@@ -139,24 +150,29 @@
                             <input type="hidden" id = "stCode" name="stCode" value="stationCodeFromJS">
                             <button type="submit">Submit Review</button>
                         </form>
-
                     </div>
-
                 </div> 
-
                 <div id="Reviews" class="reviews-section hidden">
-                    
+                    <span  id = "clsr" class="close" onclick="closeReviews()">&times;</span>
                 </div>  
-
             </div>
-            
+                    <div id="settingsModal" class="modal2 hidden">
+            <div class="modal2-content">
+                <span class="close" onclick="closeSettings()">&times;</span>
+                <h2>Change Password</h2>
+                <form id="changePasswordForm" action="ChangePassword" method="POST">
+                    <label for="oldPassword">Old Password:</label>
+                    <input type="password" id="oldPassword" name="oldPassword" required>
+                    <label for="newPassword">New Password:</label>
+                    <input type="password" id="newPassword" name="newPassword" required>
+                    <label for="confirmPassword">Confirm New Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <button type="submit">Change Password</button>
+                </form>
+            </div>
         </div>
-            <!-- Footer Section -->
-            <footer>
-                <div class="footer_container">
-                    <p>&copy; 2024 Clean Beaches Locator. All rights reserved.</p>
-                </div>
-            </footer>
-            <script src="user.js"></script>
+        </div>
+
+        <script src="user.js"></script>
     </body>
 </html>

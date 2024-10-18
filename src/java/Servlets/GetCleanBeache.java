@@ -30,6 +30,18 @@ public class GetCleanBeache extends HttpServlet {
         String garbageParam = request.getParameter("garbage");
          String intenterococciParam = request.getParameter("intenterococci");
         String ecoliParam = request.getParameter("ecoli");
+        
+        String limitParam = request.getParameter("limit");
+int limit = 25; // Default limit
+
+// Convert limit parameter to an integer, if provided
+if (limitParam != null && !limitParam.isEmpty()) {
+    try {
+        limit = Integer.parseInt(limitParam);
+    } catch (NumberFormatException e) {
+        System.out.println("Invalid limit value: " + limitParam);
+    }
+}
         int ecoli = 0;
     int intenterococci = 0;
         if (ecoliParam != null && !ecoliParam.isEmpty()) {
@@ -63,7 +75,7 @@ System.out.println("Caoutchouc: " + caoutchoucParam);
 System.out.println("Garbage: " + garbageParam);
 System.out.println("inte: " + intenterococciParam);
 System.out.println("ecoli: " + ecoliParam);
-
+System.out.println("limit: " + limit);
    
         double userLat = 0.0;
         double userLon = 0.0;
@@ -82,11 +94,11 @@ System.out.println("ecoli: " + ecoliParam);
 
             // If both year and month are provided, filter by them and the environmental factors
             if (yearParam != null && monthParam != null) {
-                cleanBeaches = getFilteredBeaches(ecoliParam,intenterococciParam,userLat, userLon, yearParam, monthParam, tarParam, glassParam, plasticParam, caoutchoucParam, garbageParam, response);
+                cleanBeaches = getFilteredBeaches(limit,ecoliParam,intenterococciParam,userLat, userLon, yearParam, monthParam, tarParam, glassParam, plasticParam, caoutchoucParam, garbageParam, response);
                 
             } else {
                 // Use the current month if no year and month are provided
-                cleanBeaches = getCleanBeaches(userLat, userLon, response);
+                cleanBeaches = getCleanBeaches(limit,userLat, userLon, response);
 
             }
             // Check if any beaches were found
@@ -106,7 +118,7 @@ System.out.println("ecoli: " + ecoliParam);
         }
     }
     // Method to filter beaches by year, month, and environmental factors
-    private ArrayList<Beach> getFilteredBeaches(String ecoli,String inter,double userLat, double userLon, String year, String month, String tar, String glass, String plastic, String caoutchouc, String garbage, HttpServletResponse response) throws SQLException, UnsupportedEncodingException, IOException {
+    private ArrayList<Beach> getFilteredBeaches(int limit,String ecoli,String inter,double userLat, double userLon, String year, String month, String tar, String glass, String plastic, String caoutchouc, String garbage, HttpServletResponse response) throws SQLException, UnsupportedEncodingException, IOException {
         ArrayList<Beach> cleanBeaches = new ArrayList<>();
         String result = month; // e.g., "maios_", "ioynios_", etc.
         System.out.println("month " +result);
@@ -132,7 +144,7 @@ System.out.println("ecoli: " + ecoliParam);
                     + "AND CAST(m.Ecoli AS INTEGER) >= ? "        // Add this line for Ecoli filter
                     + "AND CAST(m.Intenterococci AS INTEGER) >= ? " // Add this line for Intenterococci filter
                     + "ORDER BY cleanlinessScore ASC, distance ASC "
-                    + "LIMIT 20";
+                    + "LIMIT ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setDouble(1, userLat);
                 stmt.setDouble(2, userLon);
@@ -144,6 +156,7 @@ System.out.println("ecoli: " + ecoliParam);
                 stmt.setString(8, garbage);
                 stmt.setInt(9, ecoli2);
                 stmt.setInt(10,inter2);
+                stmt.setInt(11, limit);
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
                     String name = rs.getString("name");
@@ -176,7 +189,7 @@ System.out.println("ecoli: " + ecoliParam);
     }
 
     // Method to get clean beaches based on current month and environmental factors
-    private ArrayList<Beach> getCleanBeaches(double userLat, double userLon, HttpServletResponse response) throws SQLException, UnsupportedEncodingException, IOException {
+    private ArrayList<Beach> getCleanBeaches(int limit,double userLat, double userLon, HttpServletResponse response) throws SQLException, UnsupportedEncodingException, IOException {
         ArrayList<Beach> cleanBeaches = new ArrayList<>();
         LocalDate currentDate = LocalDate.now();
         int currentMonth = currentDate.getMonthValue();
@@ -196,11 +209,12 @@ System.out.println("ecoli: " + ecoliParam);
                     + "FROM " + result + "2023 m "
                     + "JOIN simeia_parakoloythisis_2019 sp ON m.StationCode = sp.code_1 "
                     + "ORDER BY cleanlinessScore ASC, distance ASC "
-                    + "LIMIT 20";
+                    + "LIMIT ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setDouble(1, userLat);
                 stmt.setDouble(2, userLon);
                 stmt.setDouble(3, userLat);
+                stmt.setInt(4, limit);
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
                      String stVal = rs.getString("stationcode");
