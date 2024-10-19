@@ -20,6 +20,7 @@ function handleLocationSelection() {
         mapContainer.classList.remove("hidden");  // Show the map first
         // Track user location via geolocation
         initializeMap();
+        map2.off('click', onMapClick);
         document.getElementById('findBeachBtn').disabled = false;
         //getLocation();
     } else if (chooseOnMapRadio.checked) {
@@ -29,8 +30,17 @@ function handleLocationSelection() {
 
         // Initialize or display your map
         initializeMap();
+            if(chooseOnMapRadio.checked){
+       map2.on('click', onMapClick);
+         }
         document.getElementById('findBeachBtn').disabled = false;
     }
+}
+
+function onMapClick(e) {
+    userLat = e.latlng.lat;
+    userLon = e.latlng.lng;
+    clearMarkers();
 }
 
 function createBeachPopup(beachName, destinationLat, destinationLng) {
@@ -107,22 +117,46 @@ function updateCheckboxValue(checkbox) {
 let map2, currentMarkers = [];
 // Initialize the Leaflet filter
 function initializeMap() {
+    const chooseOnMapRadio = document.getElementById('chooseOnMap');
     if (map2) {
         console.log("Map is already initialized.");
         return; // Exit the function if map2 is already defined
     }
+     map2 = L.map('map2').setView([35.0, 25.0], 7);
+    /*
     map2 = L.map('map2').setView([35.0, 25.0], 7); // Set to a default location (Crete)
     // Add OpenStreetMap tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 100,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map2);
-
-    map2.on('click', function (e) {
-        userLat = e.latlng.lat;
-        userLon = e.latlng.lng;
-        clearMarkers();
+     * 
+    
+     */
+    
+     const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 100,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
+
+    // Satellite view tile layer (e.g., from Esri)
+    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 19,
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
+
+    // Add OpenStreetMap layer to the map by default
+    osmLayer.addTo(map2);
+
+    // Add layer control to switch between OpenStreetMap and Satellite view
+    const baseLayers = {
+        "OpenStreetMap": osmLayer,
+        "Satellite": satelliteLayer
+    };
+
+    // Add layer control to the map
+    L.control.layers(baseLayers).addTo(map2);
+
 }
 // Function to get user's geolocation
 function getLocation() {
