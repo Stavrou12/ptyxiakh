@@ -3,6 +3,102 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
+// Fetch and display the data from the database
+function fetchData() {
+    $.ajax({
+        url: "GetSimeiaParakoloythisisDataServlet", // Your server endpoint to fetch data
+        method: "GET",
+        success: function (data) {
+            renderTable(data);
+        },
+        error: function (xhr, status, error) {
+            console.error("Failed to fetch data: ", error);
+        }
+    });
+}
+
+// Render data in a table format
+function renderTable(data) {
+    let tableHtml = `<table border="1">
+                        <tr>
+                            <th>X</th><th>Y</th><th>Name</th><th>Acth</th><th>Easting_</th><th>FID</th>
+                            <th>Field_1</th><th>Lat</th><th>Lon</th><th>Northing</th><th>Dhmos</th><th>Dhmot</th>
+                            <th>Code_1</th><th>Code</th><th>Description</th><th>Perifereia</th><th>Actions</th>
+                        </tr>`;
+
+    data.forEach((row, index) => {
+        tableHtml += `<tr data-id="${row.FID}">
+                        <td contenteditable="true">${row.X}</td>
+                        <td contenteditable="true">${row.Y}</td>
+                        <td contenteditable="true">${row.Name}</td>
+                        <td contenteditable="true">${row.acth}</td>
+                        <td contenteditable="true">${row.Easting_}</td>
+                        <td>${row.FID}</td>
+                        <td contenteditable="true">${row.Field_1}</td>
+                        <td contenteditable="true">${row.Lat}</td>
+                        <td contenteditable="true">${row.Lon}</td>
+                        <td contenteditable="true">${row.Northing}</td>
+                        <td contenteditable="true">${row.dhmos}</td>
+                        <td contenteditable="true">${row.dhmot}</td>
+                        <td contenteditable="true">${row.code_1}</td>
+                        <td contenteditable="true">${row.code}</td>
+                        <td contenteditable="true">${row.description}</td>
+                        <td contenteditable="true">${row.perifereia}</td>
+                        <td>
+                            <button onclick="updateRow(${index})">Update</button>
+                            <button style="display:none;" onclick="saveChanges(${row.FID}, ${index})">Save Changes</button>
+                        </td>
+                    </tr>`;
+    });
+    tableHtml += `</table>`;
+    document.getElementById("dataDisplayTable").innerHTML = tableHtml;
+}
+
+function updateRow(rowIndex) {
+    const row = document.querySelector(`#dataDisplayTable table tr:nth-child(${rowIndex + 2})`); // Row selector (1st row is header)
+    row.querySelectorAll("td[contenteditable='true']").forEach(cell => cell.style.backgroundColor = "#FFFFCC"); // Highlight editable cells
+    row.querySelector("button[onclick^='saveChanges']").style.display = "inline"; // Show Save Changes button
+}
+
+function saveChanges(FID, rowIndex) {
+    const row = document.querySelector(`#dataDisplayTable table tr:nth-child(${rowIndex + 2})`);
+    const updatedData = {
+        FID: FID,
+        X: row.cells[0].innerText,
+        Y: row.cells[1].innerText,
+        Name: row.cells[2].innerText,
+        acth: row.cells[3].innerText,
+        Easting_: row.cells[4].innerText,
+        Field_1: row.cells[6].innerText,
+        Lat: row.cells[7].innerText,
+        Lon: row.cells[8].innerText,
+        Northing: row.cells[9].innerText,
+        dhmos: row.cells[10].innerText,
+        dhmot: row.cells[11].innerText,
+        code_1: row.cells[12].innerText,
+        code: row.cells[13].innerText,
+        description: row.cells[14].innerText,
+        perifereia: row.cells[15].innerText
+    };
+    console.log(updatedData);
+    $.ajax({
+        url: "UpdateSimeiaParakoloythisisServlet", // Your server endpoint to update data
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(updatedData),
+        success: function (response) {
+           
+            fetchData(); // Refresh data to see updated values
+        },
+        error: function (xhr, status, error) {
+            
+            console.error("Failed to update data: ", error);
+        }
+    });
+}
+
+
+
 
 function showSection(sectionId) {
     // Hide all content sections
