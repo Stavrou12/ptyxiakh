@@ -259,6 +259,7 @@ table th {
     position: absolute;
     top: 20px;
     right: 20px;
+    z-index: 1002;
     cursor: pointer;
     font-size: 24px; /* Size of the gear icon */
 }
@@ -270,7 +271,7 @@ table th {
 /* Modal Styles */
 .modal2 {
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 1002; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -281,6 +282,7 @@ table th {
 
 .modal2-content {
     background-color: #fefefe;
+    z-index: 1002; /* Sit on top */
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;

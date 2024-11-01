@@ -206,7 +206,7 @@ System.out.println("limit: " + limit);
                     + "m.Tar, m.Glass, m.Plastic, m.Caoutchouc, m.Garbage, "
                     + "(6371 * acos(cos(radians(?)) * cos(radians(sp.Y)) * cos(radians(sp.X) - radians(?)) "
                     + "+ sin(radians(?)) * sin(radians(sp.Y)))) AS distance "
-                    + "FROM " + result + "2023 m "
+                    + "FROM " + result + "2024 m "
                     + "JOIN simeia_parakoloythisis_2019 sp ON m.StationCode = sp.code_1 "
                     + "ORDER BY cleanlinessScore ASC, distance ASC "
                     + "LIMIT ?";

@@ -10,283 +10,249 @@
         <script src="admin.js"></script>
     </head>
     <body onload="showSection('uploadForm2')">
-          <header class="logo-header">
+        <header class="logo-header">
             <h1>Beach Discover</h1> <!-- Replace with your logo if needed -->
-                        <nav>
+            <nav>
                 <ul>
                     <li><a href="#" id="logout" onclick="logout();">Logout</a></li>
-                   
+
                 </ul>
             </nav>
         </header>
-          <div class="container">
-        
-        <!-- Sidebar Menu -->
-        <aside class="sidebar">
-            <h2>Services</h2>
-            <ul>
-                <li><a href="#" onclick="showSection('uploadForm2')">Upload File</a></li>
-                <li><a href="#" onclick="showSection('deleteu')">Delete User</a></li>
-                <li><a href="#" onclick="showSection('dForm')">View Beach Data</a></li>
-                <li><a href="#" onclick="showSection('dForm-2')">Remove Table</a></li>
-                <li><a href="#" onclick="showSection('dForm-2-beach')">Remove Beach</a></li>
-                <li><a href="#" onclick="showSection('secform')">Insert New Beach</a></li>
-            </ul>
-        </aside>
-        
-        <div class="main-content">
-        <header>
-            
+        <div class="container">
 
-        </header>
-             <section id="uploadForm2" class="content-section">
-            <div class="container">
-                <h2>Upload New File</h2>
-                <p>Please upload the CSV file containing beach data.</p>
-                <form id="uploadForm" enctype="multipart/form-data" action="uploadServlet" method="post">
-                    <div class="file-upload">
-                        <input type="file" id="fileInput" name="file" accept=".csv" required>
-                        <label for="fileInput" class="file-upload-label"><i class="fas fa-upload"></i> Choose a file</label>
+            <!-- Sidebar Menu -->
+            <aside class="sidebar">
+                <h2 style="color: white">Services</h2>
+                <ul>
+                    <li><a href="#" onclick="showSection('uploadForm2')">Upload File</a></li>
+                    <li><a href="#" onclick="showSection('deleteu')">Delete User</a></li>
+                    <li><a href="#" onclick="showSection('dForm')">View Beach Data</a></li>
+                    <li><a href="#" onclick="showSection('dForm-2')">Remove Table</a></li>
+                    <li><a href="#" onclick="showSection('dForm-2-beach')">Remove Beach</a></li>
+                    <li><a href="#" onclick="showSection('secform')">Insert New Beach</a></li>
+                    <li><a href="#" onclick="showSection('Parform')">Manage Simeia Parakoloythisis</a></li>
+                </ul>
+            </aside>
+
+            <div class="main-content">
+                <section id="uploadForm2" class="content-section">
+                    <div class="container">
+                        <h2>Upload New File</h2>
+                        <p>Please upload the CSV file containing beach data.</p>
+                        <form id="uploadForm" enctype="multipart/form-data" action="uploadServlet" method="post">
+                            <div class="file-upload">
+                                <input type="file" id="fileInput" name="file" accept=".csv" required>
+                                <label for="fileInput" class="file-upload-label"><i class="fas fa-upload"></i> Choose a file</label>
+                            </div>
+                            <button type="submit" class="btn">Upload File</button>
+                        </form>
                     </div>
-                    <button type="submit" class="btn">Upload File</button>
-                </form>
+                </section>
+                
+                <section id="deleteu" class="content-section">
+                    <button class="btn" id="delete" onclick="deleteuser1()">Διαγραφη χρηστη</button>
+                    <div id="delete-page" style="display: none;">
+                        <form id ="apolyshform" onsubmit='DELETEPOST();return false;'>
+                            <div id="user1" style="display: none;">
+                                <label for="USER1">ID OF User:</label>
+                                <input type="number" id="USER1"  name="userid">
+                            </div>
+                            <div id="butdel" style="display: none;" onclick="deleteuser()" >
+                                <button class="btn" id="delemp" type="submit">Πατηστε για την διαγραφή</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="responseMessage"></div>
+                    <span id="pinakas"></span>
+                </section>
+
+                <section class="data-selection content-section" id="dForm" style="display:none;">
+                    <h2>Select Beach Data to View</h2>
+                    <form id="dataForm" action="GetBeachDataServlet" method="get"> <!-- Change action to your servlet -->
+                        <div class="selection-container">
+                            <label for="year-select">Year:</label>
+                            <select id="year-select" name="year-select"> <!-- Add name attribute -->
+                                <option value="" disabled selected>Select a year</option> 
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                            </select>    
+                            <label for="month-select">Month:</label>
+                            <select id="month-select" name="month-select"> <!-- Add name attribute -->
+                                <option value="" disabled selected>Select a month</option> 
+                                <option value="maios_">May</option>
+                                <option value="ioynios_">June</option>
+                                <option value="ioylios_">July</option>
+                                <option value="aygoystos_">August</option>
+                                <option value="septemvrios_">September</option>
+                                <option value="oktovrios_">October</option>
+                            </select>
+                            <button type="submit" id="butdata">View Beach Data</button> <!-- Ensure it's a submit button -->
+                        </div>
+                    </form>
+                    <div id="beachDataDisplay" class="data-display"></div>
+                    <div id="nameoftable" style="display: none;"></div>
+                    <button id="saveButton" style="display: none;" class="btn">Save All Updates</button> 
+                </section>
+
+                <section class="data-selection content-section" id = "dForm-2" style="display:none;">
+                    <h2>Select Table to Remove</h2>
+                    <form id="dataForm-2" action="RemoveTable" method="get"> <!-- Change action to your servlet -->
+                        <div class="selection-container-2">
+                            <label for="year-select-2">Year:</label>
+                            <select id="year-select-2" name="year-select-2"> <!-- Add name attribute -->
+                                <option value="" disabled selected>Select a year</option> 
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                            </select>    
+                            <label for="month-select-2">Month:</label>
+                            <select id="month-select-2" name="month-select-2"> <!-- Add name attribute -->
+                                <option value="" disabled selected>Select a month</option> 
+                                <option value="maios_">May</option>
+                                <option value="ioynios_">June</option>
+                                <option value="ioylios_">July</option>
+                                <option value="aygoystos_">August</option>
+                                <option value="septemvrios_">September</option>
+                                <option value="oktovrios_">October</option>
+                            </select>
+                            <button type="submit" id="butdata-2">Remove the Table</button> <!-- Ensure it's a submit button -->
+                        </div>
+                    </form>
+                    <div id="tablermmes" class="data-display"></div>
+                </section>
+
+                <section class="data-selection content-section" id ="dForm-2-beach" style="display:none;">  
+                    <h2>Select Table base on GRSTATION to Remove</h2>
+                    <form id="dataForm-2-beach" action="RemoveBeach" method="get"> <!-- Change action to your servlet -->
+                        <div class="selection-container-2-beach">
+                            <label for="year-select-2-beach">Year:</label>
+                            <select id="year-select-2-beach" name="year-select-2-beach"> <!-- Add name attribute -->
+                                <option value="" disabled selected>Select a year</option> 
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                            </select>    
+                            <label for="month-select-2-beach">Month:</label>
+                            <select id="month-select-2-beach" name="month-select-2-beach"> <!-- Add name attribute -->
+                                <option value="" disabled selected>Select a month</option> 
+                                <option value="maios_">May</option>
+                                <option value="ioynios_">June</option>
+                                <option value="ioylios_">July</option>
+                                <option value="aygoystos_">August</option>
+                                <option value="septemvrios_">September</option>
+                                <option value="oktovrios_">October</option>
+                            </select>
+                            <label for="code">code of beach:</label>
+                            <input type="text" id="code"  name="code">
+                            <button type="submit" id="butdata-2-beach">Remove the beach from Table</button> <!-- Ensure it's a submit button -->
+                        </div>
+                    </form>
+                    <div id="tablermmesbeach" class="data-display"></div>
+                </section>
+                
+                <section class="data-selection content-section" id ="secform" style="display: none;">
+                    <button id ="btform" class="btn">Insert new beach</button>
+                    <h2>Insert Data</h2>
+                    <form id="dataForm-3" method="post">
+                        <label for="Perunit">Perunit:</label>
+                        <input type="text" id="Perunit" name="Perunit" maxlength="9" required><br><br>
+                        <label for="Municipal">Municipal:</label>
+                        <input type="text" id="Municipal" name="Municipal" maxlength="19" required><br><br>
+                        <label for="Coast">Coast:</label>
+                        <input type="text" id="Coast" name="Coast" maxlength="49" required><br><br>
+                        <label for="StationCode">Station Code:</label>
+                        <input type="text" id="StationCode" name="StationCode" maxlength="16" required><br><br>
+                        <label for="Description">Description:</label>
+                        <input type="text" id="Description" name="Description" maxlength="59" required><br><br>
+                        <label for="SampleDate">Sample Date:</label>
+                        <input type="text" id="SampleDate" name="SampleDate" maxlength="9" required><br><br>
+                        <label for="SampleTime">Sample Time:</label>
+                        <input type="text" id="SampleTime" name="SampleTime" maxlength="11" required><br><br>
+                        <label for="DeliveryDate">Delivery Date:</label>
+                        <input type="text" id="DeliveryDate" name="DeliveryDate" maxlength="9" required><br><br>
+                        <label for="AnalyseDate">Analyse Date:</label>
+                        <input type="text" id="AnalyseDate" name="AnalyseDate" maxlength="9" required><br><br>
+                        <label for="Intenterococci">Intenterococci:</label>
+                        <input type="number" id="Intenterococci" name="Intenterococci" max="99" required><br><br>
+                        <label for="Ecoli">E. coli:</label>
+                        <input type="number" id="Ecoli" name="Ecoli" max="99" required><br><br>
+                        <label for="Tar">Tar:</label>
+                        <input type="text" id="Tar" name="Tar" maxlength="3"><br><br>
+                        <label for="Glass">Glass:</label>
+                        <input type="text" id="Glass" name="Glass" maxlength="3"><br><br>
+                        <label for="Plastic">Plastic:</label>
+                        <input type="text" id="Plastic" name="Plastic" maxlength="3"><br><br>
+                        <label for="Caoutchouc">Caoutchouc:</label>
+                        <input type="text" id="Caoutchouc" name="Caoutchouc" maxlength="3"><br><br>
+                        <label for="Garbage">Garbage:</label>
+                        <input type="text" id="Garbage" name="Garbage" maxlength="3"><br><br>
+                        <label for="Wave">Wave:</label>
+                        <input type="text" id="Wave" name="Wave" maxlength="16"><br><br>
+                        <label for="Airdirection">Air Direction:</label>
+                        <input type="text" id="Airdirection" name="Airdirection" maxlength="6"><br><br>
+                        <label for="Rainfail">Rainfall:</label>
+                        <input type="text" id="Rainfail" name="Rainfail" maxlength="3"><br><br>
+                        <label for="Yestrainfail">Yesterday's Rainfall:</label>
+                        <input type="text" id="Yestrainfail" name="Yestrainfail" maxlength="3"><br><br>
+                        <label for="month-select-3">Month:</label>
+                        <select id="month-select-3" name="month-select-3" required>
+                            <option value="" disabled selected>Select a month</option> 
+                            <option value="maios_">May</option>
+                            <option value="ioynios_">June</option>
+                            <option value="ioylios_">July</option>
+                            <option value="aygoystos_">August</option>
+                            <option value="septemvrios_">September</option>
+                            <option value="oktovrios_">October</option>
+                        </select><br><br>
+
+                        <label for="year-select-3">Year:</label>
+                        <select id="year-select-3" name="year-select-3" required>
+                            <option value="" disabled selected>Select a year</option> 
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                        </select><br><br>
+                        <button class="btn" type="submit">Submit</button>
+                    </form>
+                    <div id="response"></div>
+                </section>
             </div>
-          </section>
-            
-            <section id="deleteu" class="content-section" style="display:none;">
-            <button class="btn" id="delete" onclick="deleteuser1()">Διαγραφη χρηστη</button>
-            <div id="delete-page" style="display: none;">
-                <form id ="apolyshform" onsubmit='DELETEPOST();return false;'>
-                    <div id="user1" style="display: none;">
-                        <label for="USER1">ID OF User:</label>
-                        <input type="number" id="USER1"  name="userid">
-                    </div>
-                    <div id="butdel" style="display: none;" onclick="deleteuser()" >
-                        <button class="btn" id="delemp" type="submit">Πατηστε για την διαγραφή</button>
-                    </div>
-                </form>
-            </div>
-            <div id="responseMessage"></div>
-            <span id="pinakas"></span>
-            </section>
-            
-            
-            <section class="data-selection content-section" id="dForm" style="display:none;">
-                <h2>Select Beach Data to View</h2>
-                <form id="dataForm" action="GetBeachDataServlet" method="get"> <!-- Change action to your servlet -->
-                    <div class="selection-container">
-                        <label for="year-select">Year:</label>
-                        <select id="year-select" name="year-select"> <!-- Add name attribute -->
-                            <option value="" disabled selected>Select a year</option> 
-                            <option value="2016">2016</option>
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                        </select>    
-                        <label for="month-select">Month:</label>
-                        <select id="month-select" name="month-select"> <!-- Add name attribute -->
-                            <option value="" disabled selected>Select a month</option> 
-                            <option value="maios_">May</option>
-                            <option value="ioynios_">June</option>
-                            <option value="ioylios_">July</option>
-                            <option value="aygoystos_">August</option>
-                            <option value="septemvrios_">September</option>
-                            <option value="oktovrios_">October</option>
-                        </select>
-                        <button type="submit" id="butdata">View Beach Data</button> <!-- Ensure it's a submit button -->
-                    </div>
-                </form>
-            
-
-            <div id="beachDataDisplay" class="data-display"></div>
-            <div id="nameoftable" style="display: none;"></div>
-            <button id="saveButton" style="display: none;" class="btn">Save All Updates</button> 
-            </section>
-            
-            <section class="data-selection content-section" id = "dForm-2" style="display:none;">
-                <h2>Select Table to Remove</h2>
-                <form id="dataForm-2" action="RemoveTable" method="get"> <!-- Change action to your servlet -->
-                    <div class="selection-container-2">
-                        <label for="year-select-2">Year:</label>
-                        <select id="year-select-2" name="year-select-2"> <!-- Add name attribute -->
-                            <option value="" disabled selected>Select a year</option> 
-                            <option value="2016">2016</option>
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                        </select>    
-                        <label for="month-select-2">Month:</label>
-                        <select id="month-select-2" name="month-select-2"> <!-- Add name attribute -->
-                            <option value="" disabled selected>Select a month</option> 
-                            <option value="maios_">May</option>
-                            <option value="ioynios_">June</option>
-                            <option value="ioylios_">July</option>
-                            <option value="aygoystos_">August</option>
-                            <option value="septemvrios_">September</option>
-                            <option value="oktovrios_">October</option>
-                        </select>
-                        <button type="submit" id="butdata-2">Remove the Table</button> <!-- Ensure it's a submit button -->
-                    </div>
-                </form>
-                <div id="tablermmes" class="data-display"></div>
-            </section>
-
-
-            <section class="data-selection content-section" id ="dForm-2-beach" style="display:none;">  
-                <h2>Select Table base on GRSTATION to Remove</h2>
-                <form id="dataForm-2-beach" action="RemoveBeach" method="get"> <!-- Change action to your servlet -->
-                    <div class="selection-container-2-beach">
-                        <label for="year-select-2-beach">Year:</label>
-                        <select id="year-select-2-beach" name="year-select-2-beach"> <!-- Add name attribute -->
-                            <option value="" disabled selected>Select a year</option> 
-                            <option value="2016">2016</option>
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                        </select>    
-                        <label for="month-select-2-beach">Month:</label>
-                        <select id="month-select-2-beach" name="month-select-2-beach"> <!-- Add name attribute -->
-                            <option value="" disabled selected>Select a month</option> 
-                            <option value="maios_">May</option>
-                            <option value="ioynios_">June</option>
-                            <option value="ioylios_">July</option>
-                            <option value="aygoystos_">August</option>
-                            <option value="septemvrios_">September</option>
-                            <option value="oktovrios_">October</option>
-                        </select>
-                        <label for="code">code of beach:</label>
-                        <input type="text" id="code"  name="code">
-                        <button type="submit" id="butdata-2-beach">Remove the beach from Table</button> <!-- Ensure it's a submit button -->
-                    </div>
-                </form>
-                <div id="tablermmesbeach" class="data-display"></div>
-            </section>
-
-
-
-
-            <section class="data-selection  content-section" id ="secform" style="display: none;">
-            <button id ="btform" class="btn">Insert new beach</button>
-            
-                <h2>Insert Data</h2>
-                <form id="dataForm-3" method="post">
-                    <label for="Perunit">Perunit:</label>
-                    <input type="text" id="Perunit" name="Perunit" maxlength="9" required><br><br>
-
-                    <label for="Municipal">Municipal:</label>
-                    <input type="text" id="Municipal" name="Municipal" maxlength="19" required><br><br>
-
-                    <label for="Coast">Coast:</label>
-                    <input type="text" id="Coast" name="Coast" maxlength="49" required><br><br>
-
-                    <label for="StationCode">Station Code:</label>
-                    <input type="text" id="StationCode" name="StationCode" maxlength="16" required><br><br>
-
-                    <label for="Description">Description:</label>
-                    <input type="text" id="Description" name="Description" maxlength="59" required><br><br>
-
-                    <label for="SampleDate">Sample Date:</label>
-                    <input type="text" id="SampleDate" name="SampleDate" maxlength="9" required><br><br>
-
-                    <label for="SampleTime">Sample Time:</label>
-                    <input type="text" id="SampleTime" name="SampleTime" maxlength="11" required><br><br>
-
-                    <label for="DeliveryDate">Delivery Date:</label>
-                    <input type="text" id="DeliveryDate" name="DeliveryDate" maxlength="9" required><br><br>
-
-                    <label for="AnalyseDate">Analyse Date:</label>
-                    <input type="text" id="AnalyseDate" name="AnalyseDate" maxlength="9" required><br><br>
-
-                    <label for="Intenterococci">Intenterococci:</label>
-                    <input type="number" id="Intenterococci" name="Intenterococci" max="99" required><br><br>
-
-                    <label for="Ecoli">E. coli:</label>
-                    <input type="number" id="Ecoli" name="Ecoli" max="99" required><br><br>
-
-                    <label for="Tar">Tar:</label>
-                    <input type="text" id="Tar" name="Tar" maxlength="3"><br><br>
-
-                    <label for="Glass">Glass:</label>
-                    <input type="text" id="Glass" name="Glass" maxlength="3"><br><br>
-
-                    <label for="Plastic">Plastic:</label>
-                    <input type="text" id="Plastic" name="Plastic" maxlength="3"><br><br>
-
-                    <label for="Caoutchouc">Caoutchouc:</label>
-                    <input type="text" id="Caoutchouc" name="Caoutchouc" maxlength="3"><br><br>
-
-                    <label for="Garbage">Garbage:</label>
-                    <input type="text" id="Garbage" name="Garbage" maxlength="3"><br><br>
-
-                    <label for="Wave">Wave:</label>
-                    <input type="text" id="Wave" name="Wave" maxlength="16"><br><br>
-
-                    <label for="Airdirection">Air Direction:</label>
-                    <input type="text" id="Airdirection" name="Airdirection" maxlength="6"><br><br>
-
-                    <label for="Rainfail">Rainfall:</label>
-                    <input type="text" id="Rainfail" name="Rainfail" maxlength="3"><br><br>
-
-                    <label for="Yestrainfail">Yesterday's Rainfall:</label>
-                    <input type="text" id="Yestrainfail" name="Yestrainfail" maxlength="3"><br><br>
-
-                    <label for="month-select-3">Month:</label>
-                    <select id="month-select-3" name="month-select-3" required>
-                        <option value="" disabled selected>Select a month</option> 
-                        <option value="maios_">May</option>
-                        <option value="ioynios_">June</option>
-                        <option value="ioylios_">July</option>
-                        <option value="aygoystos_">August</option>
-                        <option value="septemvrios_">September</option>
-                        <option value="oktovrios_">October</option>
-                    </select><br><br>
-
-                    <label for="year-select-3">Year:</label>
-                    <select id="year-select-3" name="year-select-3" required>
-                        <option value="" disabled selected>Select a year</option> 
-                        <option value="2016">2016</option>
-                        <option value="2017">2017</option>
-                        <option value="2018">2018</option>
-                        <option value="2019">2019</option>
-                        <option value="2020">2020</option>
-                        <option value="2021">2021</option>
-                        <option value="2022">2022</option>
-                        <option value="2023">2023</option>
-                        <option value="2024">2024</option>
-                    </select><br><br>
-
-                    <button class="btn" type="submit">Submit</button>
-                </form>
-
-                <div id="response"></div>
-
-            </section>
-         </div>
-          </div>
-        <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2024 Beach Discover. All rights reserved.</p>
-            <ul class="footer-links">
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
         </div>
-    </footer>
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2024 Beach Discover. All rights reserved.</p>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </footer>
     </body>
 </html>
