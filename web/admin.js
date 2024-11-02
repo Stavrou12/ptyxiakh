@@ -3,6 +3,47 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
+ function showAddForm() {
+        document.getElementById('addLocationForm').style.display = 'block';
+    }
+
+
+    // Function to handle form submission with AJAX
+    
+        
+        
+        
+function deleteLocation() {
+        const code1 = document.getElementById('code_1').value;
+
+        if (!confirm(`Are you sure you want to delete the beach location with code ${code1}?`)) {
+            return false; // Stop form submission if not confirmed
+        }
+
+        // Prepare AJAX request
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "DeleteLocationServlet", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        // Handle the server's response
+        xhr.onload = function () {
+            const responseDiv = document.getElementById('deleteResponse');
+            if (xhr.status === 200) {
+                responseDiv.textContent = xhr.responseText;
+                responseDiv.style.color = "green";
+            } else {
+                responseDiv.textContent = "An error occurred while deleting the beach location.";
+                responseDiv.style.color = "red";
+            }
+        };
+
+        // Send request with the code_1 parameter
+        xhr.send("code_1=" + encodeURIComponent(code1));
+
+        // Prevent the form from submitting the traditional way
+        return false;
+    }
+    
 // Fetch and display the data from the database
 function fetchData() {
     $.ajax({
@@ -111,9 +152,29 @@ function showSection(sectionId) {
     document.getElementById(sectionId).style.display = 'block';
 }
 
+   
 
 $(document).ready(function () {
 
+    $('#dataForm-4').on('submit', function (event) {
+        event.preventDefault();  // Prevent default form submission
+        // Get form data
+        var formData = $(this).serialize();
+
+        // Send form data to backend (servlet)
+        $.ajax({
+            url: 'addLocationServlet', // Adjust this URL to match your servlet
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                $('#response').html('<p>Data inserted successfully!</p>');
+            },
+            error: function (xhr, status, error) {
+                $('#response').html('<p>Error: ' + error + '</p>');
+            }
+        });
+    });
+    
     document.getElementById("btform").addEventListener("click", function () {
         var newDiv = document.getElementById("secform");
         newDiv.style.display = "block";  // Make the div visible
@@ -130,10 +191,10 @@ $(document).ready(function () {
             type: 'POST',
             data: formData,
             success: function (response) {
-                $('#response').html('<p>Data inserted successfully!</p>');
+                $('#addResponse').html('<p>Data inserted successfully!</p>');
             },
             error: function (xhr, status, error) {
-                $('#response').html('<p>Error: ' + error + '</p>');
+                $('#addResponse').html('<p>Error: ' + error + '</p>');
             }
         });
     });
@@ -423,7 +484,43 @@ function logout() {
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send();
 }
+document.getElementById('uploadLocationForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the default form submission
 
+    const fileInput = document.getElementById('fileInput2');
+    const file = fileInput.files[0];
+
+    // Check if a file is selected
+    if (!file) {
+        alert('Please select a file to upload.');
+        return;
+    }
+
+    // Create a FormData object to hold the file
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // Create an XMLHttpRequest to send the file
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'uploadLocationServlet', true);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            alert('File uploaded successfully!');
+            // Optionally, refresh the page or redirect
+            // location.reload();
+        } else {
+            alert('File upload failed. Please try again.');
+        }
+    };
+
+    xhr.onerror = function () {
+        alert('An error occurred while uploading the file.');
+    };
+
+    // Send the file data
+    xhr.send(formData);
+});
 
 document.getElementById('uploadForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the default form submission

@@ -54,6 +54,77 @@
     <h2>Manage Simeia Parakoloythisis</h2>
     <button class="btn" onclick="fetchData()">View Data</button>
     <div id="dataDisplayTable" class="data-display"></div>
+    <div class="container">
+                        <h2>Upload New File for locations</h2>
+                        <p>Please upload the CSV file containing beach data.</p>
+                        <form id="uploadLocationForm" enctype="multipart/form-data" action="uploadLocationServlet" method="post">
+                            <div class="file-upload">
+                                <input type="file" id="fileInput2" name="file2" accept=".csv">
+                                <label for="fileInput2" class="file-upload-label"><i class="fas fa-upload"></i> Choose a file</label>
+                            </div>
+                            <button type="submit" class="btn">Upload File</button>
+                        </form>
+                    </div>
+    
+        <div class="container">
+    <h2>Delete Beach Location Info</h2>
+    <p>Enter the <strong>code_1</strong> of the beach to delete all information related to that location.</p>
+    <form id="deleteLocationForm" onsubmit="return deleteLocation();">
+        <label for="code_1">Beach Code:</label>
+        <input type="text" id="code_1" name="code_1" required>
+        <button type="submit" class="btn">Delete Beach Location Info</button>
+    </form>
+    <!-- Div for displaying response message -->
+    <div id="deleteResponse" class="response-message"></div>
+    
+    
+
+     <button type="button" class="btn" onclick="showAddForm()">Add Beach Location Info</button>
+
+    <!-- Add Beach Location Form (initially hidden) -->
+    <div id="addLocationForm" style="display: none;">
+        <h3>Enter New Beach Location Information</h3>
+        <form id="dataForm-4" method="post">
+            <label for="X">X:</label>
+            <input type="text" id="X" name="X" required>
+            <label for="Y">Y:</label>
+            <input type="text" id="Y" name="Y" required>
+            <label for="Name">Name:</label>
+            <input type="text" id="Name" name="Name" required>
+            <label for="acth">Acth:</label>
+            <input type="text" id="acth" name="acth" required>
+            <label for="Easting_">Easting:</label>
+            <input type="text" id="Easting_" name="Easting_" required>
+            <label for="Field_1">Field_1:</label>
+            <input type="text" id="Field_1" name="Field_1" required>
+            <label for="Lat">Latitude:</label>
+            <input type="text" id="Lat" name="Lat" required>
+            <label for="Lon">Longitude:</label>
+            <input type="text" id="Lon" name="Lon" required>
+            <label for="Northing">Northing:</label>
+            <input type="text" id="Northing" name="Northing" required>
+            <label for="dhmos">Dhmos:</label>
+            <input type="text" id="dhmos" name="dhmos" required>
+               <label for="dhmot">Dhmot:</label>
+            <input type="text" id="dhmot" name="dhmot" required>
+            <label for="code_1">Code 1:</label>
+            <input type="text" id="code_1" name="code_1" required>
+            <label for="code">Code:</label>
+            <input type="text" id="code" name="code" required>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description">
+            <label for="perifereia">Perifereia:</label>
+            <input type="text" id="perifereia" name="perifereia">
+
+            <button class="btn" type="submit">Submit</button>
+            
+        </form>
+            <div id="addResponse" class="response-message"></div>
+    </div>
+
+    <!-- Div for displaying response message after adding location -->
+
+</div>
 </section>
                 
                 <section id="deleteu" class="content-section">

@@ -84,6 +84,18 @@
         <servlet-name>UpdateSimeiaParakoloythisisServlet</servlet-name>
         <servlet-class>Servlets.UpdateSimeiaParakoloythisisServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadLocationServlet</servlet-name>
+        <servlet-class>Servlets.UploadLocationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteLocationServlet</servlet-name>
+        <servlet-class>Servlets.DeleteLocationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addLocationServlet</servlet-name>
+        <servlet-class>Servlets.addLocationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetCleanBeache</servlet-name>
         <url-pattern>/GetCleanBeache</url-pattern>
@@ -168,6 +180,18 @@
     <servlet-mapping>
         <servlet-name>UpdateSimeiaParakoloythisisServlet</servlet-name>
         <url-pattern>/UpdateSimeiaParakoloythisisServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadLocationServlet</servlet-name>
+        <url-pattern>/UploadLocationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteLocationServlet</servlet-name>
+        <url-pattern>/DeleteLocationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addLocationServlet</servlet-name>
+        <url-pattern>/addLocationServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
