@@ -77,10 +77,11 @@
     <!-- Div for displaying response message -->
     <div id="deleteResponse" class="response-message"></div>
     
-    
+        </div>
 
      <button type="button" class="btn" onclick="showAddForm()">Add Beach Location Info</button>
-
+    
+     <div class="container">
     <!-- Add Beach Location Form (initially hidden) -->
     <div id="addLocationForm" style="display: none;">
         <h3>Enter New Beach Location Information</h3>
@@ -125,6 +126,14 @@
     <!-- Div for displaying response message after adding location -->
 
 </div>
+     
+     <div class="container">
+                    <h2>Remove Table</h2>
+                    <form id="dataForm-5" action="RemoveLocationTable" method="get"> <!-- Change action to your servlet -->
+                    <button type="submit" id="butdata-5" class ="btn">Remove the Locations Table</button> <!-- Ensure it's a submit button -->
+                    </form>
+                    <div id="mes5" class="data-display"></div>
+                </div>
 </section>
                 
                 <section id="deleteu" class="content-section">

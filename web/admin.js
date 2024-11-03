@@ -6,13 +6,7 @@
  function showAddForm() {
         document.getElementById('addLocationForm').style.display = 'block';
     }
-
-
-    // Function to handle form submission with AJAX
     
-        
-        
-        
 function deleteLocation() {
         const code1 = document.getElementById('code_1').value;
 
@@ -171,6 +165,23 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 $('#response').html('<p>Error: ' + error + '</p>');
+            }
+        });
+    });
+    
+    $('#dataForm-5').on('submit', function (event) {
+        event.preventDefault();  // Prevent default form submission
+        // Get form data
+
+        // Send form data to backend (servlet)
+        $.ajax({
+            url: 'RemoveLocationTable', // Adjust this URL to match your servlet
+            type: 'GET',
+            success: function (response) {
+                $('#mes5').html('<p>table was deleted!</p>');
+            },
+            error: function (xhr, status, error) {
+                $('#mes5').html('<p>Error: ' + error + '</p>');
             }
         });
     });
