@@ -3,6 +3,21 @@ let stcode;
 let userLat;
 let userLon;
 
+function logout() {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.location.href = "./index.html";
+        } else if (xhr.status !== 200) {
+            alert('Request failed. Returned status of ' + xhr.status);
+        }
+    };
+    xhr.open('POST', 'servlet_Logout');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send();
+}
+
+
 function openGoogleMaps(userLat, userLng, destinationLat, destinationLng) {
     const url = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${destinationLat},${destinationLng}&travelmode=driving`;
     window.open(url, '_blank');
@@ -30,17 +45,39 @@ function handleLocationSelection() {
 
         // Initialize or display your map
         initializeMap();
-            if(chooseOnMapRadio.checked){
-       map2.on('click', onMapClick);
-         }
+        if (chooseOnMapRadio.checked) {
+            map2.on('click', onMapClick);
+        }
         document.getElementById('findBeachBtn').disabled = false;
     }
 }
-
+let currentMarker = null;
 function onMapClick(e) {
     userLat = e.latlng.lat;
     userLon = e.latlng.lng;
     clearMarkers();
+
+    // Create a new red marker at the clicked position
+    const redIcon = L.icon({
+        iconUrl: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', // URL for a red marker icon
+        iconSize: [32, 32], // Size of the icon
+        iconAnchor: [16, 32] // Anchor point of the icon
+    });
+    if (currentMarker) {
+        map2.removeLayer(currentMarker);
+        map2.removeLayer(L.icon(redIcon));
+        currentMarker = null;
+
+    }
+
+    // Add a new marker at the clicked location
+    currentMarker = L.marker([userLat, userLon], {icon: redIcon})
+            .addTo(map2)
+            .bindPopup(`Selected Position: ${userLat.toFixed(5)}, ${userLon.toFixed(5)}`)
+            .openPopup();
+
+    // Optionally, add a popup to show coordinates
+    userMarker.bindPopup(`Selected Position: ${userLat.toFixed(5)}, ${userLon.toFixed(5)}`).openPopup();
 }
 
 function createBeachPopup(beachName, destinationLat, destinationLng) {
@@ -122,19 +159,19 @@ function initializeMap() {
         console.log("Map is already initialized.");
         return; // Exit the function if map2 is already defined
     }
-     map2 = L.map('map2').setView([35.0, 25.0], 7);
+    map2 = L.map('map2').setView([35.0, 25.0], 7);
     /*
-    map2 = L.map('map2').setView([35.0, 25.0], 7); // Set to a default location (Crete)
-    // Add OpenStreetMap tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 100,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map2);
+     map2 = L.map('map2').setView([35.0, 25.0], 7); // Set to a default location (Crete)
+     // Add OpenStreetMap tile layer
+     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+     maxZoom: 100,
+     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+     }).addTo(map2);
      * 
-    
+     
      */
-    
-     const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 100,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
@@ -245,6 +282,7 @@ function fetchReviews(stationCode) {
                 const reviews = JSON.parse(xhr.responseText);
                 console.log(reviews);
                 displayReviews(reviews, stationCode); // Call the function to display reviews
+                 openReviewsModal();
             } else {
                 // Handle errors
                 console.error('Request failed:', xhr.status, xhr.statusText);
@@ -314,16 +352,13 @@ function closeModal() {
 
 
 function displayReviews(reviews, stationCode) {
-    const reviewsContainer = document.getElementById("Reviews");
+    const reviewsContainer = document.getElementById("allreviews");
 
     // Clear previous content
     reviewsContainer.innerHTML = '';
-    const spanx = document.getElementById("Reviews");
-    spanx.innerHTML = ` <span id="clsr" class="close2" onclick="closeReviews()">&times;</span>`;
     if (reviews.length > 0) {
-         const totalStars = reviews.reduce((sum, review) => sum + review.starRating, 0);
+        const totalStars = reviews.reduce((sum, review) => sum + review.starRating, 0);
         const averageRating = (totalStars / reviews.length).toFixed(1); // Round to one decimal place
-        
         // Display average rating
         const averageRatingDiv = document.createElement('div');
         averageRatingDiv.classList.add('average-rating');
@@ -357,17 +392,21 @@ function displayReviews(reviews, stationCode) {
                 // Append the image to review item
                 reviewItem.appendChild(reviewImage);
             }
-
-            // Append the review item to the reviews container
             reviewsContainer.appendChild(reviewItem);
         });
-        reviewsContainer.appendChild(spanx);
     } else {
         reviewsContainer.innerHTML = '<p>No reviews available for this beach.</p>';
     }
 }
 
 
+function openContactForm() {
+    document.getElementById("contactModal").classList.add("active");
+}
+
+function closeContactForm() {
+    document.getElementById("contactModal").classList.remove("active");
+}
 
 function plotBeachesOnMap(beaches) {
 
@@ -435,7 +474,7 @@ function plotBeachesOnMap(beaches) {
     });
     // Show the table container after plotting beaches
     document.getElementById('beachesTableContainer').classList.remove('hidden');
-   // document.getElementById('Reviews').classList.remove('hidden');
+    // document.getElementById('Reviews').classList.remove('hidden');
 }
 
 
@@ -554,23 +593,65 @@ function openReviewForm(beachName, lat, lon, stationCode) {
     // Show the modal
     document.getElementById('Reviews').classList.add('hidden');
     document.getElementById('reviewModal').classList.remove('hidden');
+   document.getElementById('reviewModal').style.display = 'block';
 }
 
 function closeReviewForm() {
     // Clear the form
     document.getElementById('revv').reset(); // Reset the form
+     document.getElementById('reviewModal').style.display = 'none';
     document.getElementById('reviewModal').classList.add('hidden');
     // Hide the modal
 
 }
 
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+    }
+}
+
+function openReviewsModal() {
+    // Show the reviews modal
+    document.getElementById('Reviews').classList.remove('hidden');
+    document.getElementById('reviewModal').classList.add('hidden');
+
+    document.getElementById('Reviews').style.display = 'block';
+}
+
 function closeReviews() {
-    // Clear the form
-    //document.getElementById('revv').reset(); // Reset the form
+
     document.getElementById('Reviews').classList.add('hidden');
-    // Hide the modal
+     document.getElementById('Reviews').style.display = 'none';
 
 }
+
+document.getElementById('contactForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the default form submission
+    const formData = new FormData(this); // Use FormData to handle file upload
+    
+    for (const [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+}
+    // Submit the form via AJAX (no need to send the username here)
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/PTYXIAKH/ContactServlet', true); // Adjust to the correct server endpoint
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const jsonResponse = JSON.parse(xhr.responseText);
+                console.log("Server response:", jsonResponse); // Log the response for debugging
+                alert('message submitted successfully!');
+            } else {
+                const jsonResponse = JSON.parse(xhr.responseText);
+                console.log("Server response:", jsonResponse); // Log the response for debugging
+                alert('Error submitting message. Please try again.');
+            }
+        }
+    };
+    xhr.send(formData);
+});
+
 
 document.getElementById('reviewForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the default form submission
@@ -597,7 +678,7 @@ document.getElementById('reviewForm').addEventListener('submit', function (event
     xhr.send(formData);
 });
 
-document.getElementById("changePasswordForm").addEventListener("submit", function(event) {
+document.getElementById("changePasswordForm").addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent default form submission
     const oldPassword = document.getElementById("oldPassword").value;
     const newPassword = document.getElementById("newPassword").value;
@@ -608,7 +689,7 @@ document.getElementById("changePasswordForm").addEventListener("submit", functio
         return;
     }
 
-     const formData = new FormData(this); // Use FormData to handle file upload
+    const formData = new FormData(this); // Use FormData to handle file upload
     console.log(formData);
     // Submit the form via AJAX (no need to send the username here)
     const xhr = new XMLHttpRequest();
@@ -659,8 +740,5 @@ function openChangePasswordModal() {
 function closeChangePasswordModal() {
     document.getElementById("changePasswordModal").classList.add("hidden");
 }
-
-// Handle Change Password Form Submission
-
 
 

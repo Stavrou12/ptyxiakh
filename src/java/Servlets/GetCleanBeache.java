@@ -261,9 +261,12 @@ System.out.println("limit: " + limit);
                 return "septemvrios_";
             case 10:
                 return "oktovrios_"; // default to August for fallback
+             default:
+        // Determine which month (5 or 10) is closer to the input month
+                 return Math.abs(month - 5) < Math.abs(month - 10) ? "maios_" : "oktovrios_";
            
     }
-        return null;
+       
 }
     
 }

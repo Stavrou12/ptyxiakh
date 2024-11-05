@@ -100,6 +100,10 @@
         <servlet-name>RemoveLocationTable</servlet-name>
         <servlet-class>Servlets.RemoveLocationTable</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ContactServlet</servlet-name>
+        <servlet-class>Servlets.ContactServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetCleanBeache</servlet-name>
         <url-pattern>/GetCleanBeache</url-pattern>
@@ -200,6 +204,10 @@
     <servlet-mapping>
         <servlet-name>RemoveLocationTable</servlet-name>
         <url-pattern>/RemoveLocationTable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ContactServlet</servlet-name>
+        <url-pattern>/ContactServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

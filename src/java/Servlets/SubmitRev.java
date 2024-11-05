@@ -155,27 +155,7 @@ request.setCharacterEncoding("UTF-8");
         response.getWriter().write("{\"error\": \"Star rating is required\"}");
         return;
     }
-    
-    /*
-    Part filePart = request.getPart("media"); // Retrieves the media file
-    String mediaFilePath = null;
 
-    // Check if media was uploaded
-    if (filePart != null && filePart.getSize() > 0) {
-        // Define where the file will be stored
-        String uploadPath = getServletContext().getRealPath("") + "uploads";
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdir(); // Create directory if not exists
-        }
-
-        // Get file name and save it
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        mediaFilePath = uploadPath + File.separator + fileName;
-        filePart.write(mediaFilePath); // Save file on server
-    }
-    
-    */
      Part filePart = request.getPart("media"); // Retrieves the media file
      InputStream mediaStream = null;
 

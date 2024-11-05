@@ -172,7 +172,9 @@ $(document).ready(function () {
     $('#dataForm-5').on('submit', function (event) {
         event.preventDefault();  // Prevent default form submission
         // Get form data
-
+    let confirmDelete = confirm("Are you sure you want to remove the table?");
+        
+        if (confirmDelete) {
         // Send form data to backend (servlet)
         $.ajax({
             url: 'RemoveLocationTable', // Adjust this URL to match your servlet
@@ -184,6 +186,9 @@ $(document).ready(function () {
                 $('#mes5').html('<p>Error: ' + error + '</p>');
             }
         });
+    }else{
+         $('#mes5').html('<p>Table deletion was canceled.</p>');
+    }
     });
     
     document.getElementById("btform").addEventListener("click", function () {
