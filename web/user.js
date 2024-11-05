@@ -282,7 +282,7 @@ function fetchReviews(stationCode) {
                 const reviews = JSON.parse(xhr.responseText);
                 console.log(reviews);
                 displayReviews(reviews, stationCode); // Call the function to display reviews
-                 openReviewsModal();
+                openReviewsModal();
             } else {
                 // Handle errors
                 console.error('Request failed:', xhr.status, xhr.statusText);
@@ -445,7 +445,7 @@ function plotBeachesOnMap(beaches) {
         <button onclick="findPathToBeach(${lat}, ${lon})" class="btn-primary">Find Path</button>
         <button onclick="openReviewForm('${name}', ${lat}, ${lon},'${stationCode}')" class="btn-primary">Write a Review</button>
         <button onclick="fetchReviews('${stationCode}')" class="btn-primary">See Reviews</button>
-        
+        <button onclick="openBooking(${lat}, ${lon})" class="btn-primary">Find your place to stay</button>
         <div id="reviewForm-${stationCode}}" class="reviewForm hidden"></div>
         
     </div>`);
@@ -477,6 +477,11 @@ function plotBeachesOnMap(beaches) {
     // document.getElementById('Reviews').classList.remove('hidden');
 }
 
+function openBooking(lat, lon) {
+    // Booking.com search URL format using latitude and longitude
+    const bookingUrl = `https://www.booking.com/searchresults.html?ss=&ssne=&ssne_untouched=&dest_type=&checkin_year=&checkin_month=&checkin_monthday=&checkout_year=&checkout_month=&checkout_monthday=&group_adults=2&no_rooms=1&latitude=${lat}&longitude=${lon}&order=distance_from_landmark`;
+    window.open(bookingUrl, '_blank');
+}
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
     const R = 6371; // Radius of the Earth in km
@@ -593,19 +598,19 @@ function openReviewForm(beachName, lat, lon, stationCode) {
     // Show the modal
     document.getElementById('Reviews').classList.add('hidden');
     document.getElementById('reviewModal').classList.remove('hidden');
-   document.getElementById('reviewModal').style.display = 'block';
+    document.getElementById('reviewModal').style.display = 'block';
 }
 
 function closeReviewForm() {
     // Clear the form
     document.getElementById('revv').reset(); // Reset the form
-     document.getElementById('reviewModal').style.display = 'none';
+    document.getElementById('reviewModal').style.display = 'none';
     document.getElementById('reviewModal').classList.add('hidden');
     // Hide the modal
 
 }
 
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target.classList.contains('modal')) {
         event.target.style.display = 'none';
     }
@@ -622,17 +627,17 @@ function openReviewsModal() {
 function closeReviews() {
 
     document.getElementById('Reviews').classList.add('hidden');
-     document.getElementById('Reviews').style.display = 'none';
+    document.getElementById('Reviews').style.display = 'none';
 
 }
 
 document.getElementById('contactForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the default form submission
     const formData = new FormData(this); // Use FormData to handle file upload
-    
+
     for (const [key, value] of formData.entries()) {
-    console.log(`${key}: ${value}`);
-}
+        console.log(`${key}: ${value}`);
+    }
     // Submit the form via AJAX (no need to send the username here)
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/PTYXIAKH/ContactServlet', true); // Adjust to the correct server endpoint
