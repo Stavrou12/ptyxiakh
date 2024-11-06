@@ -1,15 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beach-Discover</title>
+    <title>Welcome to Beach-Discover</title>
     <link rel="stylesheet" href="new.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="login.js"></script>
-</head>
+        <script>
+        // Function to show the login modal
+        function showLoginModal() {
+            document.getElementById("loginModal").style.display = "block";
+            
+        }
+        
+        // Function to hide the login modal
+        function closeLoginModal() {
+            document.getElementById("loginModal").style.display = "none";
+        }
+        
+        function openContactForm() {
+    document.getElementById("md").classList.add("active");
+    document.getElementById("md").style.display="block";
+}
 
+function closeContactForm() {
+    document.getElementById("md").classList.remove("active");
+    document.getElementById("md").style.display = "none";
+}
+    </script>
+</head>
 <body>
     <header>
         <div class="logo">
@@ -19,42 +39,87 @@
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Login</a></li>
+                <li><a href="#" onclick="openContactForm()">Contact</a></li>
+                 <li><a href="#" onclick="showLoginModal()">Login</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
+        <!-- Hero Section for Guest Welcome -->
         <section class="hero-section">
             <h2>Welcome to Beach-Discover</h2>
-            <p>Explore the cleanest beaches around you with real-time water quality data.</p>
+            <p>Discover the pristine beaches of Crete with insights on water quality and accessibility.</p>
+            
 
-            <div class="login-container">
-                <form id="myForm" action="#" onsubmit="login_post(event); return false;">
-                    <div class="form-group">
-                        <label for="username">Username:</label>
-                        <input id="username" name="username" type="text" placeholder="Please enter" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input id="password" name="password" type="password" placeholder="Please enter" required>
-                    </div>
-                    <button class="login-button" id="login-butt" type="submit">Login</button>
-                    <div id="msg-login" class="message"></div>
-                </form>
-
-                <div class="button-group">
-                    <button class="reg-button" id="eggr" onclick="gotoform()">Sign up for free</button>
-                    <button class="guest-button" id="guest-butt" onclick="redirectToHome()">Είσοδος ως επισκέπτης</button>
-                </div>
-            </div>
+        </section>
+         <section class="features-section">
+            <h3>Why Choose Beach-Discover?</h3>
+            <p>Our platform provides:</p>
+            <ul>
+                <li>Real-time water quality updates</li>
+                <li>Comprehensive reviews and ratings</li>
+                <li>Maps and directions to hidden gems</li>
+                <li>Community recommendations</li>
+            </ul>
+        </section>
+        <!-- New Section for External Links on Cretan Beaches -->
+        <section class="beach-resources">
+            <h3>Explore More Cretan Beaches</h3>
+            <ul>
+                <li><a href="https://www.cretanbeaches.com/" target="_blank">Cretan Beaches</a></li>
+                <li><a href="https://www.visitgreece.gr/islands/crete/" target="_blank">Visit Greece - Crete</a></li>
+                <li><a href="https://www.lonelyplanet.com/greece/crete" target="_blank">Lonely Planet - Crete</a></li>
+                <li><a href="https://www.creteinfo.gr/beaches/" target="_blank">Crete Info Beaches</a></li>
+                <li><a href="https://www.greeka.com/crete/" target="_blank">Greeka - Crete Guide</a></li>
+            </ul>
         </section>
     </main>
 
+    <!-- Footer Section -->
     <footer>
         <p>&copy; 2024 Beach-Discover. All rights reserved.</p>
     </footer>
-</body>
+    
+     <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2>Login to Beach-Discover</h2>
+            <form id="myForm" action="#" onsubmit="login_post(event); return false;">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input id="username" name="username" type="text" placeholder="Please enter" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input id="password" name="password" type="password" placeholder="Please enter" required>
+                </div>
+                <button class="login-button" id="login-butt" type="submit">Login</button>
+                <div id="msg-login" class="message"></div>
+            </form>
+             <div class="button-group">
+                    <button class="reg-button" id="eggr" onclick="gotoform()">Sign up for free</button>
+                  
+                </div>
+        </div>
+    </div>
+    
+     <div id="md" class="modal">
+          <div class="modal-content">
+        <span class="close" onclick="closeContactForm()">&times;</span>
+        <h2>Contact Us</h2>
+        <form id="contactForm" action="ContactServlet" method="POST" enctype="multipart/form-data">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
 
+            <label for="contactEmail">Email:</label>
+            <input type="email" id="contactEmail" name="contactEmail" required>
+
+            <label for="contactMessage">Message:</label>
+            <textarea id="contactMessage" name="contactMessage" rows="4" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+          </div>
+    </div>
+</body>
 </html>
