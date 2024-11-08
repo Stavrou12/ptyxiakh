@@ -197,6 +197,7 @@ function initializeMap() {
 }
 // Function to get user's geolocation
 function getLocation() {
+    
     const mapDiv = document.getElementById("map2");
     mapDiv.classList.remove("hidden");  // Show the map first
     const f = document.getElementById("filterMenu");
@@ -208,9 +209,11 @@ function getLocation() {
     }
 
     setTimeout(() => {
-        initializeMap();  // Delay the map initialization slightly to ensure the element is visible
+        initializeMap(); 
+     
 
     }, 1);  // Add a small delay to allow the div to be fully visible before initializing
+    
 }
 // Function to show position
 function showPosition(position) {
@@ -537,6 +540,7 @@ function showError(error) {
 function toggleFilterMenu() {
     const filterMenu = document.getElementById("filterMenu");
     filterMenu.classList.remove('hidden'); // Toggle hidden class
+   
 }
 
 function applyFilter() {
