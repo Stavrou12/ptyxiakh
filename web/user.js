@@ -2,7 +2,6 @@
 let stcode;
 let userLat;
 let userLon;
-
 function logout() {
     var xhr = new XMLHttpRequest();
     xhr.onload = function () {
@@ -28,13 +27,13 @@ function handleLocationSelection() {
     const chooseOnMapRadio = document.getElementById('chooseOnMap');
     const findBeachBtn = document.getElementById('findBeachBtn');
     const mapContainer = document.getElementById('map2');
-
+    
     if (trackLocationRadio.checked) {
         // Hide the map container if tracking is selected
         mapContainer.style.display = 'block';
         mapContainer.classList.remove("hidden");  // Show the map first
         // Track user location via geolocation
-        initializeMap();
+        //initializeMap();
         map2.off('click', onMapClick);
         document.getElementById('findBeachBtn').disabled = false;
         //getLocation();
@@ -44,7 +43,7 @@ function handleLocationSelection() {
         mapContainer.classList.remove("hidden");  // Show the map first
 
         // Initialize or display your map
-        initializeMap();
+       // initializeMap();
         if (chooseOnMapRadio.checked) {
             map2.on('click', onMapClick);
         }
@@ -150,7 +149,9 @@ function updateCheckboxValue(checkbox) {
         checkbox.value = "NO"; // Set to NO if unchecked
     }
 }
-
+document.addEventListener("DOMContentLoaded", function() {
+    initializeMap();
+});
 let map2, currentMarkers = [];
 // Initialize the Leaflet filter
 function initializeMap() {
@@ -160,17 +161,6 @@ function initializeMap() {
         return; // Exit the function if map2 is already defined
     }
     map2 = L.map('map2').setView([35.0, 25.0], 7);
-    /*
-     map2 = L.map('map2').setView([35.0, 25.0], 7); // Set to a default location (Crete)
-     // Add OpenStreetMap tile layer
-     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-     maxZoom: 100,
-     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-     }).addTo(map2);
-     * 
-     
-     */
-
     const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 100,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -197,27 +187,32 @@ function initializeMap() {
 }
 // Function to get user's geolocation
 function getLocation() {
-    
+     const mapDiv2 = document.getElementById("mapc");
+    mapDiv2.classList.remove("hidden");  // Show the map first
     const mapDiv = document.getElementById("map2");
     mapDiv.classList.remove("hidden");  // Show the map first
-    const f = document.getElementById("filterMenu");
-    f.classList.remove('hidden');  // Show the map first
+    //  const f2 = document.getElementById("fmenu");
+   // f2.classList.remove('hidden');  // Show the map first
+  //  const f = document.getElementById("filterMenu");
+   // f.classList.remove('hidden');  // Show the map first
+    
+  
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
     } else {
         alert("Geolocation is not supported by this browser.");
     }
-
+/*
     setTimeout(() => {
         initializeMap(); 
      
 
-    }, 1);  // Add a small delay to allow the div to be fully visible before initializing
+    }, 1);  // Add a small delay to allow the div to be fully visible before initializing  */
     
 }
 // Function to show position
 function showPosition(position) {
-    toggleFilterMenu();
+   // toggleFilterMenu();
 
     const trackLocationRadio = document.getElementById('trackLocation');
     const chooseOnMapRadio = document.getElementById('chooseOnMap');
@@ -475,6 +470,7 @@ function plotBeachesOnMap(beaches) {
         //  rev.appendChild(row2);
         // stcode = stationCode;
     });
+    document.getElementById('tabc').classList.remove('hidden');
     // Show the table container after plotting beaches
     document.getElementById('beachesTableContainer').classList.remove('hidden');
     // document.getElementById('Reviews').classList.remove('hidden');
@@ -538,6 +534,10 @@ function showError(error) {
 }
 
 function toggleFilterMenu() {
+    
+    const f2 = document.getElementById("fmenu");
+    f2.classList.remove('hidden');  // Show the map first
+    f2.classList.toggle("active");
     const filterMenu = document.getElementById("filterMenu");
     filterMenu.classList.remove('hidden'); // Toggle hidden class
    
@@ -572,7 +572,13 @@ document.getElementById('findBeachBtn').addEventListener('click', () => {
     getLocation();
     const limit = 25;
     document.getElementById("beachesLimit").value = limit;
-    document.getElementById("filterMenu").classList.remove('hidden');
+  // const f2 = document.getElementById("fmenu");
+   // f2.classList.remove('hidden');  // Show the map first
+   // document.getElementById("filterMenu").classList.remove('hidden');
+    if (window.innerWidth > 768) {
+   toggleFilterMenu();
+    }
+    document.getElementById("tabc").classList.remove('hidden');
     document.getElementById("beachesTableContainer").classList.remove('hidden');
 });
 
@@ -633,6 +639,13 @@ function closeReviews() {
     document.getElementById('Reviews').classList.add('hidden');
     document.getElementById('Reviews').style.display = 'none';
 
+}
+
+function closeFilter(){
+      document.getElementById('fmenu').classList.add('hidden');
+    document.getElementById('fmenu').style.display = 'none';
+     document.getElementById('filterMenu').classList.add('hidden');
+    document.getElementById('filterMenu').style.display = 'none';
 }
 
 document.getElementById('contactForm').addEventListener('submit', function (event) {

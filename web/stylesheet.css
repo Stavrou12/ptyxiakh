@@ -114,7 +114,51 @@ header p {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
+.filter-toggle-btn {
+ display: none;
+}
+
+
+.filter-menu.active {
+    transform: translateX(0);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
 @media (max-width: 768px) {
+     .filter-menu {
+        display: none; /* Hide the filter menu on small screens */
+    }
+     .close-btn {
+        display: block;
+    }
+    .filter-toggle-btn {
+        display: block; /* Show the toggle button on small screens */
+    }
+
+    .filter-menu.active {
+        display: block; /* Show the menu when 'active' class is added */
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80%;
+        max-width: 300px;
+        height: 100%;
+        background-color: #f8f9fa;
+        box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+        transform: translateX(0);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+    }
     .header-content {
         flex-direction: column;
         align-items: center;
@@ -126,9 +170,6 @@ header p {
     .map-container, .filter-menu, .table-container {
         width: 100%;
         min-height: 250px; /* Ensures minimum visibility on small screens */
-    }
-    .filter-menu {
-        padding: 10px;
     }
     .table-container {
         padding: 10px;
