@@ -27,7 +27,7 @@ function handleLocationSelection() {
     const chooseOnMapRadio = document.getElementById('chooseOnMap');
     const findBeachBtn = document.getElementById('findBeachBtn');
     const mapContainer = document.getElementById('map2');
-    
+
     if (trackLocationRadio.checked) {
         // Hide the map container if tracking is selected
         mapContainer.style.display = 'block';
@@ -43,7 +43,7 @@ function handleLocationSelection() {
         mapContainer.classList.remove("hidden");  // Show the map first
 
         // Initialize or display your map
-       // initializeMap();
+        // initializeMap();
         if (chooseOnMapRadio.checked) {
             map2.on('click', onMapClick);
         }
@@ -149,7 +149,7 @@ function updateCheckboxValue(checkbox) {
         checkbox.value = "NO"; // Set to NO if unchecked
     }
 }
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     initializeMap();
 });
 let map2, currentMarkers = [];
@@ -187,32 +187,32 @@ function initializeMap() {
 }
 // Function to get user's geolocation
 function getLocation() {
-     const mapDiv2 = document.getElementById("mapc");
+    const mapDiv2 = document.getElementById("mapc");
     mapDiv2.classList.remove("hidden");  // Show the map first
     const mapDiv = document.getElementById("map2");
     mapDiv.classList.remove("hidden");  // Show the map first
     //  const f2 = document.getElementById("fmenu");
-   // f2.classList.remove('hidden');  // Show the map first
-  //  const f = document.getElementById("filterMenu");
-   // f.classList.remove('hidden');  // Show the map first
-    
-  
+    // f2.classList.remove('hidden');  // Show the map first
+    //  const f = document.getElementById("filterMenu");
+    // f.classList.remove('hidden');  // Show the map first
+
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
     } else {
         alert("Geolocation is not supported by this browser.");
     }
-/*
-    setTimeout(() => {
-        initializeMap(); 
+    /*
+     setTimeout(() => {
+     initializeMap(); 
      
+     
+     }, 1);  // Add a small delay to allow the div to be fully visible before initializing  */
 
-    }, 1);  // Add a small delay to allow the div to be fully visible before initializing  */
-    
 }
 // Function to show position
 function showPosition(position) {
-   // toggleFilterMenu();
+    // toggleFilterMenu();
 
     const trackLocationRadio = document.getElementById('trackLocation');
     const chooseOnMapRadio = document.getElementById('chooseOnMap');
@@ -534,13 +534,27 @@ function showError(error) {
 }
 
 function toggleFilterMenu() {
-    
+
     const f2 = document.getElementById("fmenu");
-    f2.classList.remove('hidden');  // Show the map first
-    f2.classList.toggle("active");
     const filterMenu = document.getElementById("filterMenu");
-    filterMenu.classList.remove('hidden'); // Toggle hidden class
-   
+
+    if (f2.classList.contains("active")) {
+        f2.style.display = "block";
+        filterMenu.style.display = "block";
+        f2.classList.remove('hidden'); // Show the filter menu container
+        f2.classList.add("active"); // Add active class
+        filterMenu.classList.remove('hidden'); // Show the inner filter content
+
+
+    } else {
+        // Activate the filter menu
+        f2.style.display = "block";
+        filterMenu.style.display = "block";
+        f2.classList.remove('hidden'); // Show the filter menu container
+        f2.classList.add("active"); // Add active class
+        filterMenu.classList.remove('hidden'); // Show the inner filter content
+    }
+
 }
 
 function applyFilter() {
@@ -572,11 +586,11 @@ document.getElementById('findBeachBtn').addEventListener('click', () => {
     getLocation();
     const limit = 25;
     document.getElementById("beachesLimit").value = limit;
-  // const f2 = document.getElementById("fmenu");
-   // f2.classList.remove('hidden');  // Show the map first
-   // document.getElementById("filterMenu").classList.remove('hidden');
+    // const f2 = document.getElementById("fmenu");
+    // f2.classList.remove('hidden');  // Show the map first
+    // document.getElementById("filterMenu").classList.remove('hidden');
     if (window.innerWidth > 768) {
-   toggleFilterMenu();
+        toggleFilterMenu();
     }
     document.getElementById("tabc").classList.remove('hidden');
     document.getElementById("beachesTableContainer").classList.remove('hidden');
@@ -641,10 +655,10 @@ function closeReviews() {
 
 }
 
-function closeFilter(){
-      document.getElementById('fmenu').classList.add('hidden');
+function closeFilter() {
+    document.getElementById('fmenu').classList.add('hidden');
     document.getElementById('fmenu').style.display = 'none';
-     document.getElementById('filterMenu').classList.add('hidden');
+    document.getElementById('filterMenu').classList.add('hidden');
     document.getElementById('filterMenu').style.display = 'none';
 }
 

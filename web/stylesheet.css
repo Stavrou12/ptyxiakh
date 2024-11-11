@@ -10,6 +10,7 @@ body, html {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column; /* This ensures footer is pushed down */
+    background-color:#ffffff ; /* Background image */
 }
 /* Input and Textarea Styles */
 input[type="text"], input[type="number"], textarea {
@@ -58,7 +59,8 @@ header {
 
 .header-content {
     display: flex;
-    justify-content: space-between;
+    margin: 0 auto;
+    justify-content: center;
     align-items: center;
 }
 header h1 {
@@ -116,7 +118,7 @@ header p {
 
 
 .filter-toggle-btn {
- display: none;
+    display: none;
 }
 
 
@@ -135,10 +137,10 @@ header p {
     color: #333;
 }
 @media (max-width: 768px) {
-     .filter-menu {
+    .filter-menu {
         display: none; /* Hide the filter menu on small screens */
     }
-     .close-btn {
+    .close-btn {
         display: block;
     }
     .filter-toggle-btn {
@@ -148,8 +150,6 @@ header p {
     .filter-menu.active {
         display: block; /* Show the menu when 'active' class is added */
         position: absolute;
-        top: 0;
-        right: 0;
         width: 80%;
         max-width: 300px;
         height: 100%;
@@ -206,11 +206,11 @@ table th {
     display: none !important;
 }
 
-#revv{    
-    background-color: #ffffff;        
+#revv{
+    background-color: #ffffff;
 }
 
-#allreviews{    
+#allreviews{
     background-color: #ffffff;
 }
 
@@ -375,15 +375,20 @@ table th {
 }
 .map-filter-section {
     display: flex;
-    gap: 20px;
+    flex-direction: column; /* Stack map and filter vertically */
+    align-items: center; /* Center align the content */
 }
 
+
 .map-container {
-    flex: 2;
+    width: 100%;
+    height: 400px;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 300px; /* Placeholder height for map */
+    margin: 0 auto; /* Centers it horizontally */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
 
 #map {
@@ -419,9 +424,9 @@ table th {
 
 /* The close button (x) */
 .close {
-     position: absolute;
+    position: absolute;
     top: 10px;       /* Adjusted to be closer to the top */
-    right: 10px; 
+    right: 10px;
     top: 50px;
     right: 35px;
     color: #f1f1f1;
@@ -437,12 +442,10 @@ table th {
     cursor: pointer;
 }
 .filter-menu {
-    flex: 1;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-     width: 100%;
     display: flex;
     flex-direction: column; /* Stack items vertically */
     gap: 10px; /* Space between filter elements */
@@ -452,6 +455,15 @@ table th {
     border-radius: 8px; /* Slightly rounded corners */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     margin: auto;
+    width: 100%;
+    margin-top: 20px; /* Space between map and filter */
+    max-width: 600px;
+    
+}
+@media (min-width: 768px) {
+    .map-container {
+        height: 500px; /* Increase height for larger screens */
+    }
 }
 
 /* Style for select dropdowns */
@@ -590,7 +602,7 @@ footer .social-icons a:hover {
     align-items: center;
     padding: 10px 0;
     gap: 10px;
-     margin-top: 20px; /* Add margin to prevent touching second-section */
+    margin-top: 20px; /* Add margin to prevent touching second-section */
 }
 
 /* Footer content styling */
@@ -682,3 +694,6 @@ footer .social-icons a:hover {
     background-color: #0056b3;
 }
 
+.navbar {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}

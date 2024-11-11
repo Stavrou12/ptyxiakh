@@ -12,20 +12,33 @@
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <a class="navbar-brand logo" href="#">Clean Beaches</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Beaches</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contactModal" onclick="openContactForm()">Contact Us</a></li>
+                    <li class="fas fa-cog" onclick="openSettings()"></li> <!-- Settings icon -->
+                </ul>
+            </div>
+        </nav>
         <header>
             <div class="header-content">
-                <div class="logo">Logo</div>
                 <div class="title-description">
                     <h1>Find the Cleanest Beaches</h1>
                     <p>Explore and filter beaches based on cleanliness, location, and more.</p>
                 </div>
-                <div class="settings">
-                    <i class="fas fa-cog" onclick="openSettings()"></i> <!-- Settings icon -->
-                </div>
             </div>
         </header>
-        <div class="main-content">     
-            <div class="location-section">
+
+
+        <div class="main-content">
+              <img src="crete_1.jpg" alt="Beautiful beach" class="responsive-header-image">
+            <div class="location-section text-center p-4">
                 <h3>How would you like to select your location?</h3>
                 <!-- Option to track user's location -->
                 <div>
@@ -34,19 +47,20 @@
                     <input type="radio" id="chooseOnMap" name="locationOption" value="map" onchange="handleLocationSelection()">
                     <label for="chooseOnMap">Pick location on the map</label>
                 </div>
-                <button id="findBeachBtn" class="btn-primary">Find the Cleanest Beach</button>
+                <button id="findBeachBtn" class="btn btn-primary mt-3">Find the Cleanest Beach</button>
             </div>
 
-             
+
             <div class="map-filter-section">
                 <div id="mapc" class="map-container">
-                    <div id="map2" class="map-section"></div>
+                    <div id="map2" class="map-section mb-4"></div>
                 </div>
                 <div class="filter-toggle-container">
-                       <button class="filter-toggle-btn" onclick="toggleFilterMenu()">Filter</button>
+                    <button class="filter-toggle-btn" onclick="toggleFilterMenu()">Filter</button>
                 </div>
-                <div id ="fmenu" class="filter-menu hidden">
-                     <span class="close" onclick="closeFilter()">&times;</span>
+                <div id ="fmenu" class="col-lg-4 filter-menu p-4 bg-light rounded shadow hidden">
+                    
+                    <span class="close" onclick="closeFilter()">&times;</span>
                     <div id="filterMenu" class="p-3 bg-light border rounded hidden">
                         <h3>Filter by</h3>
                         <label for="year">Select Year:</label>
@@ -62,7 +76,7 @@
                             <option value="2016">2016</option>                    
                         </select>
                         <label for="month">Select Month:</label>
-                        <select id="month" name="month" class="form-control">
+                        <select id="month" name="month" class="form-control mb-3">
                             <option value="maios_">May</option>
                             <option value="ioynios_">June</option>
                             <option value="ioylios_">July</option>
