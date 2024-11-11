@@ -37,7 +37,7 @@
 
 
         <div class="main-content">
-              <img src="crete_1.jpg" alt="Beautiful beach" class="responsive-header-image">
+            <img src="crete_1.jpg" alt="Beautiful beach" class="responsive-header-image">
             <div class="location-section text-center p-4">
                 <h3>How would you like to select your location?</h3>
                 <!-- Option to track user's location -->
@@ -58,59 +58,78 @@
                 <div class="filter-toggle-container">
                     <button class="filter-toggle-btn" onclick="toggleFilterMenu()">Filter</button>
                 </div>
-                <div id ="fmenu" class="col-lg-4 filter-menu p-4 bg-light rounded shadow hidden">
-                    
-                    <span class="close" onclick="closeFilter()">&times;</span>
-                    <div id="filterMenu" class="p-3 bg-light border rounded hidden">
-                        <h3>Filter by</h3>
-                        <label for="year">Select Year:</label>
-                        <select id="year" name="year" class="form-control">
-                            <option value="2024">2024</option>
-                            <option value="2023">2023</option>
-                            <option value="2022">2022</option>
-                            <option value="2021">2021</option>
-                            <option value="2020">2020</option>
-                            <option value="2019">2019</option>
-                            <option value="2018">2018</option>
-                            <option value="2017">2017</option>
-                            <option value="2016">2016</option>                    
-                        </select>
-                        <label for="month">Select Month:</label>
-                        <select id="month" name="month" class="form-control mb-3">
-                            <option value="maios_">May</option>
-                            <option value="ioynios_">June</option>
-                            <option value="ioylios_">July</option>
-                            <option value="aygoystos_">August</option>
-                            <option value="septemvrios_">September</option>
-                            <option value="oktovrios_">October</option>
-                        </select> 
-                        <div class="checkbox-group mt-3">
-                            <label for="tar">Tar:</label>
-                            <input type="checkbox" id="tar" name="tar" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Tar -->
-                            <label for="glass">Glass:</label>
-                            <input type="checkbox" id="glass" name="glass" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Glass -->
-                            <label for="plastic">Plastic:</label>
-                            <input type="checkbox" id="plastic" name="plastic" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Plastic -->
-                            <label for="caoutchouc">Caoutchouc:</label>
-                            <input type="checkbox" id="caoutchouc" name="caoutchouc" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Caoutchouc -->
-                            <label for="garbage">Garbage:</label>
-                            <input type="checkbox" id="garbage" name="garbage" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Garbage -->
-                            <label for="intenterococciRange">Select Intenterococci:</label>
-                            <div class="range-slider">
-                                <input type="range" id="intenterococciRange" name="intenterococci" min="0" max="100" value="0" oninput="updateIntenterococciValue(this.value)">
-                                <span id="intenterococciValue">0</span> / 100
+                <div class="filter-container d-flex justify-content-center align-items-center">
+                    <div class="filter-image-group">
+                        <div class="filter-image-left">
+                            <img src="photo_1.jpg" alt="Left Image" class="responsive-image">
+                        </div>
+                        <div class="filter-image-left">
+                            <img src="photo_3.jpg" alt="Left Image" class="responsive-image">
+                        </div>  
+                    </div>
+                    <div id ="fmenu" class="col-lg-4 filter-menu p-4 bg-light rounded shadow hidden">
+
+                        <span class="close" onclick="closeFilter()">&times;</span>
+                        <div id="filterMenu" class="p-3 bg-light border rounded hidden">
+                            <h3>Filter by</h3>
+                            <label for="year">Select Year:</label>
+                            <select id="year" name="year" class="form-control">
+                                <option value="2024">2024</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>                    
+                            </select>
+                            <label for="month">Select Month:</label>
+                            <select id="month" name="month" class="form-control mb-3">
+                                <option value="maios_">May</option>
+                                <option value="ioynios_">June</option>
+                                <option value="ioylios_">July</option>
+                                <option value="aygoystos_">August</option>
+                                <option value="septemvrios_">September</option>
+                                <option value="oktovrios_">October</option>
+                            </select> 
+                            <div class="checkbox-group mt-3">
+                                <label for="tar">Tar:</label>
+                                <input type="checkbox" id="tar" name="tar" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Tar -->
+                                <label for="glass">Glass:</label>
+                                <input type="checkbox" id="glass" name="glass" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Glass -->
+                                <label for="plastic">Plastic:</label>
+                                <input type="checkbox" id="plastic" name="plastic" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Plastic -->
+                                <label for="caoutchouc">Caoutchouc:</label>
+                                <input type="checkbox" id="caoutchouc" name="caoutchouc" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Caoutchouc -->
+                                <label for="garbage">Garbage:</label>
+                                <input type="checkbox" id="garbage" name="garbage" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Garbage -->
+                                <label for="intenterococciRange">Select Intenterococci:</label>
+                                <div class="range-slider">
+                                    <input type="range" id="intenterococciRange" name="intenterococci" min="0" max="100" value="0" oninput="updateIntenterococciValue(this.value)">
+                                    <span id="intenterococciValue">0</span> / 100
+                                </div>
+                                <label for="ecoliRange">Select Ecoli:</label>
+                                <div class="range-slider">
+                                    <input type="range" id="ecoliRange" name="ecoli" min="0" max="100" value="0" oninput="updateEcoliValue(this.value)">
+                                    <span id="ecoliValue">0</span> / 100
+                                </div>
+                                <button id="filterBtn" class="btn btn-primary mt-3">Apply Filter</button>
                             </div>
-                            <label for="ecoliRange">Select Ecoli:</label>
-                            <div class="range-slider">
-                                <input type="range" id="ecoliRange" name="ecoli" min="0" max="100" value="0" oninput="updateEcoliValue(this.value)">
-                                <span id="ecoliValue">0</span> / 100
-                            </div>
-                            <button id="filterBtn" class="btn btn-primary mt-3">Apply Filter</button>
+                        </div>
+                    </div>
+                    <div class="filter-image-group">
+                        <div class="filter-image-right">
+                            <img src="photo_2.jpg" alt="Right Image" class="responsive-image">
+                          
+                        </div>
+                        <div class="filter-image-right">
+                            <img src="photo_4.jpg" alt="Right Image" class="responsive-image">
+                          
                         </div>
                     </div>
                 </div>
             </div>
-
             <div id="tabc" class="table-container hidden">
                 <div id="beachesTableContainer" class="table-responsive mt-4 hidden">
                     <h2>List of Beaches</h2>
