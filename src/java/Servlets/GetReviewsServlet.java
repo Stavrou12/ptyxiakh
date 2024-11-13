@@ -68,8 +68,9 @@ public class GetReviewsServlet extends HttpServlet {
     @Override
      protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         request.setCharacterEncoding("UTF-8");
+response.setContentType("application/json;charset=UTF-8");
         String stationCode = request.getParameter("StationCode");
-        System.out.println("hello "+stationCode);
          PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

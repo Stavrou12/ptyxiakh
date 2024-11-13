@@ -140,6 +140,27 @@ header p {
     .filter-menu {
         display: none; /* Hide the filter menu on small screens */
     }
+    .popup-content {
+        font-size: 12px;
+        max-width: 200px;
+        min-height: 120px;
+        padding: 2px;
+        z-index: 5000;
+        margin:auto;
+        min-height: 150px;
+        display:block;
+    }
+    .popup-content h4 {
+        font-size: 12px;
+        margin-bottom: 3px;
+    }
+    .popup-content button {
+        width: 80%;
+        margin-top: 5px;
+        font-size: 14px;          /* Smaller font size on buttons */
+        padding: 2px 0;           /* Reduce padding on buttons */
+        margin-top: 2px;
+    }
     .close-btn {
         display: block;
     }
@@ -150,7 +171,7 @@ header p {
     .filter-menu.active {
         display: block; /* Show the menu when 'active' class is added */
         position: absolute;
-        width: 70%;
+        width: 100%;
         max-width: 300px;
         height: 100%;
         background-color: #f8f9fa;
@@ -158,6 +179,9 @@ header p {
         transform: translateX(0);
         transition: transform 0.3s ease;
         z-index: 1000;
+        left:0;
+        top: 1000px;
+
     }
     .header-content {
         flex-direction: column;
@@ -169,7 +193,7 @@ header p {
     }
     .map-container,.table-container {
         width: 100%;
-        min-height: 250px; /* Ensures minimum visibility on small screens */
+        min-height: 350px; /* Ensures minimum visibility on small screens */
     }
     .table-container {
         padding: 10px;
@@ -457,7 +481,7 @@ table th {
     margin: auto;
     margin-top: 10px; /* Space between map and filter */
     height:750px;
-    
+
 }
 @media (min-width: 768px) {
     .map-container {
@@ -717,7 +741,7 @@ footer .social-icons a:hover {
     height: auto;
     max-width: 100%; /* Ensure images do not exceed container width */
     border-radius: 8px; /* Optional: rounded corners for images */
-    object-fit: cover; 
+    object-fit: cover;
     height:750px;
     gap:5px;
 }
@@ -734,7 +758,7 @@ footer .social-icons a:hover {
         flex-direction: column;
         gap: 10px;
     }
-    
+
 
     .filter-image-left, .filter-image-right {
         max-width: 80%; /* Reduce width on mobile devices */
@@ -743,7 +767,7 @@ footer .social-icons a:hover {
     .filter-menu {
         max-width: 90%; /* Make filter menu full-width on mobile */
     }
-    
+
     .responsive-image {
         height: auto; /* Adjust height to fit content on mobile */
         width: 100%; /* Ensure images fill container width on small screens */

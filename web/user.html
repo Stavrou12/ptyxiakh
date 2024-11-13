@@ -176,7 +176,7 @@
                     <div class="modal-content p-3">
                         <span class="close" onclick="closeReviewForm()">&times;</span>
                         <h2 id="modalBeachName">Write a Review</h2>
-                        <form id="revv" action="SubmitRev" method="POST" enctype="multipart/form-data">
+                        <form id="revv" method="POST" enctype="multipart/form-data">
                             <textarea name="review_text" class="form-control mb-3" placeholder="Write your review here" required></textarea>
                             <label for="star_rating">Rate the beach:</label>
                             <div class="mb-3">
@@ -194,7 +194,7 @@
                             <label for="media">Upload media (photos/videos):</label>
                             <input type="file" id="media" name="media" accept="image/*,video/*" class="form-control mb-3"> 
                             <input type="hidden" id = "stCode" name="stCode" value="stationCodeFromJS">
-                            <button type="submit" class="btn btn-primary btn-block">Submit Review</button>
+                            <button id="revsub" type="submit" class="btn btn-primary btn-block">Submit Review</button>
                         </form>
                     </div>
                 </div>

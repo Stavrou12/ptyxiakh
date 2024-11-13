@@ -5,13 +5,10 @@
 package Servlets;
 
 import com.mysql.cj.jdbc.Blob;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Paths;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -183,17 +180,18 @@ request.setCharacterEncoding("UTF-8");
 
             // Respond with success or failure
             if (rowsInserted > 0) {
-                response.getWriter().write("Data inserted successfully!");
+                 response.getWriter().write("{\"status\": \"success\", \"message\": \"Review submitted successfully!\"}");
             } else {
-                response.getWriter().write("Data insertion failed.");
+                 response.getWriter().write("{\"status\": \"error\", \"message\": \"Data insertion failed.\"}");
             }
             
          }catch (SQLException e) {
             e.printStackTrace();
             // Handle SQL exceptions
-            response.sendRedirect("error.jsp"); // Redirect to an error page
+            response.getWriter().write("{\"status\": \"error\", \"message\": \"Database error.\"}");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SubmitRev.class.getName()).log(Level.SEVERE, null, ex);
+            response.getWriter().write("{\"status\": \"error\", \"message\": \"Server error.\"}");
         }
         
     }

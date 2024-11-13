@@ -444,7 +444,6 @@ function plotBeachesOnMap(beaches) {
         <button onclick="openReviewForm('${name}', ${lat}, ${lon},'${stationCode}')" class="btn-primary">Write a Review</button>
         <button onclick="fetchReviews('${stationCode}')" class="btn-primary">See Reviews</button>
         <button onclick="openBooking(${lat}, ${lon})" class="btn-primary">Find your place to stay</button>
-        <div id="reviewForm-${stationCode}}" class="reviewForm hidden"></div>
         
     </div>`);
 
@@ -606,19 +605,21 @@ let currentLat = '';
 let currentLon = '';
 
 function openReviewForm(beachName, lat, lon, stationCode) {
-    // Store the beach info in global variables for later submission
+     document.getElementById("revsub").disabled = false;
+    console.log(stationCode);
     currentBeachName = beachName;
     currentLat = lat;
     currentLon = lon;
     // Update modal content
     document.getElementById('modalBeachName').innerText = `Write a Review for ${beachName}`;
     const stationCodeInput = document.getElementById('stCode');
-    stationCodeInput.value = stationCode;
-    console.log(stationCodeInput.value);
+;
     if (!stationCodeInput) {
         console.error("stationCode element not found!");
         return; // Early exit if element is not found
     }
+    stationCodeInput.value = stationCode;
+      console.log(stationCodeInput.value);
     // Show the modal
     document.getElementById('Reviews').classList.add('hidden');
     document.getElementById('reviewModal').classList.remove('hidden');
@@ -689,30 +690,58 @@ document.getElementById('contactForm').addEventListener('submit', function (even
 });
 
 
-document.getElementById('reviewForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent the default form submission
+                        
+                        
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the form element
+    const formElement = document.getElementById('revv');
+    
+    if (formElement) {
+        formElement.addEventListener('submit', function (event) {
+            console.log("Form submission intercepted."); // Debugging log
+            event.preventDefault(); // Prevent the default form submission
 
-    const formData = new FormData(this); // Use FormData to handle file upload
-    console.log(formData);
-    // Submit the form via AJAX (no need to send the username here)
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/SubmitRev', true); // Adjust to the correct server endpoint
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                const jsonResponse = JSON.parse(xhr.responseText);
-                console.log("Server response:", jsonResponse); // Log the response for debugging
-                alert('Review submitted successfully!');
-                closeReviewForm(); // Close the form on success
-            } else {
-                const jsonResponse = JSON.parse(xhr.responseText);
-                console.log("Server response:", jsonResponse); // Log the response for debugging
-                alert('Error submitting review. Please try again.');
-            }
-        }
-    };
-    xhr.send(formData);
+            const formData = new FormData(this); // Collect form data
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/PTYXIAKH/SubmitRev', true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    try {
+                        const jsonResponse = JSON.parse(xhr.responseText);
+                        if (jsonResponse.status === "success") {
+                            document.getElementById("revsub").disabled = true;
+                            console.log("Server response:", jsonResponse.message);
+
+                            // Show success message in the form
+                         const successMessage = document.createElement('p');
+                        successMessage.textContent = "Review submitted successfully!";
+                        successMessage.style.color = "green";
+                        document.getElementById('revv').appendChild(successMessage);
+
+                            // Close the form after 3 seconds
+                            setTimeout(() => {
+                                closeReviewForm();
+                                  document.getElementById('revv').removeChild(successMessage);
+                            }, 4000);
+                        } else {
+                            console.error("Error:", jsonResponse.message);
+                            alert(jsonResponse.message);
+                        }
+                    } catch (e) {
+                        console.error("Invalid JSON response:", xhr.responseText);
+                        alert('Unexpected server response. Please try again.');
+                    }
+                }
+            };
+            
+            xhr.send(formData); // Send the form data via AJAX
+        });
+    } else {
+        console.error("Form with ID 'revv' not found.");
+    }
 });
+
 
 document.getElementById("changePasswordForm").addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent default form submission
@@ -743,6 +772,7 @@ document.getElementById("changePasswordForm").addEventListener("submit", functio
                 alert('Error submitting password. Please try again.');
             }
         }
+       
     };
     xhr.send(formData);
 });
