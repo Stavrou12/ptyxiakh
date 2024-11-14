@@ -29,11 +29,14 @@ body {
     }
 }
 .container {
-        display: flex; /* Use flexbox for layout */
+    display: flex; /* Use flexbox for layout */
     flex: 1; /* Allow the container to grow */
     flex-direction: row;
-    
- 
+    justify-content: center; /* Center items horizontally */
+    align-items: center;
+
+
+
 }
 /* Main content area */
 .main-content {
@@ -52,10 +55,15 @@ header {
     display: flex; /* Flexbox for layout */
     justify-content: space-between; /* Space between logo and nav */
     align-items: center; /* Center items vertically */
-     margin: 0; /* Remove margin */
+    margin: 0; /* Remove margin */
     padding: 0; /* Remove padding */
     background-color: #1E90FF;
-    
+
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    height: 80px; /* Set header height */
+
 }
 
 .logo-header h1 {
@@ -94,14 +102,22 @@ header {
     width: 200px; /* Fixed width for sidebar */
     background-color: #333; /* Sidebar background color */
     color: white; /* Sidebar text color */
-  
+    top:0;
     padding: 10px; /* Padding inside sidebar */
     margin: 0; /* Remove margin */
     left:0;
+    left: 0; /* Align the sidebar to the left of the screen */
+    height: 100vh;
+    ; /*s Full height minus the header height */
     position:fixed;
-     height: 100vh; /* Full height of the viewport */
+    padding-top: 80px;
+    z-index: 999; /* Lower z-index than header */
+
 }
 
+#navbarNav{
+    margin-top: 80px;
+}
 .sidebar h2 {
     margin-top: 0; /* Remove margin from sidebar header */
 }
@@ -190,7 +206,9 @@ h2 {
     position: relative; /* Relative positioning */
     bottom: 0; /* Positioning the footer */
     width: 100%; /* Full width */
+    z-index: 2000;
 }
+
 
 .footer-content {
     max-width: 1200px; /* Max width for content */
@@ -246,8 +264,8 @@ select {
     margin-bottom: 15px;
 }
 
-input[type="number"], 
-input[type="text"], 
+input[type="number"],
+input[type="text"],
 select {
     width: 100%; /* Full width of parent */
     padding: 10px;
@@ -256,8 +274,8 @@ select {
     margin-bottom: 15px;
 }
 
-input[type="text"]:focus, 
-input[type="number"]:focus, 
+input[type="text"]:focus,
+input[type="number"]:focus,
 select:focus {
     border-color: #3c8dbc; /* Highlight on focus */
     outline: none; /* Remove default outline */
@@ -284,6 +302,8 @@ select:focus {
     justify-content: center; /* Center content horizontally */
     margin-top: 20px; /* Space above the table */
     overflow-x: auto; /* Allow horizontal scrolling */
+    overflow-y: auto; /* Allow horizontal scrolling */
+    width:100%;
 }
 
 /* Table Styling */
@@ -353,12 +373,15 @@ select:focus {
 
 
 
-.content-section {
-    display: none;
-}
 
-.content-section.active {
-    display: block;
+
+.content-section {
+    display: flex;
+    margin-right: 100px;
+    margin-left:100px;
+    justify-content: center;     /* Centers content horizontally */
+    align-items: center; 
+    
 }
 
 

@@ -15,6 +15,12 @@
 
         <header class="logo-header p-3 d-flex justify-content-between align-items-center bg-primary">
             <h1 class="text-white">Beach Discover</h1>
+            <nav>
+                <ul>
+                    <li><a href="#" id="logout" onclick="logout();">Logout</a></li>
+
+                </ul>
+            </nav>
             <!-- Toggle Button for Collapsible Sidebar on Phones Only -->
             <button class="navbar-toggler btn btn-light d-md-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i> <!-- Visible Toggle Icon -->
@@ -34,7 +40,6 @@
             </ul>
         </div>
         <div class="container">
-
             <!-- Sidebar Menu -->
             <aside class="sidebar">
                 <h2 style="color: white">Services</h2>
@@ -67,7 +72,7 @@
                 <section class="data-selection content-section" id="Parform" style="display: none;">
                     <h2>Manage Simeia Parakoloythisis</h2>
                     <button class="btn" onclick="fetchData()">View Data</button>
-                    <div id="dataDisplayTable" class="data-display"></div>
+                    <div id="dataDisplayTable" class="data-display table-responsive"></div>
                     <div class="container">
                         <h2>Upload New File for locations</h2>
                         <p>Please upload the CSV file containing beach data.</p>
@@ -79,7 +84,6 @@
                             <button type="submit" class="btn">Upload File</button>
                         </form>
                     </div>
-
                     <div class="container">
                         <h2>Delete Beach Location Info</h2>
                         <p>Enter the <strong>code_1</strong> of the beach to delete all information related to that location.</p>
@@ -197,7 +201,7 @@
                             <button type="submit" id="butdata">View Beach Data</button> <!-- Ensure it's a submit button -->
                         </div>
                     </form>
-                    <div id="beachDataDisplay" class="data-display"></div>
+                    <div id="beachDataDisplay" class="data-display table-responsive"></div>
                     <div id="nameoftable" style="display: none;"></div>
                     <button id="saveButton" style="display: none;" class="btn">Save All Updates</button> 
                 </section>
