@@ -121,11 +121,11 @@
                     <div class="filter-image-group">
                         <div class="filter-image-right">
                             <img src="photo_2.jpg" alt="Right Image" class="responsive-image">
-                          
+
                         </div>
                         <div class="filter-image-right">
                             <img src="photo_4.jpg" alt="Right Image" class="responsive-image">
-                          
+
                         </div>
                     </div>
                 </div>
@@ -219,30 +219,35 @@
                             <input type="email" id="contactEmail" name="contactEmail" class="form-control mb-2" required>
                             <label for="contactMessage">Message:</label>
                             <textarea id="contactMessage" name="contactMessage" class="form-control mb-2" rows="4" required></textarea>
-                            <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                            <button id="contb" type="submit" class="btn btn-primary btn-block">Send Message</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
         <div id="settingsModal" class="modal2 hidden">
-            <div class="modal2-content">
-                <nav>
-                    <ul>
-                        <li><a href="#" id="logout" onclick="logout();">Logout</a></li>
-                    </ul>
-                </nav>
-                <span class="close" onclick="closeSettings()">&times;</span>
-                <h2>Change Password</h2>
-                <form id="changePasswordForm" action="ChangePassword" method="POST">
-                    <label for="oldPassword">Old Password:</label>
-                    <input type="password" id="oldPassword" name="oldPassword" required>
-                    <label for="newPassword">New Password:</label>
-                    <input type="password" id="newPassword" name="newPassword" required>
-                    <label for="confirmPassword">Confirm New Password:</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required>
-                    <button type="submit">Change Password</button>
-                </form>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content p-3">
+                    <span class="close" onclick="closeSettings()">&times;</span>
+                    <nav>
+                        <ul>
+                            <li><a href="#" id="logout" onclick="logout();">Logout</a></li>
+                        </ul>
+                    </nav>
+                    <h2>Change Password</h2>
+
+                    <form id="changePasswordForm" action="ChangePassword" method="POST">
+                        <div class="form-fields">
+                            <label for="oldPassword">Old Password:</label>
+                            <input type="password" id="oldPassword" name="oldPassword" required>
+                            <label for="newPassword">New Password:</label>
+                            <input type="password" id="newPassword" name="newPassword" required>
+                            <label for="confirmPassword">Confirm New Password:</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            <button type="submit">Change Password</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="third-section">

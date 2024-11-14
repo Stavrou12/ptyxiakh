@@ -6,16 +6,33 @@
 }
 
 body {
-        display: flex; /* Use flexbox for layout */
-    flex-direction: column; /* Arrange elements vertically */
-    min-height: 100vh; /* Full height of viewport */
-    margin: 0; /* Remove default margin */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+    .main-content {
+        padding: 10px;
+    }
+    .footer {
+        padding: 15px;
+    }
 }
 
+@media (min-width: 769px) {
+    .sidebar {
+        display: block;
+    }
+}
 .container {
         display: flex; /* Use flexbox for layout */
     flex: 1; /* Allow the container to grow */
     flex-direction: row;
+    
  
 }
 /* Main content area */
@@ -77,9 +94,12 @@ header {
     width: 200px; /* Fixed width for sidebar */
     background-color: #333; /* Sidebar background color */
     color: white; /* Sidebar text color */
-    height: auto; /* Full height */
+  
     padding: 10px; /* Padding inside sidebar */
     margin: 0; /* Remove margin */
+    left:0;
+    position:fixed;
+     height: 100vh; /* Full height of the viewport */
 }
 
 .sidebar h2 {
@@ -130,7 +150,19 @@ h2 {
     text-align: center;
 }
 
-.btn,.updateButton {
+.btn {
+    background-color: #3c8dbc !important;
+    color:white !important;
+    padding: 10px 20px; /* Padding for button size */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor to indicate it's clickable */
+    font-size: 16px; /* Font size for better readability */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+}
+
+
+.updateButton {
     background-color: #3c8dbc;
     color: white;
     padding: 10px 20px;
@@ -140,7 +172,14 @@ h2 {
 }
 
 .btn:hover {
-    background-color: #2b6e9c;
+    background-color: #1f4d6a; /* Darker shade of blue when hovered */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Optional active state (when the button is clicked) */
+.btn:active {
+    background-color: #183e56; /* Even darker shade for active state */
+    transform: translateY(0); /* Reset the transform */
 }
 
 .footer {
@@ -321,4 +360,20 @@ select:focus {
 .content-section.active {
     display: block;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

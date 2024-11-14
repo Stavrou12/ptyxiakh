@@ -399,10 +399,12 @@ function displayReviews(reviews, stationCode) {
 
 
 function openContactForm() {
+    document.getElementById("contb").disabled = false;
     document.getElementById("contactModal").classList.add("active");
 }
 
 function closeContactForm() {
+    document.getElementById('contactForm').reset(); // Reset the form
     document.getElementById("contactModal").classList.remove("active");
 }
 
@@ -427,7 +429,7 @@ function plotBeachesOnMap(beaches) {
         currentMarkers.push(marker); // Add to current markers array
 
 
-        marker.bindPopup(` <div>
+        marker.bindPopup(` <div id="popd">
         <h4>${name}</h4>
         <h4>${stationCode}</h4>
         <p>Cleanliness Score: ${cleanliness}</p>
@@ -677,12 +679,29 @@ document.getElementById('contactForm').addEventListener('submit', function (even
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 const jsonResponse = JSON.parse(xhr.responseText);
+                 document.getElementById("contb").disabled = true;
                 console.log("Server response:", jsonResponse); // Log the response for debugging
-                alert('message submitted successfully!');
+                 const successMessage = document.createElement('p');
+                        successMessage.textContent = "Message submitted successfully!";
+                        successMessage.style.color = "green";
+                        document.getElementById('contactForm').appendChild(successMessage);
+                        setTimeout(() => {
+                                  closeContactForm();
+                                  document.getElementById('contactForm').removeChild(successMessage);
+                            }, 4000);
             } else {
                 const jsonResponse = JSON.parse(xhr.responseText);
                 console.log("Server response:", jsonResponse); // Log the response for debugging
-                alert('Error submitting message. Please try again.');
+                const successMessage = document.createElement('p');
+                        successMessage.textContent = "Message was not sent!";
+                        successMessage.style.color = "red";
+                        document.getElementById('contactForm').appendChild(successMessage);
+                        setTimeout(() => {
+                                  
+                                  document.getElementById('contactForm').removeChild(successMessage);
+                                  closeContactForm();
+                            }, 4000);
+                
             }
         }
     };
