@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
+console.log("Admin script loaded");  
+
  function showAddForm() {
         document.getElementById('addLocationForm').style.display = 'block';
     }
@@ -52,7 +54,6 @@ function fetchData() {
     });
 }
 
-// Render data in a table format
 function renderTable(data) {
     let tableHtml = `<table border="1">
                         <tr>
@@ -63,22 +64,22 @@ function renderTable(data) {
 
     data.forEach((row, index) => {
         tableHtml += `<tr data-id="${row.FID}">
-                        <td contenteditable="true">${row.X}</td>
-                        <td contenteditable="true">${row.Y}</td>
-                        <td contenteditable="true">${row.Name}</td>
-                        <td contenteditable="true">${row.acth}</td>
-                        <td contenteditable="true">${row.Easting_}</td>
+                        <td>${row.X}</td>
+                        <td>${row.Y}</td>
+                        <td>${row.Name}</td>
+                        <td>${row.acth}</td>
+                        <td>${row.Easting_}</td>
                         <td>${row.FID}</td>
-                        <td contenteditable="true">${row.Field_1}</td>
-                        <td contenteditable="true">${row.Lat}</td>
-                        <td contenteditable="true">${row.Lon}</td>
-                        <td contenteditable="true">${row.Northing}</td>
-                        <td contenteditable="true">${row.dhmos}</td>
-                        <td contenteditable="true">${row.dhmot}</td>
-                        <td contenteditable="true">${row.code_1}</td>
-                        <td contenteditable="true">${row.code}</td>
-                        <td contenteditable="true">${row.description}</td>
-                        <td contenteditable="true">${row.perifereia}</td>
+                        <td>${row.Field_1}</td>
+                        <td>${row.Lat}</td>
+                        <td>${row.Lon}</td>
+                        <td>${row.Northing}</td>
+                        <td>${row.dhmos}</td>
+                        <td>${row.dhmot}</td>
+                        <td>${row.code_1}</td>
+                        <td>${row.code}</td>
+                        <td>${row.description}</td>
+                        <td>${row.perifereia}</td>
                         <td>
                             <button onclick="updateRow(${index})">Update</button>
                             <button style="display:none;" onclick="saveChanges(${row.FID}, ${index})">Save Changes</button>
@@ -91,7 +92,19 @@ function renderTable(data) {
 
 function updateRow(rowIndex) {
     const row = document.querySelector(`#dataDisplayTable table tr:nth-child(${rowIndex + 2})`); // Row selector (1st row is header)
-    row.querySelectorAll("td[contenteditable='true']").forEach(cell => cell.style.backgroundColor = "#FFFFCC"); // Highlight editable cells
+   
+       row.querySelectorAll("td").forEach((cell, index) => {
+        // Skip the last column (Actions) and non-editable columns
+        if (index !== row.children.length - 1) {
+            cell.setAttribute("contenteditable", "true");
+            cell.style.backgroundColor = "#FFFFCC"; // Highlight the cell
+        }
+    });
+
+    // Show the "Save Changes" button and optionally hide "Update" button
+    row.querySelector("button[onclick^='saveChanges']").style.display = "inline";
+    row.querySelector("button[onclick^='updateRow']").style.display = "none";
+    
     row.querySelector("button[onclick^='saveChanges']").style.display = "inline"; // Show Save Changes button
 }
 
@@ -137,13 +150,11 @@ function saveChanges(FID, rowIndex) {
 
 function showSection(sectionId) {
     // Hide all content sections
-    var sections = document.querySelectorAll('.content-section');
-    sections.forEach(function(section) {
-        section.style.display = 'none';
-    });
-
-    // Show the selected section
-    document.getElementById(sectionId).style.display = 'block';
+     document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            // Show the selected section
+            document.getElementById(sectionId).style.display = 'block';
 }
 
    
@@ -191,10 +202,7 @@ $(document).ready(function () {
     }
     });
     
-    document.getElementById("btform").addEventListener("click", function () {
-        var newDiv = document.getElementById("secform");
-        newDiv.style.display = "block";  // Make the div visible
-    });
+       
     $('#dataForm-3').on('submit', function (event) {
         event.preventDefault();  // Prevent default form submission
 
@@ -300,13 +308,13 @@ $(document).ready(function () {
         });
     });
 
-    // Handle form submission
+      console.log("Document is fully loaded");
     $('#dataForm').on('submit', function (event) {
+        console.log("Submit button clicked"); 
         event.preventDefault(); // Prevent the default form submission
-        // Get selected values
+         console.log("Form submission prevented."); 
         const selectedMonth = $('#month-select').val();
         const selectedYear = $('#year-select').val();
-        // Make AJAX request
         $.ajax({
             url: 'GetBeachDataServlet',
             method: 'GET',
@@ -375,10 +383,6 @@ $(document).ready(function () {
 
                     // Set inner HTML content
                     $('#nameoftable').html(selectedMonth + selectedYear);
-
-                    // Optionally log to confirm
-                    console.log($('#nameoftable').attr('name')); // Should output: giannis
-                    console.log($('#nameoftable').html()); // Should output: This is the content for the div.
                     table += '</tbody></table>';
                     $('#beachDataDisplay').html(table); // Insert the table into the display area
                 } else {
@@ -392,6 +396,7 @@ $(document).ready(function () {
             }
         });
     });
+    
     $('#saveButton').on('click', function () {
         const tableName = document.getElementById("nameoftable").getAttribute("name");
         console.log(tableName);

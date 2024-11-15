@@ -3,25 +3,25 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <title>Admin Dashboard - Beach Discover</title>
-        <link rel="stylesheet" href="adminc.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="adc.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="admin.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+       
+        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
     </head>
-    <body onload="showSection('uploadForm2')">
+    <body onload="showSection('section1')">
 
-        <header class="logo-header p-3 d-flex justify-content-between align-items-center bg-primary">
-            <h1 class="text-white">Beach Discover</h1>
-            <nav>
-                <ul>
-                    <li><a href="#" id="logout" onclick="logout();">Logout</a></li>
+        <header class="d-flex justify-content-between align-items-center p-3 bg-light border-bottom">
+            <h1 class="m-0">Clean Beaches</h1>
+            <button id="logout" onclick="logout();" class="btn btn-primary">Logout</button>
 
-                </ul>
-            </nav>
-            <!-- Toggle Button for Collapsible Sidebar on Phones Only -->
+
             <button class="navbar-toggler btn btn-light d-md-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i> <!-- Visible Toggle Icon -->
             </button>
@@ -30,333 +30,534 @@
         <!-- Collapsible Sidebar for Phones (Hidden on Larger Screens) -->
         <div class="collapse bg-dark text-white d-md-none" id="navbarNav">
             <ul class="navbar-nav flex-column p-3">
-                <li class="nav-item"><a href="#" class="nav-link text-white" onclick="showSection('uploadForm2')">Upload File</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-white" onclick="showSection('deleteu')">Delete User</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-white" onclick="showSection('dForm')">View Beach Data</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-white" onclick="showSection('dForm-2')">Remove Table</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-white" onclick="showSection('dForm-2-beach')">Remove Beach</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-white" onclick="showSection('secform')">Insert New Beach</a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-white" onclick="showSection('Parform')">Manage Simeia Parakoloythisis</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section1')">Upload File</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section2')">Manage Simeia Parakoloythisis</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section3')">Delete User</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section4')">View Beach Data</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section5')">Remove Table</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section6')">Remove Beach</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section7')">Insert New Beach</a></li>
             </ul>
         </div>
-        <div class="container">
-            <!-- Sidebar Menu -->
-            <aside class="sidebar">
-                <h2 style="color: white">Services</h2>
-                <ul>
-                    <li><a href="#" onclick="showSection('uploadForm2')">Upload File</a></li>
-                    <li><a href="#" onclick="showSection('deleteu')">Delete User</a></li>
-                    <li><a href="#" onclick="showSection('dForm')">View Beach Data</a></li>
-                    <li><a href="#" onclick="showSection('dForm-2')">Remove Table</a></li>
-                    <li><a href="#" onclick="showSection('dForm-2-beach')">Remove Beach</a></li>
-                    <li><a href="#" onclick="showSection('secform')">Insert New Beach</a></li>
-                    <li><a href="#" onclick="showSection('Parform')">Manage Simeia Parakoloythisis</a></li>
-                </ul>
-            </aside>
 
-            <div class="main-content">
-                <section id="uploadForm2" class="content-section">
-                    <div class="container">
-                        <h2>Upload New File</h2>
-                        <p>Please upload the CSV file containing beach data.</p>
-                        <form id="uploadForm" enctype="multipart/form-data" action="uploadServlet" method="post">
-                            <div class="file-upload">
-                                <input type="file" id="fileInput" name="file" accept=".csv" required>
-                                <label for="fileInput" class="file-upload-label"><i class="fas fa-upload"></i> Choose a file</label>
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar Menu -->
+                <aside class="col-md-3 col-lg-2 bg-light p-3 border-right" id="sidebar">
+                    <h2 style="color: white">Services</h2>
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section1')">Upload File</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section2')">Manage Simeia Parakoloythisis</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section3')">Delete User</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section4')">View Beach Data</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section5')">Remove Table</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section6')">Remove Beach</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section7')">Insert New Beach</a></li>
+
+                    </ul>
+                </aside>
+                <main class="col-md-9 col-lg-10 d-flex align-items-center justify-content-center p-3" id="main-content">
+                    <div class="content-section text-center p-5" id="section1" style="display: none;">
+                        <section id="uploadForm2">
+                            <div>
+                                <h2>Upload New File</h2>
+                                <p>Please upload the CSV file containing beach data.</p>
+                                <form id="uploadForm" enctype="multipart/form-data" action="uploadServlet" method="post">
+                                    <div >
+                                        <input type="file" id="fileInput" name="file" accept=".csv" required>
+                                        <label for="fileInput"><i></i> Choose a file</label>
+                                    </div>
+                                    <button class="btn" type="submit">Upload File</button>
+                                </form>
                             </div>
-                            <button type="submit" class="btn">Upload File</button>
-                        </form>
+                        </section>
                     </div>
-                </section>
 
-                <section class="data-selection content-section" id="Parform" style="display: none;">
-                    <h2>Manage Simeia Parakoloythisis</h2>
-                    <button class="btn" onclick="fetchData()">View Data</button>
-                    <div id="dataDisplayTable" class="data-display table-responsive"></div>
-                    <div class="container">
-                        <h2>Upload New File for locations</h2>
-                        <p>Please upload the CSV file containing beach data.</p>
-                        <form id="uploadLocationForm" enctype="multipart/form-data" action="uploadLocationServlet" method="post">
-                            <div class="file-upload">
+
+                    <div class="content-section text-center p-5" id="section2" style="display: none;">
+                        <section id="Parform">
+                            <h2>Manage Simeia Parakoloythisis</h2>
+                            <button class="btn" onclick="fetchData()">View Data</button>
+                            <div id="dataDisplayTable" class="data-table mt-4"></div>
+
+
+                            <h2>Upload New File for locations</h2>
+                            <p>Please upload the CSV file containing beach data.</p>
+                            <form id="uploadLocationForm" enctype="multipart/form-data" action="uploadLocationServlet" method="post">
+
                                 <input type="file" id="fileInput2" name="file2" accept=".csv">
-                                <label for="fileInput2" class="file-upload-label"><i class="fas fa-upload"></i> Choose a file</label>
-                            </div>
-                            <button type="submit" class="btn">Upload File</button>
-                        </form>
-                    </div>
-                    <div class="container">
-                        <h2>Delete Beach Location Info</h2>
-                        <p>Enter the <strong>code_1</strong> of the beach to delete all information related to that location.</p>
-                        <form id="deleteLocationForm" onsubmit="return deleteLocation();">
-                            <label for="code_1">Beach Code:</label>
-                            <input type="text" id="code_1" name="code_1" required>
-                            <button type="submit" class="btn">Delete Beach Location Info</button>
-                        </form>
-                        <!-- Div for displaying response message -->
-                        <div id="deleteResponse" class="response-message"></div>
+                                <label for="fileInput2"><i></i> Choose a file</label>
 
-                    </div>
+                                <button class="btn" type="submit">Upload File</button>
+                            </form>
 
-                    <button type="button" class="btn" onclick="showAddForm()">Add Beach Location Info</button>
-
-                    <div class="container">
-                        <!-- Add Beach Location Form (initially hidden) -->
-                        <div id="addLocationForm" style="display: none;">
-                            <h3>Enter New Beach Location Information</h3>
-                            <form id="dataForm-4" method="post">
-                                <label for="X">X:</label>
-                                <input type="text" id="X" name="X" required>
-                                <label for="Y">Y:</label>
-                                <input type="text" id="Y" name="Y" required>
-                                <label for="Name">Name:</label>
-                                <input type="text" id="Name" name="Name" required>
-                                <label for="acth">Acth:</label>
-                                <input type="text" id="acth" name="acth" required>
-                                <label for="Easting_">Easting:</label>
-                                <input type="text" id="Easting_" name="Easting_" required>
-                                <label for="Field_1">Field_1:</label>
-                                <input type="text" id="Field_1" name="Field_1" required>
-                                <label for="Lat">Latitude:</label>
-                                <input type="text" id="Lat" name="Lat" required>
-                                <label for="Lon">Longitude:</label>
-                                <input type="text" id="Lon" name="Lon" required>
-                                <label for="Northing">Northing:</label>
-                                <input type="text" id="Northing" name="Northing" required>
-                                <label for="dhmos">Dhmos:</label>
-                                <input type="text" id="dhmos" name="dhmos" required>
-                                <label for="dhmot">Dhmot:</label>
-                                <input type="text" id="dhmot" name="dhmot" required>
-                                <label for="code_1">Code 1:</label>
+                            <h2>Delete Beach Location Info</h2>
+                            <p>Enter the <strong>code_1</strong> of the beach to delete all information related to that location.</p>
+                            <form id="deleteLocationForm" onsubmit="return deleteLocation();">
+                                <label for="code_1">Beach Code:</label>
                                 <input type="text" id="code_1" name="code_1" required>
-                                <label for="code">Code:</label>
-                                <input type="text" id="code" name="code" required>
-                                <label for="description">Description:</label>
-                                <input type="text" id="description" name="description">
-                                <label for="perifereia">Perifereia:</label>
-                                <input type="text" id="perifereia" name="perifereia">
+                                <button class="btn" type="submit">Delete Beach Location Info</button>
+                            </form>
+                            <!-- Div for displaying response message -->
+                            <div id="deleteResponse"></div>
 
-                                <button class="btn" type="submit">Submit</button>
+                            <button class="btn" type="button" onclick="showAddForm()">Add Beach Location Info</button>
+
+
+                            <!-- Add Beach Location Form (initially hidden) -->
+                            <div id="addLocationForm" style="display: none;">
+                                <h3>Enter New Beach Location Information</h3>
+                                <form id="dataForm-4" method="post" class="container mt-4">
+                                    <h3>Data Form 4</h3>
+
+                                    <div class="form-group row">
+                                        <label for="X" class="col-sm-2 col-form-label">X:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="X" name="X" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Y" class="col-sm-2 col-form-label">Y:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="Y" name="Y" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Name" class="col-sm-2 col-form-label">Name:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="Name" name="Name" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="acth" class="col-sm-2 col-form-label">Acth:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="acth" name="acth" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Easting_" class="col-sm-2 col-form-label">Easting:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="Easting_" name="Easting_" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Field_1" class="col-sm-2 col-form-label">Field_1:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="Field_1" name="Field_1" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Lat" class="col-sm-2 col-form-label">Latitude:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="Lat" name="Lat" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Lon" class="col-sm-2 col-form-label">Longitude:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="Lon" name="Lon" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Northing" class="col-sm-2 col-form-label">Northing:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="Northing" name="Northing" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="dhmos" class="col-sm-2 col-form-label">Dhmos:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="dhmos" name="dhmos" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="dhmot" class="col-sm-2 col-form-label">Dhmot:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="dhmot" name="dhmot" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="code_1" class="col-sm-2 col-form-label">Code 1:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="code_1" name="code_1" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="code" class="col-sm-2 col-form-label">Code:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="code" name="code" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="description" class="col-sm-2 col-form-label">Description:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="description" name="description" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="perifereia" class="col-sm-2 col-form-label">Perifereia:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="perifereia" name="perifereia" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </form>
+
+                                <div id="addResponse" class="mt-4"></div>
+                            </div>
+
+                            <h2>Remove Table</h2>
+                            <form id="dataForm-5" action="RemoveLocationTable" method="get"> <!-- Change action to your servlet -->
+                                <button class="btn" type="submit" id="butdata-5">Remove the Locations Table</button> <!-- Ensure it's a submit button -->
+                            </form>
+                            <div id="mes5"></div>
+                        </section>
+                    </div>
+
+
+                    <div class="content-section text-center p-5" id="section3" style="display:none;">
+                        <section id="deleteu">
+                            <button class="btn" id="delete" onclick="deleteuser1()">Διαγραφη χρηστη</button>
+                            <div id="delete-page" style="display: none;">
+                                <form id ="apolyshform" onsubmit='DELETEPOST();return false;'>
+                                    <div id="user1" style="display: none;">
+                                        <label for="USER1">ID OF User:</label>
+                                        <input type="number" id="USER1"  name="userid">
+                                    </div>
+                                    <div id="butdel" style="display: none;" onclick="deleteuser()" >
+                                        <button class="btn" id="delemp" type="submit">Πατηστε για την διαγραφή</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="responseMessage"></div>
+                            <span id="pinakas"></span>
+                        </section>
+                    </div>
+
+
+                    <div class="content-section text-center p-5" id="section4" style="display:none;">
+                        <section id="dForm">
+                            <h2>Select Beach Data to View</h2>
+                            <form id="dataForm" action="javascript:void(0)"> 
+                                <label for="year-select">Year:</label>
+                                <select id="year-select" name="year-select"> <!-- Add name attribute -->
+                                    <option value="" disabled selected>Select a year</option> 
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                </select>    
+                                <label for="month-select">Month:</label>
+                                <select id="month-select" name="month-select"> <!-- Add name attribute -->
+                                    <option value="" disabled selected>Select a month</option> 
+                                    <option value="maios_">May</option>
+                                    <option value="ioynios_">June</option>
+                                    <option value="ioylios_">July</option>
+                                    <option value="aygoystos_">August</option>
+                                    <option value="septemvrios_">September</option>
+                                    <option value="oktovrios_">October</option>
+                                </select>
+                                <button class="btn" type="submit" id="butdata">View Beach Data</button> 
+                            </form>
+                            <div id="beachDataDisplay" class="mt-4"></div>
+                            <div id="nameoftable" style="display: none;"></div>
+                            <button id="saveButton" style="display: none;">Save All Updates</button> 
+                        </section>
+                    </div>
+
+
+                    <div class="content-section text-center p-5" id="section5" style="display:none;">
+                        <section id = "dForm-2">
+                            <h2>Select Table to Remove</h2>
+                            <form id="dataForm-2" action="RemoveTable" method="get"> <!-- Change action to your servlet -->
+
+                                <label for="year-select-2">Year:</label>
+                                <select id="year-select-2" name="year-select-2"> <!-- Add name attribute -->
+                                    <option value="" disabled selected>Select a year</option> 
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                </select>    
+                                <label for="month-select-2">Month:</label>
+                                <select id="month-select-2" name="month-select-2"> <!-- Add name attribute -->
+                                    <option value="" disabled selected>Select a month</option> 
+                                    <option value="maios_">May</option>
+                                    <option value="ioynios_">June</option>
+                                    <option value="ioylios_">July</option>
+                                    <option value="aygoystos_">August</option>
+                                    <option value="septemvrios_">September</option>
+                                    <option value="oktovrios_">October</option>
+                                </select>
+                                <button class="btn" type="submit" id="butdata-2">Remove the Table</button> <!-- Ensure it's a submit button -->
+                            </form>
+                            <div id="tablermmes"></div>
+                        </section>
+                    </div>
+
+
+                    <div class="content-section text-center p-5" id="section6" style="display:none;">
+                        <section id ="dForm-2-beach">  
+                            <h2>Select Table base on GRSTATION to Remove</h2>
+                            <form id="dataForm-2-beach" action="RemoveBeach" method="get"> <!-- Change action to your servlet -->
+
+                                <label for="year-select-2-beach">Year:</label>
+                                <select id="year-select-2-beach" name="year-select-2-beach"> <!-- Add name attribute -->
+                                    <option value="" disabled selected>Select a year</option> 
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                </select>    
+                                <label for="month-select-2-beach">Month:</label>
+                                <select id="month-select-2-beach" name="month-select-2-beach"> <!-- Add name attribute -->
+                                    <option value="" disabled selected>Select a month</option> 
+                                    <option value="maios_">May</option>
+                                    <option value="ioynios_">June</option>
+                                    <option value="ioylios_">July</option>
+                                    <option value="aygoystos_">August</option>
+                                    <option value="septemvrios_">September</option>
+                                    <option value="oktovrios_">October</option>
+                                </select>
+                                <label for="code">code of beach:</label>
+                                <input type="text" id="code" name="code">
+                                <button class="btn" type="submit" id="butdata-2-beach">Remove the beach from Table</button> <!-- Ensure it's a submit button -->
 
                             </form>
-                            <div id="addResponse" class="response-message"></div>
-                        </div>
-
-                        <!-- Div for displaying response message after adding location -->
-
+                            <div id="tablermmesbeach"></div>
+                        </section>
                     </div>
 
-                    <div class="container">
-                        <h2>Remove Table</h2>
-                        <form id="dataForm-5" action="RemoveLocationTable" method="get"> <!-- Change action to your servlet -->
-                            <button type="submit" id="butdata-5" class ="btn">Remove the Locations Table</button> <!-- Ensure it's a submit button -->
-                        </form>
-                        <div id="mes5" class="data-display"></div>
+
+                    <div class="content-section text-center p-5" id="section7" style="display: none;">
+                        <section id ="secform">
+
+                            <h2>Insert Data</h2>
+                            <form id="dataForm-3" method="post" class="container mt-4">
+                                <h3>Beach Data Form</h3>
+                                <div class="form-group row">
+                                    <label for="Perunit" class="col-sm-2 col-form-label">Perunit:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Perunit" name="Perunit" class="form-control" maxlength="9" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Municipal" class="col-sm-2 col-form-label">Municipal:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Municipal" name="Municipal" class="form-control" maxlength="19" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Coast" class="col-sm-2 col-form-label">Coast:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Coast" name="Coast" class="form-control" maxlength="49" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="StationCode" class="col-sm-2 col-form-label">Station Code:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="StationCode" name="StationCode" class="form-control" maxlength="16" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Description" class="col-sm-2 col-form-label">Description:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Description" name="Description" class="form-control" maxlength="59" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="SampleDate" class="col-sm-2 col-form-label">Sample Date:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="SampleDate" name="SampleDate" class="form-control" maxlength="9" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="SampleTime" class="col-sm-2 col-form-label">Sample Time:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="SampleTime" name="SampleTime" class="form-control" maxlength="11" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="DeliveryDate" class="col-sm-2 col-form-label">Delivery Date:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="DeliveryDate" name="DeliveryDate" class="form-control" maxlength="9" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="AnalyseDate" class="col-sm-2 col-form-label">Analyse Date:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="AnalyseDate" name="AnalyseDate" class="form-control" maxlength="9" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Intenterococci" class="col-sm-2 col-form-label">Intenterococci:</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" id="Intenterococci" name="Intenterococci" class="form-control" max="99" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Ecoli" class="col-sm-2 col-form-label">E. coli:</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" id="Ecoli" name="Ecoli" class="form-control" max="99" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Tar" class="col-sm-2 col-form-label">Tar:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Tar" name="Tar" class="form-control" maxlength="3">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Glass" class="col-sm-2 col-form-label">Glass:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Glass" name="Glass" class="form-control" maxlength="3">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Plastic" class="col-sm-2 col-form-label">Plastic:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Plastic" name="Plastic" class="form-control" maxlength="3">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Caoutchouc" class="col-sm-2 col-form-label">Caoutchouc:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Caoutchouc" name="Caoutchouc" class="form-control" maxlength="3">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Garbage" class="col-sm-2 col-form-label">Garbage:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Garbage" name="Garbage" class="form-control" maxlength="3">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Wave" class="col-sm-2 col-form-label">Wave:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Wave" name="Wave" class="form-control" maxlength="16">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Airdirection" class="col-sm-2 col-form-label">Air Direction:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Airdirection" name="Airdirection" class="form-control" maxlength="6">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Rainfail" class="col-sm-2 col-form-label">Rainfall:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Rainfail" name="Rainfail" class="form-control" maxlength="3">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Yestrainfail" class="col-sm-2 col-form-label">Yesterday's Rainfall:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Yestrainfail" name="Yestrainfail" class="form-control" maxlength="3">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="month-select-3" class="col-sm-2 col-form-label">Month:</label>
+                                    <div class="col-sm-10">
+                                        <select id="month-select-3" name="month-select-3" class="form-control" required>
+                                            <option value="" disabled selected>Select a month</option>
+                                            <option value="maios_">May</option>
+                                            <option value="ioynios_">June</option>
+                                            <option value="ioylios_">July</option>
+                                            <option value="aygoystos_">August</option>
+                                            <option value="septemvrios_">September</option>
+                                            <option value="oktovrios_">October</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="year-select-3" class="col-sm-2 col-form-label">Year:</label>
+                                    <div class="col-sm-10">
+                                        <select id="year-select-3" name="year-select-3" class="form-control" required>
+                                            <option value="" disabled selected>Select a year</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2019">2019</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2024">2024</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </form>
+
+                            <div id="response" class="mt-4"></div>
+                        </section>
                     </div>
-                </section>
-
-                <section id="deleteu" class="content-section">
-                    <button class="btn" id="delete" onclick="deleteuser1()">Διαγραφη χρηστη</button>
-                    <div id="delete-page" style="display: none;">
-                        <form id ="apolyshform" onsubmit='DELETEPOST();return false;'>
-                            <div id="user1" style="display: none;">
-                                <label for="USER1">ID OF User:</label>
-                                <input type="number" id="USER1"  name="userid">
-                            </div>
-                            <div id="butdel" style="display: none;" onclick="deleteuser()" >
-                                <button class="btn" id="delemp" type="submit">Πατηστε για την διαγραφή</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div id="responseMessage"></div>
-                    <span id="pinakas"></span>
-                </section>
-
-                <section class="data-selection content-section" id="dForm" style="display:none;">
-                    <h2>Select Beach Data to View</h2>
-                    <form id="dataForm" action="GetBeachDataServlet" method="get"> <!-- Change action to your servlet -->
-                        <div class="selection-container">
-                            <label for="year-select">Year:</label>
-                            <select id="year-select" name="year-select"> <!-- Add name attribute -->
-                                <option value="" disabled selected>Select a year</option> 
-                                <option value="2016">2016</option>
-                                <option value="2017">2017</option>
-                                <option value="2018">2018</option>
-                                <option value="2019">2019</option>
-                                <option value="2020">2020</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
-                            </select>    
-                            <label for="month-select">Month:</label>
-                            <select id="month-select" name="month-select"> <!-- Add name attribute -->
-                                <option value="" disabled selected>Select a month</option> 
-                                <option value="maios_">May</option>
-                                <option value="ioynios_">June</option>
-                                <option value="ioylios_">July</option>
-                                <option value="aygoystos_">August</option>
-                                <option value="septemvrios_">September</option>
-                                <option value="oktovrios_">October</option>
-                            </select>
-                            <button type="submit" id="butdata">View Beach Data</button> <!-- Ensure it's a submit button -->
-                        </div>
-                    </form>
-                    <div id="beachDataDisplay" class="data-display table-responsive"></div>
-                    <div id="nameoftable" style="display: none;"></div>
-                    <button id="saveButton" style="display: none;" class="btn">Save All Updates</button> 
-                </section>
-
-                <section class="data-selection content-section" id = "dForm-2" style="display:none;">
-                    <h2>Select Table to Remove</h2>
-                    <form id="dataForm-2" action="RemoveTable" method="get"> <!-- Change action to your servlet -->
-                        <div class="selection-container-2">
-                            <label for="year-select-2">Year:</label>
-                            <select id="year-select-2" name="year-select-2"> <!-- Add name attribute -->
-                                <option value="" disabled selected>Select a year</option> 
-                                <option value="2016">2016</option>
-                                <option value="2017">2017</option>
-                                <option value="2018">2018</option>
-                                <option value="2019">2019</option>
-                                <option value="2020">2020</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
-                            </select>    
-                            <label for="month-select-2">Month:</label>
-                            <select id="month-select-2" name="month-select-2"> <!-- Add name attribute -->
-                                <option value="" disabled selected>Select a month</option> 
-                                <option value="maios_">May</option>
-                                <option value="ioynios_">June</option>
-                                <option value="ioylios_">July</option>
-                                <option value="aygoystos_">August</option>
-                                <option value="septemvrios_">September</option>
-                                <option value="oktovrios_">October</option>
-                            </select>
-                            <button type="submit" id="butdata-2">Remove the Table</button> <!-- Ensure it's a submit button -->
-                        </div>
-                    </form>
-                    <div id="tablermmes" class="data-display"></div>
-                </section>
-
-                <section class="data-selection content-section" id ="dForm-2-beach" style="display:none;">  
-                    <h2>Select Table base on GRSTATION to Remove</h2>
-                    <form id="dataForm-2-beach" action="RemoveBeach" method="get"> <!-- Change action to your servlet -->
-                        <div class="selection-container-2-beach">
-                            <label for="year-select-2-beach">Year:</label>
-                            <select id="year-select-2-beach" name="year-select-2-beach"> <!-- Add name attribute -->
-                                <option value="" disabled selected>Select a year</option> 
-                                <option value="2016">2016</option>
-                                <option value="2017">2017</option>
-                                <option value="2018">2018</option>
-                                <option value="2019">2019</option>
-                                <option value="2020">2020</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
-                            </select>    
-                            <label for="month-select-2-beach">Month:</label>
-                            <select id="month-select-2-beach" name="month-select-2-beach"> <!-- Add name attribute -->
-                                <option value="" disabled selected>Select a month</option> 
-                                <option value="maios_">May</option>
-                                <option value="ioynios_">June</option>
-                                <option value="ioylios_">July</option>
-                                <option value="aygoystos_">August</option>
-                                <option value="septemvrios_">September</option>
-                                <option value="oktovrios_">October</option>
-                            </select>
-                            <label for="code">code of beach:</label>
-                            <input type="text" id="code"  name="code">
-                            <button type="submit" id="butdata-2-beach">Remove the beach from Table</button> <!-- Ensure it's a submit button -->
-                        </div>
-                    </form>
-                    <div id="tablermmesbeach" class="data-display"></div>
-                </section>
-
-                <section class="data-selection content-section" id ="secform" style="display: none;">
-                    <button id ="btform" class="btn">Insert new beach</button>
-                    <h2>Insert Data</h2>
-                    <form id="dataForm-3" method="post">
-                        <label for="Perunit">Perunit:</label>
-                        <input type="text" id="Perunit" name="Perunit" maxlength="9" required><br><br>
-                        <label for="Municipal">Municipal:</label>
-                        <input type="text" id="Municipal" name="Municipal" maxlength="19" required><br><br>
-                        <label for="Coast">Coast:</label>
-                        <input type="text" id="Coast" name="Coast" maxlength="49" required><br><br>
-                        <label for="StationCode">Station Code:</label>
-                        <input type="text" id="StationCode" name="StationCode" maxlength="16" required><br><br>
-                        <label for="Description">Description:</label>
-                        <input type="text" id="Description" name="Description" maxlength="59" required><br><br>
-                        <label for="SampleDate">Sample Date:</label>
-                        <input type="text" id="SampleDate" name="SampleDate" maxlength="9" required><br><br>
-                        <label for="SampleTime">Sample Time:</label>
-                        <input type="text" id="SampleTime" name="SampleTime" maxlength="11" required><br><br>
-                        <label for="DeliveryDate">Delivery Date:</label>
-                        <input type="text" id="DeliveryDate" name="DeliveryDate" maxlength="9" required><br><br>
-                        <label for="AnalyseDate">Analyse Date:</label>
-                        <input type="text" id="AnalyseDate" name="AnalyseDate" maxlength="9" required><br><br>
-                        <label for="Intenterococci">Intenterococci:</label>
-                        <input type="number" id="Intenterococci" name="Intenterococci" max="99" required><br><br>
-                        <label for="Ecoli">E. coli:</label>
-                        <input type="number" id="Ecoli" name="Ecoli" max="99" required><br><br>
-                        <label for="Tar">Tar:</label>
-                        <input type="text" id="Tar" name="Tar" maxlength="3"><br><br>
-                        <label for="Glass">Glass:</label>
-                        <input type="text" id="Glass" name="Glass" maxlength="3"><br><br>
-                        <label for="Plastic">Plastic:</label>
-                        <input type="text" id="Plastic" name="Plastic" maxlength="3"><br><br>
-                        <label for="Caoutchouc">Caoutchouc:</label>
-                        <input type="text" id="Caoutchouc" name="Caoutchouc" maxlength="3"><br><br>
-                        <label for="Garbage">Garbage:</label>
-                        <input type="text" id="Garbage" name="Garbage" maxlength="3"><br><br>
-                        <label for="Wave">Wave:</label>
-                        <input type="text" id="Wave" name="Wave" maxlength="16"><br><br>
-                        <label for="Airdirection">Air Direction:</label>
-                        <input type="text" id="Airdirection" name="Airdirection" maxlength="6"><br><br>
-                        <label for="Rainfail">Rainfall:</label>
-                        <input type="text" id="Rainfail" name="Rainfail" maxlength="3"><br><br>
-                        <label for="Yestrainfail">Yesterday's Rainfall:</label>
-                        <input type="text" id="Yestrainfail" name="Yestrainfail" maxlength="3"><br><br>
-                        <label for="month-select-3">Month:</label>
-                        <select id="month-select-3" name="month-select-3" required>
-                            <option value="" disabled selected>Select a month</option> 
-                            <option value="maios_">May</option>
-                            <option value="ioynios_">June</option>
-                            <option value="ioylios_">July</option>
-                            <option value="aygoystos_">August</option>
-                            <option value="septemvrios_">September</option>
-                            <option value="oktovrios_">October</option>
-                        </select><br><br>
-
-                        <label for="year-select-3">Year:</label>
-                        <select id="year-select-3" name="year-select-3" required>
-                            <option value="" disabled selected>Select a year</option> 
-                            <option value="2016">2016</option>
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                        </select><br><br>
-                        <button class="btn" type="submit">Submit</button>
-                    </form>
-                    <div id="response"></div>
-                </section>
+                </main>
             </div>
         </div>
-        <footer class="footer">
-            <div class="footer-content">
-                <p>&copy; 2024 Beach Discover. All rights reserved.</p>
-                <ul class="footer-links">
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
+
+        <footer class="text-center p-3 bg-light border-top">
+            <p>&copy; 2024 Beach Discover. All rights reserved.</p>
+            <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
         </footer>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </body>
 </html>
