@@ -77,10 +77,11 @@
                     <div class="content-section text-center p-5" id="section2" style="display: none;">
                         <section id="Parform">
                             <h2>Manage Simeia Parakoloythisis</h2>
+                           
                             <button class="btn" onclick="fetchData()">View Data</button>
                             <div id="dataDisplayTable" class="data-table mt-4"></div>
-
-
+                            
+                            
                             <h2>Upload New File for locations</h2>
                             <p>Please upload the CSV file containing beach data.</p>
                             <form id="uploadLocationForm" enctype="multipart/form-data" action="uploadLocationServlet" method="post">
@@ -90,17 +91,19 @@
 
                                 <button class="btn" type="submit">Upload File</button>
                             </form>
-
+                            
+                           
                             <h2>Delete Beach Location Info</h2>
                             <p>Enter the <strong>code_1</strong> of the beach to delete all information related to that location.</p>
                             <form id="deleteLocationForm" onsubmit="return deleteLocation();">
-                                <label for="code_1">Beach Code:</label>
-                                <input type="text" id="code_1" name="code_1" required>
-                                <button class="btn" type="submit">Delete Beach Location Info</button>
+                                <label for="code_1_">Beach Code:</label>
+                                <input type="text" id="code_1_" name="code_1_" required>
+                                <button id="delbeachl" class="btn" type="submit">Delete Beach Location Info</button>
                             </form>
                             <!-- Div for displaying response message -->
                             <div id="deleteResponse"></div>
-
+                           
+                            
                             <button class="btn" type="button" onclick="showAddForm()">Add Beach Location Info</button>
 
 
@@ -220,12 +223,14 @@
 
                                 <div id="addResponse" class="mt-4"></div>
                             </div>
-
+                            
+                            
                             <h2>Remove Table</h2>
                             <form id="dataForm-5" action="RemoveLocationTable" method="get"> <!-- Change action to your servlet -->
                                 <button class="btn" type="submit" id="butdata-5">Remove the Locations Table</button> <!-- Ensure it's a submit button -->
                             </form>
                             <div id="mes5"></div>
+                           
                         </section>
                     </div>
 
@@ -279,7 +284,7 @@
                                 </select>
                                 <button class="btn" type="submit" id="butdata">View Beach Data</button> 
                             </form>
-                            <div id="beachDataDisplay" class="mt-4"></div>
+                            <div id="beachDataDisplay" class="data-table mt-4"></div>
                             <div id="nameoftable" style="display: none;"></div>
                             <button id="saveButton" style="display: none;">Save All Updates</button> 
                         </section>
@@ -349,8 +354,8 @@
                                     <option value="septemvrios_">September</option>
                                     <option value="oktovrios_">October</option>
                                 </select>
-                                <label for="code">code of beach:</label>
-                                <input type="text" id="code" name="code">
+                                <label for="code2">code of beach:</label>
+                                <input type="text" id="code2" name="code2">
                                 <button class="btn" type="submit" id="butdata-2-beach">Remove the beach from Table</button> <!-- Ensure it's a submit button -->
 
                             </form>
@@ -541,23 +546,40 @@
                                 <button class="btn btn-primary" type="submit">Submit</button>
                             </form>
 
-                            <div id="response" class="mt-4"></div>
+                            <div id="addInsertResponse" class="mt-4"></div>
                         </section>
                     </div>
                 </main>
             </div>
         </div>
+        
+    <div id="md" class="modal" tabindex="-1" style="display:none;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3">
+                <span class="close" onclick="closeContactForm()">&times;</span>
+                <h2>Contact Us</h2>
+                <form id="contactForm" action="ContactServlet" method="POST" enctype="multipart/form-data">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" class="form-control mb-2" required>
+                    <label for="contactEmail">Email:</label>
+                    <input type="email" id="contactEmail" name="contactEmail" class="form-control mb-2" required>
+                    <label for="contactMessage">Message:</label>
+                    <textarea id="contactMessage" name="contactMessage" class="form-control mb-2" rows="4" required></textarea>
+                    <button type="submit" id="contb" class="btn btn-primary btn-block">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
         <footer class="text-center p-3 bg-light border-top">
             <p>&copy; 2024 Beach Discover. All rights reserved.</p>
             <ul>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="#md" onclick="openContactForm()">Contact Us</a></li>
             </ul>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+               <script src="admin.js"></script>
     </body>
 </html>

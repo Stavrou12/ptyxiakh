@@ -43,7 +43,7 @@ public class DeleteLocationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String code1 = request.getParameter("code_1");
+         String code1 = request.getParameter("code_1_");
 
         try (Connection conn = DB_Connection.getConnection()) {
             String sql = "DELETE FROM simeia_parakoloythisis_2020 WHERE code_1 = ?";

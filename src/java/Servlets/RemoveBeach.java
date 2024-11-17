@@ -68,7 +68,8 @@ public class RemoveBeach extends HttpServlet {
        
         String selectedmonth = request.getParameter("month-select-2-beach");
         String selectedyear = request.getParameter("year-select-2-beach");
-        String beach = request.getParameter("code");
+        String beach = request.getParameter("code2");
+        System.out.println(beach);
         String tableName = selectedmonth + selectedyear; 
          try {
             Connection con = DB_Connection.getConnection();
@@ -122,11 +123,12 @@ public class RemoveBeach extends HttpServlet {
             System.out.println(beachcode);
             // Construct the DROP TABLE SQL query
              String sql = "DELETE FROM " + tableName + " WHERE StationCode = ?";
-              System.out.println("Executing SQL: " + sql + " with StationCode: " + beachcode);
+             
 
         // Create a PreparedStatement
         statement = connection.prepareStatement(sql);
         statement.setString(1, beachcode);
+         System.out.println("Executing SQL: " + sql + " with StationCode: " + beachcode);
 
             int affectedRows = statement.executeUpdate();
              isRemoved = affectedRows > 0;

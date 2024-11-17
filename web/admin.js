@@ -3,45 +3,118 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
-console.log("Admin script loaded");  
+console.log("Admin script loaded");
+document.getElementById('contactForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the default form submission
+    const formData = new FormData(this); // Use FormData to handle file upload
 
- function showAddForm() {
-        document.getElementById('addLocationForm').style.display = 'block';
+    for (const [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
     }
-    
-function deleteLocation() {
-        const code1 = document.getElementById('code_1').value;
-
-        if (!confirm(`Are you sure you want to delete the beach location with code ${code1}?`)) {
-            return false; // Stop form submission if not confirmed
-        }
-
-        // Prepare AJAX request
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "DeleteLocationServlet", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-        // Handle the server's response
-        xhr.onload = function () {
-            const responseDiv = document.getElementById('deleteResponse');
+    // Submit the form via AJAX (no need to send the username here)
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/PTYXIAKH/ContactServlet', true); // Adjust to the correct server endpoint
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
-                responseDiv.textContent = xhr.responseText;
-                responseDiv.style.color = "green";
+                const jsonResponse = JSON.parse(xhr.responseText);
+                 document.getElementById("contb").disabled = true;
+                console.log("Server response:", jsonResponse); // Log the response for debugging
+                 const successMessage = document.createElement('p');
+                        successMessage.textContent = "Message submitted successfully!";
+                        successMessage.style.color = "green";
+                        document.getElementById('contactForm').appendChild(successMessage);
+                        setTimeout(() => {
+                                  closeContactForm();
+                                  document.getElementById('contactForm').removeChild(successMessage);
+                            }, 4000);
             } else {
-                responseDiv.textContent = "An error occurred while deleting the beach location.";
-                responseDiv.style.color = "red";
+                const jsonResponse = JSON.parse(xhr.responseText);
+                console.log("Server response:", jsonResponse); // Log the response for debugging
+                const successMessage = document.createElement('p');
+                        successMessage.textContent = "Message was not sent!";
+                        successMessage.style.color = "red";
+                        document.getElementById('contactForm').appendChild(successMessage);
+                        setTimeout(() => {
+                                  
+                                  document.getElementById('contactForm').removeChild(successMessage);
+                                  closeContactForm();
+                            }, 4000);
+                
             }
-        };
+        }
+    };
+    xhr.send(formData);
+});
 
-        // Send request with the code_1 parameter
-        xhr.send("code_1=" + encodeURIComponent(code1));
 
-        // Prevent the form from submitting the traditional way
-        return false;
+function openContactForm() {
+    document.getElementById("contb").disabled = false;
+    document.getElementById("md").classList.add("active");
+    document.getElementById("md").style.display="block";
+}
+
+function closeContactForm() {
+    document.getElementById('contactForm').reset(); // Reset the form
+    document.getElementById("md").classList.remove("active");
+    document.getElementById("md").style.display="none";
+}
+
+function showAddForm() {
+    document.getElementById('addLocationForm').style.display = 'block';
+}
+
+
+function closeAddForm() {
+    document.getElementById('addLocationForm').style.display = 'none';
+}
+
+
+function deleteLocation() {
+    const code1 = document.getElementById('code_1_').value;
+    document.getElementById("delbeachl").disabled=true;
+    if (!confirm(`Are you sure you want to delete the beach location with code ${code1}?`)) {
+        return false; // Stop form submission if not confirmed
     }
-    
+
+    // Prepare AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "DeleteLocationServlet", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    // Handle the server's response
+    xhr.onload = function () {
+        const responseDiv = document.getElementById('deleteResponse');
+        if (xhr.status === 200) {
+            responseDiv.textContent = xhr.responseText;
+            responseDiv.style.color = "green";
+              setTimeout(() => {
+                responseDiv.textContent = ""; // Make the message empty
+                document.getElementById("delbeachl").disabled=false;
+                $('#deleteLocationForm')[0].reset();
+                
+            }, 5000); // 5000 milliseconds = 5 seconds
+        } else {
+            responseDiv.textContent = "An error occurred while deleting the beach location.";
+            responseDiv.style.color = "red";
+              setTimeout(() => {
+                responseDiv.textContent = ""; // Make the message empty
+                 document.getElementById("delbeachl").disabled=false;
+                $('#deleteLocationForm')[0].reset();
+            }, 5000); // 5000 milliseconds = 5 seconds
+        }
+    };
+
+    // Send request with the code_1 parameter
+    xhr.send("code_1_=" + encodeURIComponent(code1));
+
+    // Prevent the form from submitting the traditional way
+    return false;
+}
+
 // Fetch and display the data from the database
 function fetchData() {
+    document.getElementById('dataDisplayTable').style.display = 'block';
     $.ajax({
         url: "GetSimeiaParakoloythisisDataServlet", // Your server endpoint to fetch data
         method: "GET",
@@ -92,8 +165,8 @@ function renderTable(data) {
 
 function updateRow(rowIndex) {
     const row = document.querySelector(`#dataDisplayTable table tr:nth-child(${rowIndex + 2})`); // Row selector (1st row is header)
-   
-       row.querySelectorAll("td").forEach((cell, index) => {
+
+    row.querySelectorAll("td").forEach((cell, index) => {
         // Skip the last column (Actions) and non-editable columns
         if (index !== row.children.length - 1) {
             cell.setAttribute("contenteditable", "true");
@@ -104,7 +177,7 @@ function updateRow(rowIndex) {
     // Show the "Save Changes" button and optionally hide "Update" button
     row.querySelector("button[onclick^='saveChanges']").style.display = "inline";
     row.querySelector("button[onclick^='updateRow']").style.display = "none";
-    
+
     row.querySelector("button[onclick^='saveChanges']").style.display = "inline"; // Show Save Changes button
 }
 
@@ -135,11 +208,11 @@ function saveChanges(FID, rowIndex) {
         contentType: "application/json",
         data: JSON.stringify(updatedData),
         success: function (response) {
-           
+
             fetchData(); // Refresh data to see updated values
         },
         error: function (xhr, status, error) {
-            
+
             console.error("Failed to update data: ", error);
         }
     });
@@ -150,14 +223,33 @@ function saveChanges(FID, rowIndex) {
 
 function showSection(sectionId) {
     // Hide all content sections
-     document.querySelectorAll('.content-section').forEach(section => {
-                section.style.display = 'none';
-            });
-            // Show the selected section
-            document.getElementById(sectionId).style.display = 'block';
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.style.display = 'none';
+    });
+    // Show the selected section
+    document.getElementById(sectionId).style.display = 'block';
+    $('#beachDataDisplay').empty();
+    $('#dataDisplayTable').empty();
+    document.getElementById('beachDataDisplay').style.display = 'none';
+    document.getElementById('dataDisplayTable').style.display = 'none';
+    $('#uploadLocationForm')[0].reset();
+    $('#deleteLocationForm')[0].reset();
+
+
+    closeAddForm();
+    $('#dataForm-2-beach')[0].reset();
+    $('#dataForm-3')[0].reset();
+    $('#dataForm-2')[0].reset();
+    $('#dataForm-4')[0].reset();
+    $('#dataForm-5')[0].reset();
+    $('#dataForm')[0].reset();
+    $('#uploadForm')[0].reset();
+    $('#apolyshform')[0].reset();
+
+
 }
 
-   
+
 
 $(document).ready(function () {
 
@@ -172,37 +264,52 @@ $(document).ready(function () {
             type: 'POST',
             data: formData,
             success: function (response) {
-                $('#response').html('<p>Data inserted successfully!</p>');
+                $('#addResponse').html('<p>Data inserted successfully!</p>');
+                setTimeout(function () {
+                        $('#addResponse').html(''); // Clear the content
+                    }, 5000);
             },
             error: function (xhr, status, error) {
-                $('#response').html('<p>Error: ' + error + '</p>');
+                $('#addResponse').html('<p>Error: ' + error + '</p>');
+                  setTimeout(function () {
+                        $('#addResponse').html(''); // Clear the content
+                    }, 5000);
             }
         });
     });
-    
+
     $('#dataForm-5').on('submit', function (event) {
         event.preventDefault();  // Prevent default form submission
         // Get form data
-    let confirmDelete = confirm("Are you sure you want to remove the table?");
-        
+        let confirmDelete = confirm("Are you sure you want to remove the table?");
+
         if (confirmDelete) {
-        // Send form data to backend (servlet)
-        $.ajax({
-            url: 'RemoveLocationTable', // Adjust this URL to match your servlet
-            type: 'GET',
-            success: function (response) {
-                $('#mes5').html('<p>table was deleted!</p>');
-            },
-            error: function (xhr, status, error) {
-                $('#mes5').html('<p>Error: ' + error + '</p>');
-            }
-        });
-    }else{
-         $('#mes5').html('<p>Table deletion was canceled.</p>');
-    }
+            // Send form data to backend (servlet)
+            $.ajax({
+                url: 'RemoveLocationTable', // Adjust this URL to match your servlet
+                type: 'GET',
+                success: function (response) {
+                    $('#mes5').html('<p>table was deleted!</p>');
+                    setTimeout(function () {
+                        $('#mes5').html(''); // Clear the content
+                    }, 5000);
+                },
+                error: function (xhr, status, error) {
+                    $('#mes5').html('<p>Error: ' + error + '</p>');
+                    setTimeout(function () {
+                        $('#mes5').html(''); // Clear the content
+                    }, 5000);
+                }
+            });
+        } else {
+            $('#mes5').html('<p>Table deletion was canceled.</p>');
+            setTimeout(function () {
+                $('#mes5').html(''); // Clear the content
+            }, 5000);
+        }
     });
-    
-       
+
+
     $('#dataForm-3').on('submit', function (event) {
         event.preventDefault();  // Prevent default form submission
 
@@ -215,10 +322,16 @@ $(document).ready(function () {
             type: 'POST',
             data: formData,
             success: function (response) {
-                $('#addResponse').html('<p>Data inserted successfully!</p>');
+                $('#addInsertResponse').html('<p>Data inserted successfully!</p>');
+                setTimeout(function () {
+                    $('#addInsertResponse').html(''); // Clear the content
+                }, 5000);
             },
             error: function (xhr, status, error) {
-                $('#addResponse').html('<p>Error: ' + error + '</p>');
+                $('#addInsertResponse').html('<p>Error: ' + error + '</p>');
+                setTimeout(function () {
+                    $('#addInsertResponse').html(''); // Clear the content
+                }, 5000);
             }
         });
     });
@@ -230,6 +343,7 @@ $(document).ready(function () {
         // Get selected values
         const selectedMonth = $('#month-select-2').val();
         const selectedYear = $('#year-select-2').val();
+        
         // Make AJAX request
         $.ajax({
             url: 'RemoveTable',
@@ -251,14 +365,23 @@ $(document).ready(function () {
                     console.log($('#nameoftable').attr('name')); // Should output: giannis
                     console.log($('#nameoftable').html()); // Should output: This is the content for the div.                                
                     $('#tablermmes').html("Table " + selectedMonth + selectedYear + " was successfully removed"); // Insert the table into the display area
+                    setTimeout(function () {
+                        $('#tablermmes').html(''); // Clear the content
+                    }, 5000);
                 } else {
                     $('#tablermmes').html('<p>No data available for the selected month and year.</p>');
+                    setTimeout(function () {
+                        $('#tablermmes').html(''); // Clear the content
+                    }, 5000);
                 }
             },
             error: function (xhr, status, error) {
                 // Handle errors
                 console.error('AJAX Error:', status, error);
                 $('#tablermmes').html('<p>An error occurred while retrieving data. Please try again later.</p>');
+                setTimeout(function () {
+                        $('#tablermmes').html(''); // Clear the content
+                    }, 5000);
             }
         });
     });
@@ -272,7 +395,7 @@ $(document).ready(function () {
         // Get selected values
         const selectedMonth = $('#month-select-2-beach').val();
         const selectedYear = $('#year-select-2-beach').val();
-        const beach = $('#code').val();
+        const beach = $('#code2').val();
         console.log(beach);
         // Make AJAX request
         $.ajax({
@@ -281,7 +404,7 @@ $(document).ready(function () {
             data: {
                 'month-select-2-beach': selectedMonth,
                 'year-select-2-beach': selectedYear,
-                'code': beach
+                'code2': beach
             },
             success: function (response) {
                 // Clear previous data
@@ -296,8 +419,14 @@ $(document).ready(function () {
                     console.log($('#nameoftable').attr('name')); // Should output: giannis
                     console.log($('#nameoftable').html()); // Should output: This is the content for the div.                                
                     $('#tablermmesbeach').html("beach " + beach + " was removed from Table " + selectedMonth + selectedYear); // Insert the table into the display area
+                    setTimeout(function() {
+    $('#tablermmesbeach').html(''); // Clear the content
+}, 5000);
                 } else {
                     $('#tablermmesbeach').html('<p>No data available for the selected month and year.</p>');
+                                       setTimeout(function() {
+    $('#tablermmesbeach').html(''); // Clear the content
+}, 5000);
                 }
             },
             error: function (xhr, status, error) {
@@ -308,11 +437,13 @@ $(document).ready(function () {
         });
     });
 
-      console.log("Document is fully loaded");
+
     $('#dataForm').on('submit', function (event) {
-        console.log("Submit button clicked"); 
+
+        document.getElementById('beachDataDisplay').style.display = 'block';
+        console.log("Submit button clicked");
         event.preventDefault(); // Prevent the default form submission
-         console.log("Form submission prevented."); 
+
         const selectedMonth = $('#month-select').val();
         const selectedYear = $('#year-select').val();
         $.ajax({
@@ -396,7 +527,7 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     $('#saveButton').on('click', function () {
         const tableName = document.getElementById("nameoftable").getAttribute("name");
         console.log(tableName);
@@ -608,9 +739,15 @@ function deleteuser() {
 
             // You can update the UI here to show that the user was deleted.
             document.getElementById('responseMessage').innerText = "User deleted successfully.";
+            setTimeout(function () {
+                document.getElementById('responseMessage').innerText = ""; // Clear the content
+            }, 5000);
         } else {
             console.error("Failed to delete user. Status: " + xhr.status);
             document.getElementById('responseMessage').innerText = "Failed to delete user.";
+            setTimeout(function () {
+                document.getElementById('responseMessage').innerText = ""; // Clear the content
+            }, 5000);
         }
     };
 
@@ -653,6 +790,9 @@ function DELETEPOST() {
             // $('#ajaxContent').html("Successful Registration.");
             // $('#reg')[0].reset();
             $('#pinakas').append(createTableFromJSON(responseData));
+            setTimeout(function () {
+                $('#pinakas').empty(); // Clear all content inside the #pinakas element
+            }, 5000);
         } else if (xhr.status !== 200) {
             //  document.getElementById("ajaxContent").style.color = "red";
             // document.getElementById('ajaxContent').innerHTML =
