@@ -1,66 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>My_form</title>
-        <link rel="stylesheet" type="text/css" href="regc.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="regj.js"></script>
-    </head>
-    <body>
-        <div class="Register">
-            <h1>Εγγραφή Χρήστη</h1>
-            <form id="reg" onsubmit='RegisterPOST();return false;'>
-                <fieldset>
-                    <legend>
-                        Συμπληρώστε την φόρμα:
-                    </legend>
-                    <label for="txtUserName">UserName:</label>
-                    <input type="text" id="txtUserName" name="username" onchange="USERNAME() " autocomplete="on" pattern="[0-9a-zA-Z]{8,}" required="required">
-                    <span id="requsername"></span>
-                    <br>
-                    <div id="Mail">
-                        <label for="txtEmail">E-mail:
-                        </label>
-                        <input type="email" id="txtEmail" name="email" onchange="EMAIL()"  required="required">
-                        <span id="reqemail"></span>
+<head>
+    <meta charset="utf-8">
+    <title>My_form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="regc.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="regj.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="text-center">Εγγραφή Χρήστη</h1>
+                        <form id="reg" onsubmit='RegisterPOST();return false;'>
+
+                            <fieldset class="form-group">
+                                <legend>Συμπληρώστε την φόρμα:</legend>
+
+                                <div class="form-group">
+                                    <label for="txtUserName">UserName:</label>
+                                    <input type="text" class="form-control" id="txtUserName" name="username" onchange="USERNAME()" autocomplete="on" pattern="[0-9a-zA-Z]{8,}" required="required">
+                                    <small id="requsername" class="form-text text-muted"></small>
+                                </div>
+
+                                <div class="form-group" id="Mail">
+                                    <label for="txtEmail">E-mail:</label>
+                                    <input type="email" class="form-control" id="txtEmail" name="email" onchange="EMAIL()" required="required">
+                                    <small id="reqemail" class="form-text text-muted"></small>
+                                </div>
+
+                                <div class="form-group" id="pass">
+                                    <label>Password:</label>
+                                    <div class="input-group">
+                                        <input id="p1" type="password" class="form-control" name="password" pattern="(?=.*[A-Za-z])(?=.*[@$!%*#?&])(?=.*[0-9]).{8,12}" required="required" onchange="checkPasswordStrength()">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="togglepas" onclick="toggle()"><i class="fa fa-eye"></i></span>
+                                        </div>
+                                    </div>
+                                    <small id="strengthMessage" class="form-text text-muted"></small>
+                                </div>
+
+                                <div class="form-group" id="pass2">
+                                    <label>Επιβεβαίωση password:</label>
+                                    <div class="input-group">
+                                        <input id="p2" type="password" class="form-control" name="password2" pattern="(?=.*[A-Za-z])(?=.*[@$!%*#?&])(?=.*[0-9]).{8,12}" required="required">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="togglepas2" onclick="toggle2()"><i class="fa fa-eye"></i></span>
+                                        </div>
+                                    </div>
+                                    <small id="message" class="form-text text-muted"></small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="txtName">Όνομα:</label>
+                                    <input type="text" class="form-control" id="txtName" name="firstname" minlength="3" maxlength="30" required="required">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="txtName1">Επώνυμο:</label>
+                                    <input type="text" class="form-control" id="txtName1" name="lastname" minlength="3" maxlength="30" required="required">
+                                </div>
+
+                            </fieldset>
+
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="check" name="check" required>
+                                <label class="form-check-label" for="check">Συμφωνία με όρους χρήσης</label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block">Εγγραφή</button>
+                            <button type="reset" class="btn btn-secondary btn-block mt-2">Επαναφορά</button>
+
+                        </form>
+                        <div id='ajaxContent'></div>
                     </div>
-                   <div id="pass">
-                        <label>Password:</label>
-                        <div class="password-container">
-                        <input id="p1" type="password" name="password" pattern="(?=.*[A-Za-z])(?=.*[@$!%*#?&])(?=.*[0-9]).{8,12}" required="required" onchange="checkPasswordStrength()">
-                        <i class="fa fa-eye password-icon" id="togglepas" onclick="toggle()"></i>
-                        <p id="strengthMessage"></p>
-                        </div>
-                   </div>
-                    <div id="pass2">
-                        <label>
-                            Επιβεβαίωση password:
-                        </label>
-                        <div class="password-container">
-                        <input id="p2" type="password" name="password2" pattern="(?=.*[A-Za-z])(?=.*[@$!%*#?&])(?=.*[0-9]).{8,12}" required="required">
-                        <i class="fa fa-eye password-icon" id="togglepas2" onclick="toggle2()"></i>
-                        <p id="message"></p>
-                        </div>
-                    </div>                  
-                    <br>
-                    <label for="txtName">Όνομα:</label>
-                    <input type="text" id="txtName" name="firstname" minlength="3" maxlength="30" size="40" required="required">
-                    <br>
-                    <label for="txtName1">Επώνυμο:</label>
-                    <input type="text" id="txtName1" name="lastname" minlength="3" maxlength="30" size="40" required="required">
-                    <br>
-                </fieldset>
-                <br>
-                <input type="checkbox" id="check" name="check">
-                <label for="check">Συμφωνία με όρους χρήσης</label>
-                <br>
-                <button type="submit">Εγγραφή</button>
-        <button type="reset">Επαναφορά</button>
-            </form>
+                </div>
+            </div>
         </div>
-        <div id='ajaxContent'></div>
-    </body>
+           
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>

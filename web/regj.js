@@ -37,12 +37,12 @@ const passwordInput = document.getElementById('p1');
 
     if (passwordInput.type === "password") {
         passwordInput.type = "text";  // Show password
-        toggleIcon.classList.remove('fa-eye');  // Change icon to eye-slash
-        toggleIcon.classList.add('fa-eye-slash');
+       // toggleIcon.classList.remove('fa-eye');  // Change icon to eye-slash
+       // toggleIcon.classList.add('fa-eye-slash');
     } else {
         passwordInput.type = "password";  // Hide password
-        toggleIcon.classList.remove('fa-eye-slash');  // Change icon to eye
-        toggleIcon.classList.add('fa-eye');
+        //toggleIcon.classList.remove('fa-eye-slash');  // Change icon to eye
+       // toggleIcon.classList.add('fa-eye');
     }
     
 }
@@ -53,12 +53,12 @@ const passwordInput = document.getElementById('p2');
 
     if (passwordInput.type === "password") {
         passwordInput.type = "text";  // Show password
-        toggleIcon.classList.remove('fa-eye');  // Change icon to eye-slash
-        toggleIcon.classList.add('fa-eye-slash');
+       // toggleIcon.classList.remove('fa-eye');  // Change icon to eye-slash
+        //toggleIcon.classList.add('fa-eye-slash');
     } else {
         passwordInput.type = "password";  // Hide password
-        toggleIcon.classList.remove('fa-eye-slash');  // Change icon to eye
-        toggleIcon.classList.add('fa-eye');
+        //toggleIcon.classList.remove('fa-eye-slash');  // Change icon to eye
+        //toggleIcon.classList.add('fa-eye');
     }
     
 }
@@ -124,6 +124,7 @@ function createTableFromJSON(data) {
 }
 
 function RegisterPOST() {
+    event.preventDefault();
     let myForm = document.getElementById('reg');
     let formData = new FormData(myForm);
     const data = {};
@@ -153,8 +154,11 @@ function RegisterPOST() {
             // $('#ajaxContent').html("Successful Registration.");
             $('#reg')[0].reset();
             $('#ajaxContent').append(createTableFromJSON(responseData));
-            document.getElementById("ajaxContent").style.color = "black";
-            //document.getElementById('ajaxContent').innerHTML = xhr.responseText;
+            document.getElementById("ajaxContent").style.color = "green";
+            
+            setTimeout(function() {
+    $('#ajaxContent').html(""); // Clear the content
+}, 3000); // 3000 milliseconds = 3 seconds
 
 
         } else if (xhr.status !== 200) {
@@ -163,12 +167,9 @@ function RegisterPOST() {
                     'Request failed. Returned status of ' + xhr.status + "<br>";
         }
     };
-    console.log("before");
         xhr.open('POST', 'GetUser');
-          console.log("after_1");
         xhr.setRequestHeader("Content-type", "application/json");
         xhr.send(jsonData);
-        console.log("after_2");
          //xhr.send(JSON.stringify(data));
         //console.log(jsonData);
 }

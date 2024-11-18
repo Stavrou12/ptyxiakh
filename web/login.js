@@ -83,3 +83,46 @@ function isLoggedIn() {
 function redirectToHome() {
     window.location.href = 'index.html';
 }
+
+document.getElementById('contactForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the default form submission
+    const formData = new FormData(this); // Use FormData to handle file upload
+
+    for (const [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+    }
+    // Submit the form via AJAX (no need to send the username here)
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/PTYXIAKH/ContactServlet', true); // Adjust to the correct server endpoint
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const jsonResponse = JSON.parse(xhr.responseText);
+                 document.getElementById("contb").disabled = true;
+                console.log("Server response:", jsonResponse); // Log the response for debugging
+                 const successMessage = document.createElement('p');
+                        successMessage.textContent = "Message submitted successfully!";
+                        successMessage.style.color = "green";
+                        document.getElementById('contactForm').appendChild(successMessage);
+                        setTimeout(() => {
+                                  closeContactForm();
+                                  document.getElementById('contactForm').removeChild(successMessage);
+                            }, 4000);
+            } else {
+                const jsonResponse = JSON.parse(xhr.responseText);
+                console.log("Server response:", jsonResponse); // Log the response for debugging
+                const successMessage = document.createElement('p');
+                        successMessage.textContent = "Message was not sent!";
+                        successMessage.style.color = "red";
+                        document.getElementById('contactForm').appendChild(successMessage);
+                        setTimeout(() => {
+                                  
+                                  document.getElementById('contactForm').removeChild(successMessage);
+                                  closeContactForm();
+                            }, 4000);
+                
+            }
+        }
+    };
+    xhr.send(formData);
+});

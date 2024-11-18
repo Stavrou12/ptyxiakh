@@ -43,9 +43,25 @@ header {
     cursor: pointer;
 }
 
+.bg-light{
+        border: 1px solid #ddd;
+    border-radius: 8px;
+}
+@media (max-width: 767px) {
+    #sidebar {
+        display: none !important; /* Ensure the sidebar is hidden */
+    }
+}
+
+/* Show the sidebar on medium and larger screens */
+@media (min-width: 768px) {
+    #sidebar {
+        display: block; /* Sidebar is visible */
+    }
+}
 
 /* Sidebar styling */
-#sidebar {
+#sidebar { 
     min-height: 100vh;
     background-color: #e9ecef;
 }
@@ -55,6 +71,17 @@ header {
     font-weight: 500;
 }
 
+#navbarNav .nav-link{
+        color: #333;
+    font-weight: 500;
+}
+
+#navbarNav{
+    background-color: #e9ecef;
+}
+#navbarNav .nav-link:hover{
+    color: #007bff;
+}
 #sidebar .nav-link:hover {
     color: #007bff;
 }
@@ -98,6 +125,18 @@ footer {
     }
 }
 
+@media (min-width: 768px) {
+    #navbarNav {
+        display: none; /* Hide the collapsible navbar on larger screens */
+    }
+}
+    
+    
+@media (max-width: 1024px) { /* Adjust for iPad-sized screens */
+    #sidebar {
+        display: block; /* Show the sidebar on iPads */
+    }
+}
 
 /* Table Styling */
 .data-table {

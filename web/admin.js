@@ -61,7 +61,14 @@ function closeContactForm() {
 }
 
 function showAddForm() {
-    document.getElementById('addLocationForm').style.display = 'block';
+   
+    
+    const form = document.getElementById('addLocationForm');
+    if (form.style.display === 'block') {
+        form.style.display = 'none';
+    } else {
+        form.style.display = 'block';
+    }
 }
 
 
@@ -246,7 +253,9 @@ function showSection(sectionId) {
     $('#uploadForm')[0].reset();
     $('#apolyshform')[0].reset();
 
-
+    document.getElementById("delete-page").style.display = 'none';
+    document.getElementById("user1").style.display = 'none';
+    document.getElementById("butdel").style.display = 'none';
 }
 
 

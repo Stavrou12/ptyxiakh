@@ -28,7 +28,7 @@
         </header>
 
         <!-- Collapsible Sidebar for Phones (Hidden on Larger Screens) -->
-        <div class="collapse bg-dark text-white d-md-none" id="navbarNav">
+        <div class="collapse d-md-none" id="navbarNav">
             <ul class="navbar-nav flex-column p-3">
                 <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section1')">Upload File</a></li>
                 <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section2')">Manage Simeia Parakoloythisis</a></li>
@@ -86,7 +86,7 @@
                             <p>Please upload the CSV file containing beach data.</p>
                             <form id="uploadLocationForm" enctype="multipart/form-data" action="uploadLocationServlet" method="post">
 
-                                <input type="file" id="fileInput2" name="file2" accept=".csv">
+                                <input type="file" id="fileInput2" name="file2" accept=".csv" required>
                                 <label for="fileInput2"><i></i> Choose a file</label>
 
                                 <button class="btn" type="submit">Upload File</button>
@@ -207,14 +207,14 @@
                                     <div class="form-group row">
                                         <label for="description" class="col-sm-2 col-form-label">Description:</label>
                                         <div class="col-sm-10">
-                                            <input type="text" id="description" name="description" class="form-control">
+                                            <input type="text" id="description" name="description" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="perifereia" class="col-sm-2 col-form-label">Perifereia:</label>
                                         <div class="col-sm-10">
-                                            <input type="text" id="perifereia" name="perifereia" class="form-control">
+                                            <input type="text" id="perifereia" name="perifereia" class="form-control" required>
                                         </div>
                                     </div>
 
@@ -242,7 +242,7 @@
                                 <form id ="apolyshform" onsubmit='DELETEPOST();return false;'>
                                     <div id="user1" style="display: none;">
                                         <label for="USER1">ID OF User:</label>
-                                        <input type="number" id="USER1"  name="userid">
+                                        <input type="number" id="USER1"  name="userid" required>
                                     </div>
                                     <div id="butdel" style="display: none;" onclick="deleteuser()" >
                                         <button class="btn" id="delemp" type="submit">Πατηστε για την διαγραφή</button>
@@ -260,7 +260,7 @@
                             <h2>Select Beach Data to View</h2>
                             <form id="dataForm" action="javascript:void(0)"> 
                                 <label for="year-select">Year:</label>
-                                <select id="year-select" name="year-select"> <!-- Add name attribute -->
+                                <select id="year-select" name="year-select" required> <!-- Add name attribute -->
                                     <option value="" disabled selected>Select a year</option> 
                                     <option value="2016">2016</option>
                                     <option value="2017">2017</option>
@@ -273,7 +273,7 @@
                                     <option value="2024">2024</option>
                                 </select>    
                                 <label for="month-select">Month:</label>
-                                <select id="month-select" name="month-select"> <!-- Add name attribute -->
+                                <select id="month-select" name="month-select" required> <!-- Add name attribute -->
                                     <option value="" disabled selected>Select a month</option> 
                                     <option value="maios_">May</option>
                                     <option value="ioynios_">June</option>
@@ -297,7 +297,7 @@
                             <form id="dataForm-2" action="RemoveTable" method="get"> <!-- Change action to your servlet -->
 
                                 <label for="year-select-2">Year:</label>
-                                <select id="year-select-2" name="year-select-2"> <!-- Add name attribute -->
+                                <select id="year-select-2" name="year-select-2" required> <!-- Add name attribute -->
                                     <option value="" disabled selected>Select a year</option> 
                                     <option value="2016">2016</option>
                                     <option value="2017">2017</option>
@@ -310,7 +310,7 @@
                                     <option value="2024">2024</option>
                                 </select>    
                                 <label for="month-select-2">Month:</label>
-                                <select id="month-select-2" name="month-select-2"> <!-- Add name attribute -->
+                                <select id="month-select-2" name="month-select-2" required> <!-- Add name attribute -->
                                     <option value="" disabled selected>Select a month</option> 
                                     <option value="maios_">May</option>
                                     <option value="ioynios_">June</option>
@@ -332,7 +332,7 @@
                             <form id="dataForm-2-beach" action="RemoveBeach" method="get"> <!-- Change action to your servlet -->
 
                                 <label for="year-select-2-beach">Year:</label>
-                                <select id="year-select-2-beach" name="year-select-2-beach"> <!-- Add name attribute -->
+                                <select id="year-select-2-beach" name="year-select-2-beach" required> <!-- Add name attribute -->
                                     <option value="" disabled selected>Select a year</option> 
                                     <option value="2016">2016</option>
                                     <option value="2017">2017</option>
@@ -345,7 +345,7 @@
                                     <option value="2024">2024</option>
                                 </select>    
                                 <label for="month-select-2-beach">Month:</label>
-                                <select id="month-select-2-beach" name="month-select-2-beach"> <!-- Add name attribute -->
+                                <select id="month-select-2-beach" name="month-select-2-beach" required> <!-- Add name attribute -->
                                     <option value="" disabled selected>Select a month</option> 
                                     <option value="maios_">May</option>
                                     <option value="ioynios_">June</option>
@@ -355,7 +355,7 @@
                                     <option value="oktovrios_">October</option>
                                 </select>
                                 <label for="code2">code of beach:</label>
-                                <input type="text" id="code2" name="code2">
+                                <input type="text" id="code2" name="code2" required>
                                 <button class="btn" type="submit" id="butdata-2-beach">Remove the beach from Table</button> <!-- Ensure it's a submit button -->
 
                             </form>
