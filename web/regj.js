@@ -3,6 +3,124 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
+function gotoform() {
+    window.location.href = './register.html';
+}
+
+function login_post(event) {
+    event.preventDefault();
+    
+    // Get the values of the username and password fields
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+
+    // Check if the username and password match admin credentials
+    if (username === "admin" && password === "admin12!") {
+        // Redirect to the admin_servlet
+        var data = $("#myForm").serialize();
+        var xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {   
+            if (xhttp.readyState === 4 && xhttp.status === 200) {
+                document.getElementById("msg-login").style.color = "rgb(0, 0, 153)";
+                document.getElementById("msg-login").innerText = "Συνδεθήκατε ως Admin";
+                console.log("Logged in as Admin");
+                window.location.href = './admin.html';  // Redirect to admin page
+            } else if (xhttp.status === 401) {
+                document.getElementById("msg-login").style.color = "red";
+                document.getElementById("msg-login").innerText = "Λάθος στοιχεία";
+            }
+        };
+        xhttp.open("POST", "admin_servlet");  // Admin-specific servlet
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(data);
+
+    } else {
+        // Normal user login
+        var data = $("#myForm").serialize();
+        var xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {   
+            if (xhttp.readyState === 4 && xhttp.status === 200) {
+                document.getElementById("msg-login").style.color = "rgb(0, 0, 153)";
+                document.getElementById("msg-login").innerText = "Συνδεθήκατε";
+                console.log("Logged in successfully");
+                window.location.href = './user.html';  // Redirect to user page
+            } else if (xhttp.status === 401) {
+                document.getElementById("msg-login").style.color = "red";
+                document.getElementById("msg-login").innerText = "Λάθος στοιχεία";
+            }
+        };
+        xhttp.open("POST", "servlet_login");  // Regular login servlet
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(data);
+    }
+}
+
+
+
+       function showLoginModal() {
+            document.getElementById("loginModal").style.display = "block";
+            
+        }
+        
+        // Function to hide the login modal
+        function closeLoginModal() {
+            document.getElementById("loginModal").style.display = "none";
+        }
+        
+        
+document.getElementById('contactForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the default form submission
+    const formData = new FormData(this); // Use FormData to handle file upload
+
+    for (const [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+    }
+    // Submit the form via AJAX (no need to send the username here)
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/PTYXIAKH/ContactServlet', true); // Adjust to the correct server endpoint
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const jsonResponse = JSON.parse(xhr.responseText);
+                 document.getElementById("contb").disabled = true;
+                console.log("Server response:", jsonResponse); // Log the response for debugging
+                 const successMessage = document.createElement('p');
+                        successMessage.textContent = "Message submitted successfully!";
+                        successMessage.style.color = "green";
+                        document.getElementById('contactForm').appendChild(successMessage);
+                        setTimeout(() => {
+                                  closeContactForm();
+                                  document.getElementById('contactForm').removeChild(successMessage);
+                            }, 4000);
+            } else {
+                const jsonResponse = JSON.parse(xhr.responseText);
+                console.log("Server response:", jsonResponse); // Log the response for debugging
+                const successMessage = document.createElement('p');
+                        successMessage.textContent = "Message was not sent!";
+                        successMessage.style.color = "red";
+                        document.getElementById('contactForm').appendChild(successMessage);
+                        setTimeout(() => {
+                                  
+                                  document.getElementById('contactForm').removeChild(successMessage);
+                                  closeContactForm();
+                            }, 4000);
+                
+            }
+        }
+    };
+    xhr.send(formData);
+});
+
+
+        function openContactForm() {
+    document.getElementById("md").classList.add("active");
+    document.getElementById("md").style.display="block";
+}
+function closeContactForm() {
+    document.getElementById("md").classList.remove("active");
+    document.getElementById("md").style.display = "none";
+}
+
 
 document.addEventListener('DOMContentLoaded', function() {
     // Your existing functions...

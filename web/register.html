@@ -1,90 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>My_form</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="regc.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="regj.js"></script>
-</head>
-<body>
-    <div class="container">
-        <div class="row justify-content-center mt-5">
-            <div class="col-lg-6 col-md-8 col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="text-center">Εγγραφή Χρήστη</h1>
-                        <form id="reg" onsubmit='RegisterPOST();return false;'>
+    <head>
+        <meta charset="utf-8">
+        <title>My_form</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="regc.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="regj.js"></script>
+    </head>
+    <body>
 
-                            <fieldset class="form-group">
-                                <legend>Συμπληρώστε την φόρμα:</legend>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <a class="navbar-brand logo" href="#">Clean Beaches</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="gotoform()">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showLoginModal()">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contactModal" onclick="openContactForm()">Contact Us</a></li>
+                </ul>
+            </div>
+        </nav>
 
-                                <div class="form-group">
-                                    <label for="txtUserName">UserName:</label>
-                                    <input type="text" class="form-control" id="txtUserName" name="username" onchange="USERNAME()" autocomplete="on" pattern="[0-9a-zA-Z]{8,}" required="required">
-                                    <small id="requsername" class="form-text text-muted"></small>
-                                </div>
+        <div class="container">
 
-                                <div class="form-group" id="Mail">
-                                    <label for="txtEmail">E-mail:</label>
-                                    <input type="email" class="form-control" id="txtEmail" name="email" onchange="EMAIL()" required="required">
-                                    <small id="reqemail" class="form-text text-muted"></small>
-                                </div>
+            <div class="row justify-content-center mt-5">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="text-center">Εγγραφή Χρήστη</h1>
+                            <form id="reg" onsubmit='RegisterPOST();return false;'>
 
-                                <div class="form-group" id="pass">
-                                    <label>Password:</label>
-                                    <div class="input-group">
-                                        <input id="p1" type="password" class="form-control" name="password" pattern="(?=.*[A-Za-z])(?=.*[@$!%*#?&])(?=.*[0-9]).{8,12}" required="required" onchange="checkPasswordStrength()">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text" id="togglepas" onclick="toggle()"><i class="fa fa-eye"></i></span>
-                                        </div>
+                                <fieldset class="form-group">
+                                    <legend>Συμπληρώστε την φόρμα:</legend>
+
+                                    <div class="form-group">
+                                        <label for="txtUserName">UserName:</label>
+                                        <input type="text" class="form-control" id="txtUserName" name="username" onchange="USERNAME()" autocomplete="on" pattern="[0-9a-zA-Z]{8,}" required="required">
+                                        <small id="requsername" class="form-text text-muted"></small>
                                     </div>
-                                    <small id="strengthMessage" class="form-text text-muted"></small>
-                                </div>
 
-                                <div class="form-group" id="pass2">
-                                    <label>Επιβεβαίωση password:</label>
-                                    <div class="input-group">
-                                        <input id="p2" type="password" class="form-control" name="password2" pattern="(?=.*[A-Za-z])(?=.*[@$!%*#?&])(?=.*[0-9]).{8,12}" required="required">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text" id="togglepas2" onclick="toggle2()"><i class="fa fa-eye"></i></span>
-                                        </div>
+                                    <div class="form-group" id="Mail">
+                                        <label for="txtEmail">E-mail:</label>
+                                        <input type="email" class="form-control" id="txtEmail" name="email" onchange="EMAIL()" required="required">
+                                        <small id="reqemail" class="form-text text-muted"></small>
                                     </div>
-                                    <small id="message" class="form-text text-muted"></small>
+
+                                    <div class="form-group" id="pass">
+                                        <label>Password:</label>
+                                        <div class="input-group">
+                                            <input id="p1" type="password" class="form-control" name="password" pattern="(?=.*[A-Za-z])(?=.*[@$!%*#?&])(?=.*[0-9]).{8,12}" required="required" onchange="checkPasswordStrength()">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="togglepas" onclick="toggle()"><i class="fa fa-eye"></i></span>
+                                            </div>
+                                        </div>
+                                        <small id="strengthMessage" class="form-text text-muted"></small>
+                                    </div>
+
+                                    <div class="form-group" id="pass2">
+                                        <label>Επιβεβαίωση password:</label>
+                                        <div class="input-group">
+                                            <input id="p2" type="password" class="form-control" name="password2" pattern="(?=.*[A-Za-z])(?=.*[@$!%*#?&])(?=.*[0-9]).{8,12}" required="required">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="togglepas2" onclick="toggle2()"><i class="fa fa-eye"></i></span>
+                                            </div>
+                                        </div>
+                                        <small id="message" class="form-text text-muted"></small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="txtName">Όνομα:</label>
+                                        <input type="text" class="form-control" id="txtName" name="firstname" minlength="3" maxlength="30" required="required">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="txtName1">Επώνυμο:</label>
+                                        <input type="text" class="form-control" id="txtName1" name="lastname" minlength="3" maxlength="30" required="required">
+                                    </div>
+
+                                </fieldset>
+
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="check" name="check" required>
+                                    <label class="form-check-label" for="check">Συμφωνία με όρους χρήσης</label>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="txtName">Όνομα:</label>
-                                    <input type="text" class="form-control" id="txtName" name="firstname" minlength="3" maxlength="30" required="required">
-                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Εγγραφή</button>
+                                <button type="reset" class="btn btn-secondary btn-block mt-2">Επαναφορά</button>
 
-                                <div class="form-group">
-                                    <label for="txtName1">Επώνυμο:</label>
-                                    <input type="text" class="form-control" id="txtName1" name="lastname" minlength="3" maxlength="30" required="required">
-                                </div>
-
-                            </fieldset>
-
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" id="check" name="check" required>
-                                <label class="form-check-label" for="check">Συμφωνία με όρους χρήσης</label>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-block">Εγγραφή</button>
-                            <button type="reset" class="btn btn-secondary btn-block mt-2">Επαναφορά</button>
-
-                        </form>
-                        <div id='ajaxContent'></div>
+                            </form>
+                            <div id='ajaxContent'></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-           
+        <footer>
+            <div class="footer-container">
+                <div class="footer-section about">
+                    <h3>About Us</h3>
+                    <p>
+                        We are a beach review platform dedicated to providing accurate and helpful reviews of beaches from around the world.
+                    </p>
+                </div>
+                <div class="footer-section links">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li><a href="#" onclick="gotoform()">Home</a></li>
+                        <li><a href="#contactModal" onclick="openContactForm()">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section contact">
+                    <h3>Contact Us</h3>
+                    <p>Email: contact@beachreviews.com</p>
+                    <p>Phone: +123 456 7890</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Beach Reviews. All rights reserved.</p>
+            </div>
+        </footer> 
+         <div id="md" class="modal" tabindex="-1" style="display:none;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3">
+                <span class="close" onclick="closeContactForm()">&times;</span>
+                <h2>Contact Us</h2>
+                <form id="contactForm" action="ContactServlet" method="POST" enctype="multipart/form-data">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" class="form-control mb-2" required>
+                    <label for="contactEmail">Email:</label>
+                    <input type="email" id="contactEmail" name="contactEmail" class="form-control mb-2" required>
+                    <label for="contactMessage">Message:</label>
+                    <textarea id="contactMessage" name="contactMessage" class="form-control mb-2" rows="4" required></textarea>
+                    <button id="contb" type="submit" class="btn btn-primary btn-block">Send Message</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+        
+            <div id="loginModal" class="modal" tabindex="-1" style="display:none;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3">
+                <span class="close" onclick="closeLoginModal()">&times;</span>
+                <h2>Login to Beach-Discover</h2>
+                <form id="myForm" action="#" onsubmit="login_post(event); return false;">
+                    <label for="username">Username:</label>
+                    <input id="username" name="username" type="text" placeholder="Please enter" class="form-control mb-2" required>
+                    <label for="password">Password:</label>
+                    <input id="password" name="password" type="password" placeholder="Please enter" class="form-control mb-2" required>
+                    <button class="btn btn-primary btn-block" id="login-butt" type="submit">Login</button>
+                </form>
+                 <div id="msg-login" class="message"></div>
+        
+            </div>
+        </div>
+    </div>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="regj.js"></script>
+    </body>
 </html>
