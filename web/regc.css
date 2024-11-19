@@ -7,29 +7,25 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-     flex-direction: column; 
-    background-color:aliceblue;
+    background-color: aliceblue;
     background-repeat: no-repeat;
     background-size: cover;
-    display: flex;
+    background-image: url("crete_2.jpg");
+    background-position: center;
+    background-attachment: fixed;
+    padding-top: 30px; /* Space for navbars height */
+    margin: 0; /* Remove default body margins */
+    flex-direction: column;
+    display:flex;
     
-     background-image: url("crete_2.jpg");
-     
-     background-size: cover; /* Ensures the image covers the entire background */
-    background-position: center; /* Centers the image */
-    background-attachment: fixed; /* Makes the background stay fixed during scrolling */
+    min-height: 100vh;
 }
 
 .container{
     flex:1;
     margin: auto;
-    margin-top: 250px;
-    padding-top: 250px;
+
+    margin-top: 0; /* Remove additional margin to avoid double spacing */
 }
 
 /* Title styling */
@@ -127,15 +123,15 @@ label[for="terms"] {
     border: none;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .card-body {
     padding: 20px;
-       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.3); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.3);
 }
 header {
     background-color: #f8f9fa;
@@ -151,6 +147,10 @@ header h1 {
 header p {
     font-size: 1.2em;
     color: #555;
+}
+
+.main-content {
+    flex: 1; /* Take up all available space to push footer down */
 }
 
 footer {
@@ -243,7 +243,7 @@ footer .social-icons a:hover {
     left: 0;
     width: 100%;
     z-index: 1000;
-    margin-bottom: 20px;
+    margin-bottom: 0;
 }
 
 
@@ -265,8 +265,8 @@ footer .social-icons a:hover {
     width: 90%;
     max-width: 400px;
     position: relative;
-      text-align: center;
-          background: white;
+    text-align: center;
+    background: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -298,12 +298,12 @@ footer .social-icons a:hover {
 }
 
 @media (max-width: 768px) {
-    body {
-        padding-top: 320px; /* Extra padding for smaller screens */
-    }
 
     .container {
-        margin-top: 320px; /* Push the form further down on smaller devices */
+        margin-top: 0; /* Container margin handled by body padding */
+    }
+    body {
+        padding-top: 60px; /* Ensure consistent spacing on mobile */
     }
 
     /* Navbar adjustments for better mobile usability */

@@ -4,7 +4,7 @@
  */
 
 function gotoform() {
-    window.location.href = './register.html';
+    window.location.href = '/PTYXIAKH/index.html';
 }
 
 function login_post(event) {
