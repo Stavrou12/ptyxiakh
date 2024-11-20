@@ -3,7 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
+function gotobot(){
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+}
 
+
+function gototop() {
+ //   window.location.href = '/PTYXIAKH/index.html';
+ window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -61,7 +69,9 @@ function login_post(event) {
     }
 }
 
-
+function refresh() {
+    window.location.href = './index.html';
+}
 function gotoform() {
     window.location.href = './register.html';
 }

@@ -1,4 +1,13 @@
 
+
+function gotoform() {
+ //   window.location.href = '/PTYXIAKH/index.html';
+ window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function refresh(){
+     window.location.href = './user.html';
+}
+
 let stcode;
 let userLat;
 let userLon;
@@ -398,14 +407,17 @@ function displayReviews(reviews, stationCode) {
 }
 
 
-function openContactForm() {
-    document.getElementById("contb").disabled = false;
-    document.getElementById("contactModal").classList.add("active");
-}
 
+
+
+        function openContactForm() {
+    document.getElementById("md").classList.add("active");
+    document.getElementById("md").style.display="block";
+}
 function closeContactForm() {
-    document.getElementById('contactForm').reset(); // Reset the form
-    document.getElementById("contactModal").classList.remove("active");
+     document.getElementById('contactForm').reset(); // Reset the form
+    document.getElementById("md").classList.remove("active");
+    document.getElementById("md").style.display = "none";
 }
 
 function plotBeachesOnMap(beaches) {

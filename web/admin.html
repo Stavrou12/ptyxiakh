@@ -18,15 +18,18 @@
     <body onload="showSection('section1')">
 
         <header class="d-flex justify-content-between align-items-center p-3 bg-light border-bottom">
-            <h1 class="m-0">Clean Beaches</h1>
-            <button id="logout" onclick="logout();" class="btn btn-primary">Logout</button>
+             <div class="logo d-flex align-items-center">
+                <img src="logo.jpg" alt="Beach-Discover Logo" onclick="refresh()" class="img-fluid rounded-logo" id="logo-img">
+                <h1 class="h3 mb-0">Beach-Discover</h1>
+            </div>
+           
 
-
+ <button id="logout1" onclick="logout2();" class="btn btn-primary">Logout</button>
             <button class="navbar-toggler btn btn-light d-md-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i> <!-- Visible Toggle Icon -->
             </button>
         </header>
-
+        
         <!-- Collapsible Sidebar for Phones (Hidden on Larger Screens) -->
         <div class="collapse d-md-none" id="navbarNav">
             <ul class="navbar-nav flex-column p-3">
@@ -37,14 +40,16 @@
                 <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section5')">Remove Table</a></li>
                 <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section6')">Remove Beach</a></li>
                 <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section7')">Insert New Beach</a></li>
+                
             </ul>
+             <button id="logout" onclick="logout();" class="btn btn-primary">Logout</button>
         </div>
 
         <div class="container-fluid">
             <div class="row">
                 <!-- Sidebar Menu -->
                 <aside class="col-md-3 col-lg-2 bg-light p-3 border-right" id="sidebar">
-                    <h2 style="color: white">Services</h2>
+                    <h2 style="color: #6666ff">Services</h2>
                     <ul class="nav flex-column">
                         <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section1')">Upload File</a></li>
                         <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section2')">Manage Simeia Parakoloythisis</a></li>
@@ -55,6 +60,7 @@
                         <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section7')">Insert New Beach</a></li>
 
                     </ul>
+                    
                 </aside>
                 <main class="col-md-9 col-lg-10 d-flex align-items-center justify-content-center p-3" id="main-content">
                     <div class="content-section text-center p-5" id="section1" style="display: none;">

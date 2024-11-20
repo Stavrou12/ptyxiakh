@@ -3,6 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
+
+
+
+
+function refresh(){
+     window.location.href = './admin.html';
+}
 console.log("Admin script loaded");
 document.getElementById('contactForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the default form submission

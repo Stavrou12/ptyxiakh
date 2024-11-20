@@ -1,9 +1,70 @@
 /* Basic styling */
+
+@media (max-width: 768px) { /* Target smaller screens */
+    #navbarNav.show + #logout1 {
+        display: none; /* Hide Logout when the menu is active */
+    }
+}
+
+.rounded-logo {
+    border-radius: 50%; /* Makes the image circular */
+    border: 2px solid white; /* Adds a white border, adjust color as needed */
+    max-height: 50px; /* Control the size */
+    width: 50px; /* Ensure a perfect square for the circular shape */
+    object-fit: cover; /* Ensures the image doesn't stretch */
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth hover transition */
+}
+
+/* Hover state for the logo */
+.rounded-logo:hover {
+    box-shadow: 0 0 10px 5px rgba(0, 123, 255, 0.5); /* Blue glow effect */
+    transform: scale(1.1); /* Slightly enlarges the logo */
+    cursor:pointer;
+}
+
+/* Smaller screen adjustments */
+@media (max-width: 768px) {
+    .rounded-logo {
+        max-height: 40px;
+        width: 40px;
+    }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo h1 {
+    margin-left: 10px;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .logo h1 {
+        font-size: 1.2rem;
+    }
+}
+
+
+#logo-img {
+    max-height: 80px; /* Adjust as needed */
+    height: auto;
+    width: auto;
+}
+
+@media (max-width: 768px) {
+    #logo-img {
+        max-height: 50px;
+    }
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
+
 
 /* Header styling */
 header {

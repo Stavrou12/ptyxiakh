@@ -4,7 +4,12 @@
  */
 
 function gotoform() {
-    window.location.href = '/PTYXIAKH/index.html';
+ //   window.location.href = '/PTYXIAKH/index.html';
+ window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function refresh(){
+     window.location.href = './register.html';
 }
 
 function login_post(event) {
