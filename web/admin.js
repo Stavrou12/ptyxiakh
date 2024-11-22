@@ -7,10 +7,10 @@
 
 
 
-function refresh(){
-     window.location.href = './admin.html';
+function refresh() {
+    window.location.href = './admin.html';
 }
-console.log("Admin script loaded");
+
 document.getElementById('contactForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the default form submission
     const formData = new FormData(this); // Use FormData to handle file upload
@@ -25,29 +25,29 @@ document.getElementById('contactForm').addEventListener('submit', function (even
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 const jsonResponse = JSON.parse(xhr.responseText);
-                 document.getElementById("contb").disabled = true;
-                console.log("Server response:", jsonResponse); // Log the response for debugging
-                 const successMessage = document.createElement('p');
-                        successMessage.textContent = "Message submitted successfully!";
-                        successMessage.style.color = "green";
-                        document.getElementById('contactForm').appendChild(successMessage);
-                        setTimeout(() => {
-                                  closeContactForm();
-                                  document.getElementById('contactForm').removeChild(successMessage);
-                            }, 4000);
+                document.getElementById("contb").disabled = true;
+
+                const successMessage = document.createElement('p');
+                successMessage.textContent = "Το μήνυμα υποβλήθηκε με επιτυχία!";
+                successMessage.style.color = "green";
+                document.getElementById('contactForm').appendChild(successMessage);
+                setTimeout(() => {
+                    closeContactForm();
+                    document.getElementById('contactForm').removeChild(successMessage);
+                }, 4000);
             } else {
                 const jsonResponse = JSON.parse(xhr.responseText);
-                console.log("Server response:", jsonResponse); // Log the response for debugging
+
                 const successMessage = document.createElement('p');
-                        successMessage.textContent = "Message was not sent!";
-                        successMessage.style.color = "red";
-                        document.getElementById('contactForm').appendChild(successMessage);
-                        setTimeout(() => {
-                                  
-                                  document.getElementById('contactForm').removeChild(successMessage);
-                                  closeContactForm();
-                            }, 4000);
-                
+                successMessage.textContent = "Το μήνυμα δεν στάλθηκε!";
+                successMessage.style.color = "red";
+                document.getElementById('contactForm').appendChild(successMessage);
+                setTimeout(() => {
+
+                    document.getElementById('contactForm').removeChild(successMessage);
+                    closeContactForm();
+                }, 4000);
+
             }
         }
     };
@@ -58,18 +58,18 @@ document.getElementById('contactForm').addEventListener('submit', function (even
 function openContactForm() {
     document.getElementById("contb").disabled = false;
     document.getElementById("md").classList.add("active");
-    document.getElementById("md").style.display="block";
+    document.getElementById("md").style.display = "block";
 }
 
 function closeContactForm() {
     document.getElementById('contactForm').reset(); // Reset the form
     document.getElementById("md").classList.remove("active");
-    document.getElementById("md").style.display="none";
+    document.getElementById("md").style.display = "none";
 }
 
 function showAddForm() {
-   
-    
+
+    document.getElementById("bform").disabled = false;
     const form = document.getElementById('addLocationForm');
     if (form.style.display === 'block') {
         form.style.display = 'none';
@@ -86,8 +86,8 @@ function closeAddForm() {
 
 function deleteLocation() {
     const code1 = document.getElementById('code_1_').value;
-    document.getElementById("delbeachl").disabled=true;
-    if (!confirm(`Are you sure you want to delete the beach location with code ${code1}?`)) {
+    document.getElementById("delbeachl").disabled = true;
+    if (!confirm(`Είστε βέβαιοι ότι θέλετε να διαγράψετε την τοποθεσία της παραλίας με κωδικό ${code1}?`)) {
         return false; // Stop form submission if not confirmed
     }
 
@@ -102,18 +102,18 @@ function deleteLocation() {
         if (xhr.status === 200) {
             responseDiv.textContent = xhr.responseText;
             responseDiv.style.color = "green";
-              setTimeout(() => {
+            setTimeout(() => {
                 responseDiv.textContent = ""; // Make the message empty
-                document.getElementById("delbeachl").disabled=false;
+                document.getElementById("delbeachl").disabled = false;
                 $('#deleteLocationForm')[0].reset();
-                
+
             }, 5000); // 5000 milliseconds = 5 seconds
         } else {
-            responseDiv.textContent = "An error occurred while deleting the beach location.";
+            responseDiv.textContent = "Παρουσιάστηκε σφάλμα κατά τη διαγραφή της τοποθεσίας της παραλίας.";
             responseDiv.style.color = "red";
-              setTimeout(() => {
+            setTimeout(() => {
                 responseDiv.textContent = ""; // Make the message empty
-                 document.getElementById("delbeachl").disabled=false;
+                document.getElementById("delbeachl").disabled = false;
                 $('#deleteLocationForm')[0].reset();
             }, 5000); // 5000 milliseconds = 5 seconds
         }
@@ -144,9 +144,9 @@ function fetchData() {
 function renderTable(data) {
     let tableHtml = `<table border="1">
                         <tr>
-                            <th>X</th><th>Y</th><th>Name</th><th>Acth</th><th>Easting_</th><th>FID</th>
-                            <th>Field_1</th><th>Lat</th><th>Lon</th><th>Northing</th><th>Dhmos</th><th>Dhmot</th>
-                            <th>Code_1</th><th>Code</th><th>Description</th><th>Perifereia</th><th>Actions</th>
+                            <th>X</th><th>Y</th><th>Όνομα</th><th>Ακτή</th><th>Ανατολή</th><th>FID</th>
+                            <th>Πεδίο_1</th><th>Γεωγραφικό πλάτος</th><th>Γεωγραφικό μήκος:</th><th>Βορράς</th><th>Δήμος</th><th>Δημοτική Ενότητα</th>
+                            <th>Κωδικός_1</th><th>Κωδικός</th><th>Περιγραφή</th><th>Περιφέρεια</th><th>Επεξεργασία</th>
                         </tr>`;
 
     data.forEach((row, index) => {
@@ -168,8 +168,8 @@ function renderTable(data) {
                         <td>${row.description}</td>
                         <td>${row.perifereia}</td>
                         <td>
-                            <button onclick="updateRow(${index})">Update</button>
-                            <button style="display:none;" onclick="saveChanges(${row.FID}, ${index})">Save Changes</button>
+                            <button onclick="updateRow(${index})">Ενημέρωση</button>
+                            <button style="display:none;" onclick="saveChanges(${row.FID}, ${index})">Αποθήκευση</button>
                         </td>
                     </tr>`;
     });
@@ -273,23 +273,29 @@ $(document).ready(function () {
         event.preventDefault();  // Prevent default form submission
         // Get form data
         var formData = $(this).serialize();
-
+        document.getElementById("bform").disabled = true;
         // Send form data to backend (servlet)
         $.ajax({
             url: 'addLocationServlet', // Adjust this URL to match your servlet
             type: 'POST',
             data: formData,
             success: function (response) {
-                $('#addResponse').html('<p>Data inserted successfully!</p>');
+                $('#addResponse').html('<p>Τα δεδομένα εισήχθησαν με επιτυχία!</p>');
+                const responseDiv = document.getElementById('addResponse');
+                responseDiv.style.color = "green";
                 setTimeout(function () {
-                        $('#addResponse').html(''); // Clear the content
-                    }, 5000);
+                    $('#addResponse').html(''); // Clear the content
+                    document.getElementById("bform").disabled = false;
+                    $('#dataForm-4')[0].reset();
+                }, 5000);
             },
             error: function (xhr, status, error) {
+                const responseDiv = document.getElementById('addResponse');
+                responseDiv.style.color = "red";
                 $('#addResponse').html('<p>Error: ' + error + '</p>');
-                  setTimeout(function () {
-                        $('#addResponse').html(''); // Clear the content
-                    }, 5000);
+                setTimeout(function () {
+                    $('#addResponse').html(''); // Clear the content
+                }, 5000);
             }
         });
     });
@@ -297,20 +303,25 @@ $(document).ready(function () {
     $('#dataForm-5').on('submit', function (event) {
         event.preventDefault();  // Prevent default form submission
         // Get form data
-        let confirmDelete = confirm("Are you sure you want to remove the table?");
-
+        let confirmDelete = confirm("Είστε βέβαιοι ότι θέλετε να καταργήσετε τον πίνακα?");
+        document.getElementById("butdata-5").disabled = true;
         if (confirmDelete) {
             // Send form data to backend (servlet)
             $.ajax({
                 url: 'RemoveLocationTable', // Adjust this URL to match your servlet
                 type: 'GET',
                 success: function (response) {
-                    $('#mes5').html('<p>table was deleted!</p>');
+                    const responseDiv = document.getElementById('mes5');
+                    responseDiv.style.color = "green";
+                    $('#mes5').html('<p>Ο πίνακας διαγράφθηκε</p>');
                     setTimeout(function () {
                         $('#mes5').html(''); // Clear the content
+                        document.getElementById("butdata-5").disabled = false;
                     }, 5000);
                 },
                 error: function (xhr, status, error) {
+                    const responseDiv = document.getElementById('mes5');
+                    responseDiv.style.color = "red";
                     $('#mes5').html('<p>Error: ' + error + '</p>');
                     setTimeout(function () {
                         $('#mes5').html(''); // Clear the content
@@ -318,9 +329,10 @@ $(document).ready(function () {
                 }
             });
         } else {
-            $('#mes5').html('<p>Table deletion was canceled.</p>');
+            $('#mes5').html('<p>Η διαγραφή πίνακα ακυρώθηκε.</p>');
             setTimeout(function () {
                 $('#mes5').html(''); // Clear the content
+                document.getElementById("butdata-5").disabled = false;
             }, 5000);
         }
     });
@@ -328,7 +340,7 @@ $(document).ready(function () {
 
     $('#dataForm-3').on('submit', function (event) {
         event.preventDefault();  // Prevent default form submission
-
+        document.getElementById("bb2").disabled = true;
         // Get form data
         var formData = $(this).serialize();
 
@@ -338,15 +350,22 @@ $(document).ready(function () {
             type: 'POST',
             data: formData,
             success: function (response) {
-                $('#addInsertResponse').html('<p>Data inserted successfully!</p>');
+                $('#addInsertResponse').html('<p>Τα δεδομένα εισήχθησαν με επιτυχία!</p>');
+                const responseDiv = document.getElementById('addInsertResponse');
+                responseDiv.style.color = "green";
                 setTimeout(function () {
                     $('#addInsertResponse').html(''); // Clear the content
+                    document.getElementById("bb2").disabled = false;
+                    $('#dataForm-3')[0].reset();
                 }, 5000);
             },
             error: function (xhr, status, error) {
                 $('#addInsertResponse').html('<p>Error: ' + error + '</p>');
+                const responseDiv = document.getElementById('addInsertResponse');
+                responseDiv.style.color = "red";
                 setTimeout(function () {
                     $('#addInsertResponse').html(''); // Clear the content
+                    document.getElementById("bb2").disabled = false;
                 }, 5000);
             }
         });
@@ -359,7 +378,7 @@ $(document).ready(function () {
         // Get selected values
         const selectedMonth = $('#month-select-2').val();
         const selectedYear = $('#year-select-2').val();
-        
+        document.getElementById("butdata-2").disabled = true;
         // Make AJAX request
         $.ajax({
             url: 'RemoveTable',
@@ -377,27 +396,31 @@ $(document).ready(function () {
                     $('#nameoftable').attr('name', selectedMonth + selectedYear);
                     // Set inner HTML content
                     $('#nameoftable').html(selectedMonth + selectedYear);
-                    // Optionally log to confirm
-                    console.log($('#nameoftable').attr('name')); // Should output: giannis
-                    console.log($('#nameoftable').html()); // Should output: This is the content for the div.                                
-                    $('#tablermmes').html("Table " + selectedMonth + selectedYear + " was successfully removed"); // Insert the table into the display area
+                    document.getElementById("tablermmes").style.color = "green";
+                    $('#tablermmes').html("Ο πίνακας " + selectedMonth + selectedYear + " διαγράφθηκε με επιτυχία"); // Insert the table into the display area
                     setTimeout(function () {
                         $('#tablermmes').html(''); // Clear the content
+                        document.getElementById("butdata-2").disabled = false;
+
                     }, 5000);
                 } else {
-                    $('#tablermmes').html('<p>No data available for the selected month and year.</p>');
+                    $('#tablermmes').html('<p>Δεν υπάρχουν διαθέσιμα δεδομένα για τον επιλεγμένο μήνα και έτος.</p>');
                     setTimeout(function () {
                         $('#tablermmes').html(''); // Clear the content
+                        document.getElementById("butdata-2").disabled = false;
                     }, 5000);
                 }
             },
             error: function (xhr, status, error) {
                 // Handle errors
                 console.error('AJAX Error:', status, error);
-                $('#tablermmes').html('<p>An error occurred while retrieving data. Please try again later.</p>');
+                document.getElementById("tablermmes").style.color = "red";
+                $('#tablermmes').html('<p>Παρουσιάστηκε σφάλμα κατά την ανάκτηση δεδομένων. Δοκιμάστε ξανά αργότερα.</p>');
                 setTimeout(function () {
-                        $('#tablermmes').html(''); // Clear the content
-                    }, 5000);
+                    $('#tablermmes').html(''); // Clear the content
+
+                    document.getElementById("butdata-2").disabled = false;
+                }, 5000);
             }
         });
     });
@@ -412,6 +435,7 @@ $(document).ready(function () {
         const selectedMonth = $('#month-select-2-beach').val();
         const selectedYear = $('#year-select-2-beach').val();
         const beach = $('#code2').val();
+        document.getElementById("butdata-2-beach").disabled = true;
         console.log(beach);
         // Make AJAX request
         $.ajax({
@@ -433,27 +457,38 @@ $(document).ready(function () {
                     $('#nameoftable').html(selectedMonth + selectedYear);
                     // Optionally log to confirm
                     console.log($('#nameoftable').attr('name')); // Should output: giannis
-                    console.log($('#nameoftable').html()); // Should output: This is the content for the div.                                
-                    $('#tablermmesbeach').html("beach " + beach + " was removed from Table " + selectedMonth + selectedYear); // Insert the table into the display area
-                    setTimeout(function() {
-    $('#tablermmesbeach').html(''); // Clear the content
-}, 5000);
+                    console.log($('#nameoftable').html()); // Should output: This is the content for the div.
+                    document.getElementById('tablermmesbeach').style.color = "green";
+                    $('#tablermmesbeach').html("Η παραλία" + beach + " αφαιρέθηκε από τον πίνακα " + selectedMonth + selectedYear); // Insert the table into the display area
+                    setTimeout(function () {
+                        $('#tablermmesbeach').html(''); // Clear the content
+                        document.getElementById("butdata-2-beach").disabled = false;
+                    }, 5000);
                 } else {
+                    document.getElementById('tablermmesbeach').style.color = "red";
                     $('#tablermmesbeach').html('<p>No data available for the selected month and year.</p>');
-                                       setTimeout(function() {
-    $('#tablermmesbeach').html(''); // Clear the content
-}, 5000);
+                    setTimeout(function () {
+                        document.getElementById("butdata-2-beach").disabled = false;
+                        $('#tablermmesbeach').html(''); // Clear the content
+                    }, 5000);
                 }
             },
             error: function (xhr, status, error) {
                 // Handle errors
-                console.error('AJAX Error:', status, error);
-                $('#tablermmes').html('<p>An error occurred while retrieving data. Please try again later.</p>');
+                document.getElementById("tablermmesbeach").style.color = "red";
+                $('#tablermmesbeach').html('<p>Παρουσιάστηκε σφάλμα κατά την ανάκτηση δεδομένων. Δοκιμάστε ξανά αργότερα.</p>');
+                setTimeout(function () {
+                    $('#tablermmesbeach').html(''); // Clear the content
+
+                    document.getElementById("butdata-2-beach").disabled = false;
+                }, 5000);
+
             }
         });
     });
 
-
+    let pp;
+    let ll;
     $('#dataForm').on('submit', function (event) {
 
         document.getElementById('beachDataDisplay').style.display = 'block';
@@ -461,7 +496,9 @@ $(document).ready(function () {
         event.preventDefault(); // Prevent the default form submission
 
         const selectedMonth = $('#month-select').val();
+        pp = selectedMonth;
         const selectedYear = $('#year-select').val();
+        ll = selectedYear;
         $.ajax({
             url: 'GetBeachDataServlet',
             method: 'GET',
@@ -478,26 +515,26 @@ $(document).ready(function () {
                     // Create a table to display the data
                     let table = '<table id="data-table"><thead><tr>';
                     // Create table headers (modify according to your data properties)
-                    table += '<th>Perunit</th>';
-                    table += '<th>Municipal</th>';
-                    table += '<th>Coast</th>';
-                    table += '<th>Station Code</th>';
-                    table += '<th>Description</th>';
-                    table += '<th>Sample Date</th>';
-                    table += '<th>Sample Time</th>';
-                    table += '<th>Delivery Date</th>';
-                    table += '<th>Analyse Date</th>';
-                    table += '<th>Intenterococci</th>';
-                    table += '<th>Ecoli</th>';
-                    table += '<th>Tar</th>';
-                    table += '<th>Glass</th>';
-                    table += '<th>Plastic</th>';
-                    table += '<th>Caoutchouc</th>';
-                    table += '<th>Garbage</th>';
-                    table += '<th>Wave</th>';
-                    table += '<th>Airdirection</th>';
-                    table += '<th>Rainfail</th>';
-                    table += '<th>Yestrainfail</th>';
+                    table += '<th>Περιφερειακή Ενότητα</th>';
+                    table += '<th>Δήμος</th>';
+                    table += '<th>Ακτή</th>';
+                    table += '<th>Κωδικός Σταθμού</th>';
+                    table += '<th>Περιγραφή</th>';
+                    table += '<th>Ημ/νία δειγμ/ας ΗΗ/ΜΜ/ΕΕΕΕ</th>';
+                    table += '<th>Ώρα δειγμ/ας ΩΩ:ΛΛ (24ωρη)</th>';
+                    table += '<th>Ημ/νία παράδοσης στο εργ/ριο</th>';
+                    table += '<th>Ημ/νία ανάλυσης</th>';
+                    table += '<th>Intestinal enterococci (cfu/100ml)</th>';
+                    table += '<th>Escherichia coli (cfu/100ml)</th>';
+                    table += '<th>ΚΑΤΑΛΟΙΠΑ ΠΙΣΣΑΣ</th>';
+                    table += '<th>ΓΥΑΛΙΑ</th>';
+                    table += '<th>ΠΛΑΣΤΙΚΑ</th>';
+                    table += '<th>ΚΑΟΥΤΣΟΥΚ</th>';
+                    table += '<th>ΑΠΟΡΡΙΜΜΑΤΑ ΑΛΛΑ</th>';
+                    table += '<th>Κατάσταση Υδάτινης Επιφάνειας</th>';
+                    table += '<th>Διεύθυνση Ανέμου</th>';
+                    table += '<th>Βροχόπτωση της ημέρας δειγματοληψίας</th>';
+                    table += '<th>Βροχόπτωση την προηγούμενη μέρα δειγματοληψίας</th>';
                     table += '</tr></thead><tbody>';
                     // Populate the table with beach data
                     response.forEach(beach => {
@@ -522,7 +559,7 @@ $(document).ready(function () {
                                       <td>${beach.Airdirection}</td>
                                       <td>${beach.Rainfail}</td>
                                       <td>${beach.Yestrainfail}</td>
-                                      <td><button class="updateButton">Update</button></td>
+                                      <td><button class="updateButton">Ενημέρωση</button></td>
                                   </tr>`;
                     });
                     // Set the name attribute to "giannis"
@@ -533,18 +570,21 @@ $(document).ready(function () {
                     table += '</tbody></table>';
                     $('#beachDataDisplay').html(table); // Insert the table into the display area
                 } else {
-                    $('#beachDataDisplay').html('<p>No data available for the selected month and year.</p>');
+                    $('#beachDataDisplay').html('<p>Δεν υπάρχουν διαθέσιμα δεδομένα για τον επιλεγμένο μήνα και έτος.</p>');
                 }
             },
             error: function (xhr, status, error) {
                 // Handle errors
                 console.error('AJAX Error:', status, error);
-                $('#beachDataDisplay').html('<p>An error occurred while retrieving data. Please try again later.</p>');
+                $('#beachDataDisplay').html('<p>Παρουσιάστηκε σφάλμα κατά την ανάκτηση δεδομένων. Δοκιμάστε ξανά αργότερα.</p>');
             }
         });
     });
 
     $('#saveButton').on('click', function () {
+        document.getElementById('beachDataDisplay').style.display = 'block';
+        const selectedMonth = pp;
+        const selectedYear = ll;
         const tableName = document.getElementById("nameoftable").getAttribute("name");
         console.log(tableName);
         const updatedData = saveAllUpdates(); // Get the updated data from the function
@@ -554,6 +594,8 @@ $(document).ready(function () {
             console.log('No data to update.');
             return;
         }
+
+        document.getElementById('responseMessage2').style.display = "block";
         // Make an AJAX POST request to send the updated data to the server
         $.ajax({
             url: 'UpdateBeachDataServlet', // Change this to the actual servlet URL
@@ -565,12 +607,26 @@ $(document).ready(function () {
                 // Handle success (you can show a message or update the UI)
                 console.log('Data updated successfully!');
                 console.log('Server response:', response); // For debugging
+                $('#dataForm').trigger('submit');
+                document.getElementById('saveButton').style.display = "none";
+                document.getElementById('responseMessage2').style.color = "green";
+                document.getElementById('responseMessage2').innerHTML = "Τα δεδομένα αποθηκεύτηκαν με επιτυχία";
+                setTimeout(function () {
+                    $('#tablermmesbeach').html(''); // Clear the content
+
+                    document.getElementById('responseMessage2').innerHTML = "";
+                    document.getElementById('responseMessage2').style.display = "none";
+                }, 5000);
+
             },
             error: function (xhr, status, error) {
                 // Handle error (show an error message to the user)
                 console.error('Update Error:', status, error);
                 console.log('Response:', xhr.responseText); // Log server response for debugging
                 console.log('An error occurred while saving updates. Please try again.');
+                document.getElementById('saveButton').style.display = "none";
+                document.getElementById('responseMessage2').style.color = "red";
+                document.getElementById('responseMessage2').innerHTML = "Τα δεδομένα δεν αποθηκεύτηκαν με επιτυχία";
             }
         });
     });
@@ -645,7 +701,7 @@ function logout() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             window.location.href = "./index.html";
         } else if (xhr.status !== 200) {
-            alert('Request failed. Returned status of ' + xhr.status);
+            alert('Το αίτημα απέτυχε. Επιστράφηκε η κατάσταση του ' + xhr.status);
         }
     };
     xhr.open('POST', 'servlet_Logout');
@@ -660,7 +716,7 @@ document.getElementById('uploadLocationForm').addEventListener('submit', functio
 
     // Check if a file is selected
     if (!file) {
-        alert('Please select a file to upload.');
+        alert('Επιλέξτε ένα αρχείο για μεταφόρτωση.');
         return;
     }
 
@@ -674,16 +730,16 @@ document.getElementById('uploadLocationForm').addEventListener('submit', functio
 
     xhr.onload = function () {
         if (xhr.status === 200) {
-            alert('File uploaded successfully!');
+            alert('Το αρχείο μεταφορτώθηκε με επιτυχία!');
             // Optionally, refresh the page or redirect
             // location.reload();
         } else {
-            alert('File upload failed. Please try again.');
+            alert('Η μεταφόρτωση του αρχείου απέτυχε. Δοκιμάστε ξανά.');
         }
     };
 
     xhr.onerror = function () {
-        alert('An error occurred while uploading the file.');
+        alert('Παρουσιάστηκε σφάλμα κατά τη μεταφόρτωση του αρχείου.');
     };
 
     // Send the file data
@@ -698,7 +754,7 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
 
     // Check if a file is selected
     if (!file) {
-        alert('Please select a file to upload.');
+        alert('Επιλέξτε ένα αρχείο για μεταφόρτωση.');
         return;
     }
 
@@ -712,16 +768,16 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
 
     xhr.onload = function () {
         if (xhr.status === 200) {
-            alert('File uploaded successfully!');
+            alert('Το αρχείο μεταφορτώθηκε με επιτυχία!');
             // Optionally, refresh the page or redirect
             // location.reload();
         } else {
-            alert('File upload failed. Please try again.');
+            alert('Η μεταφόρτωση του αρχείου απέτυχε. Δοκιμάστε ξανά.');
         }
     };
 
     xhr.onerror = function () {
-        alert('An error occurred while uploading the file.');
+        alert('Παρουσιάστηκε σφάλμα κατά τη μεταφόρτωση του αρχείου.');
     };
 
     // Send the file data
@@ -740,6 +796,8 @@ function deleteuser() {
     var userId = document.getElementById("USER1").value;  // Get the user ID
     console.log("Deleting user with ID: " + userId);
 
+
+    document.getElementById('delemp').disabled = true;
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'diagrafh_user', true);  // POST to your server endpoint
     xhr.setRequestHeader("Content-type", "application/json");
@@ -750,26 +808,29 @@ function deleteuser() {
 
     xhr.onload = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log("User deleted successfully.");
-            console.log(xhr.responseText);
-
             // You can update the UI here to show that the user was deleted.
-            document.getElementById('responseMessage').innerText = "User deleted successfully.";
+            document.getElementById('responseMessage').style.color = "green";
+            document.getElementById('responseMessage').innerText = "Ο χρήστης διαγράφηκε με επιτυχία.";
             setTimeout(function () {
                 document.getElementById('responseMessage').innerText = ""; // Clear the content
+
+                document.getElementById('delemp').disabled = false;
             }, 5000);
         } else {
             console.error("Failed to delete user. Status: " + xhr.status);
-            document.getElementById('responseMessage').innerText = "Failed to delete user.";
+            document.getElementById('responseMessage').style.color = "red";
+            document.getElementById('responseMessage').innerText = "Αποτυχία διαγραφής χρήστη.";
             setTimeout(function () {
                 document.getElementById('responseMessage').innerText = ""; // Clear the content
+
+                document.getElementById('delemp').disabled = false;
             }, 5000);
         }
     };
 
     xhr.onerror = function () {
         console.error("Request failed.");
-        document.getElementById('responseMessage').innerText = "Request failed.";
+        document.getElementById('responseMessage').innerText = "Το αίτημα απέτυχε.";
     };
 
     xhr.send(jsonData);  // Send the user_id in JSON format

@@ -5,12 +5,14 @@
     box-sizing: border-box;
 }
 
-
+#navbarNav{
+    font-size: 20px;
+}
 .rounded-logo {
     border-radius: 50%; /* Makes the image circular */
     border: 2px solid white; /* Adds a white border, adjust color as needed */
     max-height: 50px; /* Control the size */
-    width: 50px; /* Ensure a perfect square for the circular shape */
+    width: 50px; /* Ensure a pefect square for the circular shape */
     object-fit: cover; /* Ensures the image doesn't stretch */
     transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth hover transition */
 }
@@ -638,6 +640,12 @@ footer .footer-section ul li {
     margin-bottom: 10px;
 }
 
+#popd li{
+    font-size: 15px;
+}
+#popd h4,p{
+    font-size: 18px;
+}
 footer .footer-section ul li a {
     color: #ddd;
     text-decoration: none;
@@ -711,8 +719,14 @@ footer .social-icons a:hover {
 .form-fields {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    
 }
+
+.form-fields button{
+    margin-top: 5px;
+}
+
+
 
 
 #settingsModal{

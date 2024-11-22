@@ -43,18 +43,19 @@ public class DeleteLocationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain; charset=UTF-8");
          String code1 = request.getParameter("code_1_");
 
         try (Connection conn = DB_Connection.getConnection()) {
-            String sql = "DELETE FROM simeia_parakoloythisis_2020 WHERE code_1 = ?";
+            String sql = "DELETE FROM simeia_parakoloythisis_2019 WHERE code_1 = ?";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, code1);
                 int rowsAffected = ps.executeUpdate();
 
                 if (rowsAffected > 0) {
-                    response.getWriter().write("Beach location deleted successfully.");
+                    response.getWriter().write("Η τοποθεσία παραλίας διαγράφηκε με επιτυχία.");
                 } else {
-                    response.getWriter().write("No beach found with the specified code.");
+                    response.getWriter().write("Δεν βρέθηκε παραλία με τον καθορισμένο κωδικό.");
                 }
             }
         } catch (SQLException e) {

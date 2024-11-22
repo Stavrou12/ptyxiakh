@@ -23,8 +23,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="gotoform()">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contactModal" onclick="openContactForm()">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="" onclick="gotoform()">Αρχική</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contactModal" onclick="openContactForm()">Επικοινωνία</a></li>
                     <li class="fa fa-cog" onclick="openSettings()"></li> <!-- Settings icon -->
                 </ul>
             </div>
@@ -32,8 +32,7 @@
         <header>
             <div class="header-content">
                 <div class="title-description">
-                    <h1>Find the Cleanest Beaches</h1>
-                    <p>Explore and filter beaches based on cleanliness, location, and more.</p>
+                    <h1>Βρες τις καθαρότερες παραλίες της Κρήτης</h1>
                 </div>
             </div>
         </header>
@@ -42,15 +41,15 @@
         <div class="main-content">
             <img src="crete_1.jpg" alt="Beautiful beach" class="responsive-header-image">
             <div class="location-section text-center p-4">
-                <h3>How would you like to select your location?</h3>
+                <h3>Πώς θέλετε να επιλέξετε τοποθεσία;</h3>
                 <!-- Option to track user's location -->
                 <div>
                     <input type="radio" id="trackLocation" name="locationOption" value="track" onchange="handleLocationSelection()">
-                    <label for="trackLocation">Allow browser to track my location</label>
+                    <label for="trackLocation">Να επιτρέπεται στο πρόγραμμα περιήγησης να παρακολουθεί την τοποθεσία μου</label>
                     <input type="radio" id="chooseOnMap" name="locationOption" value="map" onchange="handleLocationSelection()">
-                    <label for="chooseOnMap">Pick location on the map</label>
+                    <label for="chooseOnMap">Επιλέξτε τοποθεσία στο χάρτη</label>
                 </div>
-                <button id="findBeachBtn" class="btn btn-primary mt-3">Find the Cleanest Beach</button>
+                <button id="findBeachBtn" class="btn btn-primary mt-3">Ψάξε!</button>
             </div>
 
 
@@ -59,7 +58,7 @@
                     <div id="map2" class="map-section mb-4"></div>
                 </div>
                 <div class="filter-toggle-container">
-                    <button class="filter-toggle-btn" onclick="toggleFilterMenu()">Filter</button>
+                    <button class="filter-toggle-btn" onclick="toggleFilterMenu()">Φίλτρα</button>
                 </div>
                 <div class="filter-container d-flex justify-content-center align-items-center">
                     <div class="filter-image-group">
@@ -74,8 +73,8 @@
 
                         <span class="close" onclick="closeFilter()">&times;</span>
                         <div id="filterMenu" class="p-3 bg-light border rounded hidden">
-                            <h3>Filter by</h3>
-                            <label for="year">Select Year:</label>
+                            <h3>Φίλτρα</h3>
+                            <label for="year">Επιλέξτε χρονιά:</label>
                             <select id="year" name="year" class="form-control">
                                 <option value="2024">2024</option>
                                 <option value="2023">2023</option>
@@ -87,37 +86,37 @@
                                 <option value="2017">2017</option>
                                 <option value="2016">2016</option>                    
                             </select>
-                            <label for="month">Select Month:</label>
+                            <label for="month">Επιλέξτε μήνα:</label>
                             <select id="month" name="month" class="form-control mb-3">
-                                <option value="maios_">May</option>
-                                <option value="ioynios_">June</option>
-                                <option value="ioylios_">July</option>
-                                <option value="aygoystos_">August</option>
-                                <option value="septemvrios_">September</option>
-                                <option value="oktovrios_">October</option>
+                                <option value="maios_">Μάιος</option>
+                                <option value="ioynios_">Ιούνιος</option>
+                                <option value="ioylios_">Ιούλιος</option>
+                                <option value="aygoystos_">Αύγουστος</option>
+                                <option value="septemvrios_">Σεπτέμβριος</option>
+                                <option value="oktovrios_">Οκτώβριος</option>
                             </select> 
                             <div class="checkbox-group mt-3">
-                                <label for="tar">Tar:</label>
+                                <label for="tar">Κατάλοιπα πίσσας:</label>
                                 <input type="checkbox" id="tar" name="tar" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Tar -->
-                                <label for="glass">Glass:</label>
+                                <label for="glass">Γυαλιά:</label>
                                 <input type="checkbox" id="glass" name="glass" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Glass -->
-                                <label for="plastic">Plastic:</label>
+                                <label for="plastic">Πλαστικά:</label>
                                 <input type="checkbox" id="plastic" name="plastic" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Plastic -->
-                                <label for="caoutchouc">Caoutchouc:</label>
+                                <label for="caoutchouc">Καουτσούκ:</label>
                                 <input type="checkbox" id="caoutchouc" name="caoutchouc" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Caoutchouc -->
-                                <label for="garbage">Garbage:</label>
+                                <label for="garbage">Απορρίμματα άλλα:</label>
                                 <input type="checkbox" id="garbage" name="garbage" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Garbage -->
-                                <label for="intenterococciRange">Select Intenterococci:</label>
+                                <label for="intenterococciRange">Επιλέξτε Intestinal enterococci (cfu/100ml):</label>
                                 <div class="range-slider">
                                     <input type="range" id="intenterococciRange" name="intenterococci" min="0" max="100" value="0" oninput="updateIntenterococciValue(this.value)">
                                     <span id="intenterococciValue">0</span> / 100
                                 </div>
-                                <label for="ecoliRange">Select Ecoli:</label>
+                                <label for="ecoliRange">Επιλέξτε Escherichia coli (cfu/100ml):</label>
                                 <div class="range-slider">
                                     <input type="range" id="ecoliRange" name="ecoli" min="0" max="100" value="0" oninput="updateEcoliValue(this.value)">
                                     <span id="ecoliValue">0</span> / 100
                                 </div>
-                                <button id="filterBtn" class="btn btn-primary mt-3">Apply Filter</button>
+                                <button id="filterBtn" class="btn btn-primary mt-3">Εφαρμογή</button>
                             </div>
                         </div>
                     </div>
@@ -135,35 +134,35 @@
             </div>
             <div id="tabc" class="table-container hidden">
                 <div id="beachesTableContainer" class="table-responsive mt-4 hidden">
-                    <h2>List of Beaches</h2>
-                    <label for="sortOption">Sort by:</label>
+                    <h2>Λίστα παραλιών</h2>
+                    <label for="sortOption">Ταξινόμηση κατά:</label>
                     <select id="sortOption" name="sortOption">
-                        <option value="cleanliness_asc">Cleanliness (Ascending)</option>
-                        <option value="cleanliness_desc">Cleanliness (Descending)</option>
-                        <option value="distance_asc">Distance (Ascending)</option>
-                        <option value="distance_desc">Distance (Descending)</option>
+                        <option value="cleanliness_asc">Ποιότητα νερού (Αύξουσα)</option>
+                        <option value="cleanliness_desc">Ποιότητα νερού (Φθίνουσα)</option>
+                        <option value="distance_asc">Απόσταση (Αύξουσα)</option>
+                        <option value="distance_desc">Απόσταση (Φθίνουσα)</option>
                     </select>
-                    <button id="sortBtn" class="btn-primary">Sort</button>
+                    <button id="sortBtn" class="btn-primary">Εφαρμογή</button>
                     <table id="beachesTable">
                         <thead>
                             <tr>
-                                <th>Beach Name</th>
-                                <th>Cleanliness Score</th>
-                                <th>Distance (km)</th>
-                                <th>Tar</th>
-                                <th>Glass</th>
-                                <th>Plastic</th>
-                                <th>Caoutchouc</th>
-                                <th>Garbage</th>
-                                <th>Intenterococci</th>
-                                <th>EColi</th>
+                                <th>Όνομα παραλίας</th>
+                                <th>Σκορ ποιότητας υδάτων</th>
+                                <th>Απόσταση (km)</th>
+                                <th>Κατάλοιπα πίσσας</th>
+                                <th>Γυαλία</th>
+                                <th>Πλαστικά</th>
+                                <th>Καουτσούκ</th>
+                                <th>Απορρίμματα άλλα</th>
+                                <th>Intestinal enterococci (cfu/100ml )</th>
+                                <th>Escherichia coli (cfu/100ml)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Rows will be populated dynamically -->
                         </tbody>
                     </table>
-                    <label for="beachesLimit">Number of Beaches to Display:</label>
+                    <label for="beachesLimit">Αριθμός παραλιών προς εμφάνιση:</label>
                     <select id="beachesLimit" name="beachesLimit" onchange="onBeachLimitChange()">
                         <option value="25">25</option>
                         <option value="50">50</option>
@@ -178,10 +177,10 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content p-3">
                         <span class="close" onclick="closeReviewForm()">&times;</span>
-                        <h2 id="modalBeachName">Write a Review</h2>
+                        <h2 id="modalBeachName">Αξιολόγησε την παραλία</h2>
                         <form id="revv" method="POST" enctype="multipart/form-data">
-                            <textarea name="review_text" class="form-control mb-3" placeholder="Write your review here" required></textarea>
-                            <label for="star_rating">Rate the beach:</label>
+                            <textarea name="review_text" class="form-control mb-3" placeholder="Γράψε την κριτική εδώ" required></textarea>
+                            <label for="star_rating">Βαθμολόγησε την παραλία:</label>
                             <div class="mb-3">
                                 <input type="radio" id="rating1" name="star_rating" value="1" required>
                                 <label for="rating1">1</label>
@@ -194,10 +193,10 @@
                                 <input type="radio" id="rating5" name="star_rating" value="5">
                                 <label for="rating5">5</label>
                             </div>
-                            <label for="media">Upload media (photos/videos):</label>
+                            <label for="media">Μεταφόρτωση πολυμέσων (φωτογραφίες/βίντεο):</label>
                             <input type="file" id="media" name="media" accept="image/*,video/*" class="form-control mb-3"> 
                             <input type="hidden" id = "stCode" name="stCode" value="stationCodeFromJS">
-                            <button id="revsub" type="submit" class="btn btn-primary btn-block">Submit Review</button>
+                            <button id="revsub" type="submit" class="btn btn-primary btn-block">Υποβολή κριτικής</button>
                         </form>
                     </div>
                 </div>
@@ -213,15 +212,15 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content p-3">
                 <span class="close" onclick="closeContactForm()">&times;</span>
-                <h2>Contact Us</h2>
+                <h2>Επικοινωνία</h2>
                 <form id="contactForm" action="ContactServlet" method="POST" enctype="multipart/form-data">
-                    <label for="subject">Subject:</label>
+                    <label for="subject">Θέμα:</label>
                     <input type="text" id="subject" name="subject" class="form-control mb-2" required>
                     <label for="contactEmail">Email:</label>
                     <input type="email" id="contactEmail" name="contactEmail" class="form-control mb-2" required>
-                    <label for="contactMessage">Message:</label>
+                    <label for="contactMessage">Μήνυμα:</label>
                     <textarea id="contactMessage" name="contactMessage" class="form-control mb-2" rows="4" required></textarea>
-                    <button id="contb" type="submit" class="btn btn-primary btn-block">Send Message</button>
+                    <button id="contb" type="submit" class="btn btn-primary btn-block">Αποστολή</button>
                 </form>
             </div>
         </div>
@@ -233,20 +232,20 @@
                     <span class="close" onclick="closeSettings()">&times;</span>
                     <nav>
                         <ul>
-                            <li><a href="#" id="logout" onclick="logout();">Logout</a></li>
+                            <li><a href="" id="logout" onclick="logout();">Αποσύνδεση</a></li>
                         </ul>
                     </nav>
-                    <h2>Change Password</h2>
+                    <h2>Αλλαγή κωδικού</h2>
 
                     <form id="changePasswordForm" action="ChangePassword" method="POST">
                         <div class="form-fields">
-                            <label for="oldPassword">Old Password:</label>
+                            <label for="oldPassword">Παλιός κωδικός:</label>
                             <input type="password" id="oldPassword" name="oldPassword" required>
-                            <label for="newPassword">New Password:</label>
+                            <label for="newPassword">Νέος κωδικός:</label>
                             <input type="password" id="newPassword" name="newPassword" required>
-                            <label for="confirmPassword">Confirm New Password:</label>
+                            <label for="confirmPassword">Επιβεβαίωση νέου κωδικού:</label>
                             <input type="password" id="confirmPassword" name="confirmPassword" required>
-                            <button type="submit">Change Password</button>
+                            <button type="submit">Αλλαγή</button>
                         </div>
                     </form>
                 </div>
@@ -256,25 +255,23 @@
             <footer>
                 <div class="footer-container">
                     <div class="footer-section about">
-                        <h3>About Us</h3>
-                        <p>
-                            We are a beach review platform dedicated to providing accurate and helpful reviews of beaches from around the world.
+                        <h3>Σχετικά με εμάς</h3>
+                        <p>                 
+                       Είμαστε μια πλατφόρμα υπεύθυνη για την παρακολούθηση της ποιότητας των υδάτων κολύμβησης της Περιφέρειας Κρήτης
                         </p>
                     </div>
                     <div class="footer-section links">
-                        <h3>Useful Links</h3>
+                        <h3>Χρήσιμοι σύνδεσμοι</h3>
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Beaches</a></li>
-                            <li><a href="#">Reviews</a></li>
-                            <li><a href="#contactModal" onclick="openContactForm()">Contact Us</a></li>
+                            <li><a href="">Αρχική</a></li>
+                            <li><a href="#contactModal" onclick="openContactForm()">Επικοινωνία</a></li>
                         </ul>
                     </div>
 
                     <div class="footer-section contact">
-                        <h3>Contact Us</h3>
-                        <p>Email: contact@beachreviews.com</p>
-                        <p>Phone: +123 456 7890</p>
+                        <h3>Επικοινωνήστε μαζί μας</h3>
+                        <p>Email: stavrgiannis5@gmail.com</p>
+                        <p>Phone: 6977146698</p>
                         <div class="social-icons">
                             <a href="#" class="social-icon"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="social-icon"><i class="fa fa-twitter"></i></a>

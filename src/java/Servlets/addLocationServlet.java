@@ -54,7 +54,7 @@ public class addLocationServlet extends HttpServlet {
          try {
          
                 conn = DB_Connection.getConnection();
-                String sql = "INSERT INTO simeia_parakoloythisis_2020 (X, Y, Name, acth, Easting_,Field_1, Lat, Lon, Northing, dhmos,dhmot, code_1, code, description, perifereia) VALUES (?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO simeia_parakoloythisis_2019 (X, Y, Name, acth, Easting_,Field_1, Lat, Lon, Northing, dhmos,dhmot, code_1, code, description, perifereia) VALUES (?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
              try {
              stmt = conn.prepareStatement(sql);
              } catch (SQLException ex) {

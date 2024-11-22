@@ -4,45 +4,46 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Admin Dashboard - Beach Discover</title>
+        <title>Πίνακας ελέγχου διαχειριστή - Beach Discover</title>
         <link rel="stylesheet" href="adc.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="admin.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-       
-        
+
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        
+
     </head>
     <body onload="showSection('section1')">
 
         <header class="d-flex justify-content-between align-items-center p-3 bg-light border-bottom">
-             <div class="logo d-flex align-items-center">
+            <div class="logo d-flex align-items-center">
                 <img src="logo.jpg" alt="Beach-Discover Logo" onclick="refresh()" class="img-fluid rounded-logo" id="logo-img">
                 <h1 class="h3 mb-0">Beach-Discover</h1>
             </div>
-           
 
- <button id="logout1" onclick="logout2();" class="btn btn-primary">Logout</button>
+
+            <button id="logout1" onclick="logout2();" class="btn btn-primary">Αποσύνδεση</button>
             <button class="navbar-toggler btn btn-light d-md-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i> <!-- Visible Toggle Icon -->
             </button>
         </header>
-        
+
         <!-- Collapsible Sidebar for Phones (Hidden on Larger Screens) -->
         <div class="collapse d-md-none" id="navbarNav">
             <ul class="navbar-nav flex-column p-3">
-                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section1')">Upload File</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section2')">Manage Simeia Parakoloythisis</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section3')">Delete User</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section4')">View Beach Data</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section5')">Remove Table</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section6')">Remove Beach</a></li>
-                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section7')">Insert New Beach</a></li>
-                
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section1')">Μεταφόρτωση πίνακα δεδομένων</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section2')">Διαχείριση σημείων παρακολούθησης</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section3')">Διαγραφή χρήστη</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section4')">Προβολή δεδομένων παραλίας</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section5')">Διαγραφή πίνακα</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section6')">Διαγραφή παραλίας</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section7')">Εισαγωγή δεδομένων νέας παραλίας</a></li>
+
             </ul>
-             <button id="logout" onclick="logout();" class="btn btn-primary">Logout</button>
+            <button id="logout" onclick="logout();" class="btn btn-primary">Logout</button>
         </div>
 
         <div class="container-fluid">
@@ -51,29 +52,29 @@
                 <aside class="col-md-3 col-lg-2 bg-light p-3 border-right" id="sidebar">
                     <h2 style="color: #6666ff">Services</h2>
                     <ul class="nav flex-column">
-                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section1')">Upload File</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section2')">Manage Simeia Parakoloythisis</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section3')">Delete User</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section4')">View Beach Data</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section5')">Remove Table</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section6')">Remove Beach</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section7')">Insert New Beach</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section1')">Μεταφόρτωση πίνακα δεδομένων</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section2')">Διαχείριση σημείων παρακολούθησης</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section3')">Διαγραφή χρήστη</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section4')">Προβολή δεδομένων παραλίας</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section5')">Διαγραφή πίνακα</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section6')">Διαγραφή παραλίας</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('section7')">Εισαγωγή δεδομένων νέας παραλίας</a></li>
 
                     </ul>
-                    
+
                 </aside>
                 <main class="col-md-9 col-lg-10 d-flex align-items-center justify-content-center p-3" id="main-content">
                     <div class="content-section text-center p-5" id="section1" style="display: none;">
                         <section id="uploadForm2">
                             <div>
-                                <h2>Upload New File</h2>
-                                <p>Please upload the CSV file containing beach data.</p>
+                                <h2>Μεταφόρτωση νέου αρχείου</h2>
+                                <p>Ανεβάστε το αρχείο CSV που περιέχει δεδομένα παραλίας.</p>
                                 <form id="uploadForm" enctype="multipart/form-data" action="uploadServlet" method="post">
                                     <div >
                                         <input type="file" id="fileInput" name="file" accept=".csv" required>
-                                        <label for="fileInput"><i></i> Choose a file</label>
+                                        <label for="fileInput"><i></i> Επιλέξτε ένα αρχείο</label>
                                     </div>
-                                    <button class="btn" type="submit">Upload File</button>
+                                    <button class="btn" type="submit">Μεταφόρτωση αρχείου</button>
                                 </form>
                             </div>
                         </section>
@@ -82,42 +83,42 @@
 
                     <div class="content-section text-center p-5" id="section2" style="display: none;">
                         <section id="Parform">
-                            <h2>Manage Simeia Parakoloythisis</h2>
-                           
-                            <button class="btn" onclick="fetchData()">View Data</button>
+                            <h2>Διαχείριση σημείων παρακολούθησης</h2>
+
+                            <button class="btn" onclick="fetchData()">Δες τα δεδομένα</button>
                             <div id="dataDisplayTable" class="data-table mt-4"></div>
-                            
-                            
-                            <h2>Upload New File for locations</h2>
-                            <p>Please upload the CSV file containing beach data.</p>
+
+
+                            <h2>Ανεβάστε νέο αρχείο για τοποθεσίες</h2>
+                            <p>Ανεβάστε το αρχείο CSV που περιέχει δεδομένα παραλίας.</p>
                             <form id="uploadLocationForm" enctype="multipart/form-data" action="uploadLocationServlet" method="post">
 
                                 <input type="file" id="fileInput2" name="file2" accept=".csv" required>
-                                <label for="fileInput2"><i></i> Choose a file</label>
+                                <label for="fileInput2"><i></i> Επιλέξτε ένα αρχείο</label>
 
-                                <button class="btn" type="submit">Upload File</button>
+                                <button class="btn" type="submit">Μεταφόρτωση αρχείου</button>
                             </form>
-                            
-                           
-                            <h2>Delete Beach Location Info</h2>
-                            <p>Enter the <strong>code_1</strong> of the beach to delete all information related to that location.</p>
+
+
+                            <h2>Διαγραφή πληροφοριών τοποθεσίας παραλίας</h2>
+                            <p>Εισάγετε τον <strong>κωδικό</strong> της παραλίας για να διαγράψετε όλες τις πληροφορίες που σχετίζονται με τη συγκεκριμένη τοποθεσία.</p>
                             <form id="deleteLocationForm" onsubmit="return deleteLocation();">
-                                <label for="code_1_">Beach Code:</label>
+                                <label for="code_1_">Κωδικός παραλίας:</label>
                                 <input type="text" id="code_1_" name="code_1_" required>
-                                <button id="delbeachl" class="btn" type="submit">Delete Beach Location Info</button>
+                                <button id="delbeachl" class="btn" type="submit">Διαγραφή πληροφοριών</button>
                             </form>
                             <!-- Div for displaying response message -->
                             <div id="deleteResponse"></div>
-                           
-                            
-                            <button class="btn" type="button" onclick="showAddForm()">Add Beach Location Info</button>
+
+
+                            <button class="btn" type="button" onclick="showAddForm()">Προσθήκη πληροφοριών τοποθεσίας παραλίας</button>
 
 
                             <!-- Add Beach Location Form (initially hidden) -->
                             <div id="addLocationForm" style="display: none;">
-                                <h3>Enter New Beach Location Information</h3>
+                                <h3>Εισαγάγετε τις πληροφορίες τοποθεσίας για την νέα παραλία</h3>
                                 <form id="dataForm-4" method="post" class="container mt-4">
-                                    <h3>Data Form 4</h3>
+                                    <h3>Συμπληρώστε την φόρμα</h3>
 
                                     <div class="form-group row">
                                         <label for="X" class="col-sm-2 col-form-label">X:</label>
@@ -134,109 +135,109 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="Name" class="col-sm-2 col-form-label">Name:</label>
+                                        <label for="Name" class="col-sm-2 col-form-label">Όνομα:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="Name" name="Name" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="acth" class="col-sm-2 col-form-label">Acth:</label>
+                                        <label for="acth" class="col-sm-2 col-form-label">Ακτή:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="acth" name="acth" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="Easting_" class="col-sm-2 col-form-label">Easting:</label>
+                                        <label for="Easting_" class="col-sm-2 col-form-label">Ανατολή:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="Easting_" name="Easting_" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="Field_1" class="col-sm-2 col-form-label">Field_1:</label>
+                                        <label for="Field_1" class="col-sm-2 col-form-label">Πεδίο_1:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="Field_1" name="Field_1" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="Lat" class="col-sm-2 col-form-label">Latitude:</label>
+                                        <label for="Lat" class="col-sm-2 col-form-label">Γεωγραφικό πλάτος:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="Lat" name="Lat" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="Lon" class="col-sm-2 col-form-label">Longitude:</label>
+                                        <label for="Lon" class="col-sm-2 col-form-label">Γεωγραφικό μήκος:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="Lon" name="Lon" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="Northing" class="col-sm-2 col-form-label">Northing:</label>
+                                        <label for="Northing" class="col-sm-2 col-form-label">Βορράς:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="Northing" name="Northing" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="dhmos" class="col-sm-2 col-form-label">Dhmos:</label>
+                                        <label for="dhmos" class="col-sm-2 col-form-label">Δήμος:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="dhmos" name="dhmos" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="dhmot" class="col-sm-2 col-form-label">Dhmot:</label>
+                                        <label for="dhmot" class="col-sm-2 col-form-label">Δημοτική Ενότητα:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="dhmot" name="dhmot" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="code_1" class="col-sm-2 col-form-label">Code 1:</label>
+                                        <label for="code_1" class="col-sm-2 col-form-label">Κωδικός_1:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="code_1" name="code_1" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="code" class="col-sm-2 col-form-label">Code:</label>
+                                        <label for="code" class="col-sm-2 col-form-label">Κωδικός:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="code" name="code" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="description" class="col-sm-2 col-form-label">Description:</label>
+                                        <label for="description" class="col-sm-2 col-form-label">Περιγραφή:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="description" name="description" class="form-control" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="perifereia" class="col-sm-2 col-form-label">Perifereia:</label>
+                                        <label for="perifereia" class="col-sm-2 col-form-label">Περιφέρεια:</label>
                                         <div class="col-sm-10">
                                             <input type="text" id="perifereia" name="perifereia" class="form-control" required>
                                         </div>
                                     </div>
 
-                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                    <button id="bform" class="btn btn-primary" type="submit">Υποβολή</button>
                                 </form>
 
                                 <div id="addResponse" class="mt-4"></div>
                             </div>
-                            
-                            
-                            <h2>Remove Table</h2>
+
+
+                            <h2>Διαγραφή πίνακα</h2>
                             <form id="dataForm-5" action="RemoveLocationTable" method="get"> <!-- Change action to your servlet -->
-                                <button class="btn" type="submit" id="butdata-5">Remove the Locations Table</button> <!-- Ensure it's a submit button -->
+                                <button class="btn" type="submit" id="butdata-5">Αφαίρεσε τον πίνακα τοποθεσιών</button> <!-- Ensure it's a submit button -->
                             </form>
                             <div id="mes5"></div>
-                           
+
                         </section>
                     </div>
 
@@ -247,7 +248,7 @@
                             <div id="delete-page" style="display: none;">
                                 <form id ="apolyshform" onsubmit='DELETEPOST();return false;'>
                                     <div id="user1" style="display: none;">
-                                        <label for="USER1">ID OF User:</label>
+                                        <label for="USER1">Id του χρήστη:</label>
                                         <input type="number" id="USER1"  name="userid" required>
                                     </div>
                                     <div id="butdel" style="display: none;" onclick="deleteuser()" >
@@ -263,11 +264,11 @@
 
                     <div class="content-section text-center p-5" id="section4" style="display:none;">
                         <section id="dForm">
-                            <h2>Select Beach Data to View</h2>
+                            <h2>Επιλέξτε δεδομένα για τον πίνακα παραλιών για προβολή</h2>
                             <form id="dataForm" action="javascript:void(0)"> 
-                                <label for="year-select">Year:</label>
+                                <label for="year-select">Χρόνος:</label>
                                 <select id="year-select" name="year-select" required> <!-- Add name attribute -->
-                                    <option value="" disabled selected>Select a year</option> 
+                                    <option value="" disabled selected>Επιλέξτε χρονιά</option> 
                                     <option value="2016">2016</option>
                                     <option value="2017">2017</option>
                                     <option value="2018">2018</option>
@@ -278,33 +279,34 @@
                                     <option value="2023">2023</option>
                                     <option value="2024">2024</option>
                                 </select>    
-                                <label for="month-select">Month:</label>
+                                <label for="month-select">Μήνας:</label>
                                 <select id="month-select" name="month-select" required> <!-- Add name attribute -->
-                                    <option value="" disabled selected>Select a month</option> 
-                                    <option value="maios_">May</option>
-                                    <option value="ioynios_">June</option>
-                                    <option value="ioylios_">July</option>
-                                    <option value="aygoystos_">August</option>
-                                    <option value="septemvrios_">September</option>
-                                    <option value="oktovrios_">October</option>
+                                    <option value="" disabled selected>Επιλέξτε μήνα</option> 
+                                    <option value="maios_">Μάιος</option>
+                                    <option value="ioynios_">Ιούνιος</option>
+                                    <option value="ioylios_">Ιούλιος</option>
+                                    <option value="aygoystos_">Αύγουστος</option>
+                                    <option value="septemvrios_">Σεπτέμβριος</option>
+                                    <option value="oktovrios_">Οκτώβριος</option>
                                 </select>
-                                <button class="btn" type="submit" id="butdata">View Beach Data</button> 
+                                <button class="btn" type="submit" id="butdata">Προβολή δεδομένων</button> 
                             </form>
                             <div id="beachDataDisplay" class="data-table mt-4"></div>
                             <div id="nameoftable" style="display: none;"></div>
-                            <button id="saveButton" style="display: none;">Save All Updates</button> 
+                            <button id="saveButton"  class="btn" style="display: none;">Αποθήκευση όλων των ενημερώσεων</button> 
+                            <div id="responseMessage2" style="display: none;"></div>
                         </section>
                     </div>
 
 
                     <div class="content-section text-center p-5" id="section5" style="display:none;">
                         <section id = "dForm-2">
-                            <h2>Select Table to Remove</h2>
+                            <h2>Επιλέξτε πίνακα παραλιών για διαγραφή</h2>
                             <form id="dataForm-2" action="RemoveTable" method="get"> <!-- Change action to your servlet -->
 
-                                <label for="year-select-2">Year:</label>
+                                <label for="year-select-2">Χρονιά:</label>
                                 <select id="year-select-2" name="year-select-2" required> <!-- Add name attribute -->
-                                    <option value="" disabled selected>Select a year</option> 
+                                    <option value="" disabled selected>Επιλέξτε χρονιά</option> 
                                     <option value="2016">2016</option>
                                     <option value="2017">2017</option>
                                     <option value="2018">2018</option>
@@ -315,17 +317,17 @@
                                     <option value="2023">2023</option>
                                     <option value="2024">2024</option>
                                 </select>    
-                                <label for="month-select-2">Month:</label>
+                                <label for="month-select-2">Μήνας:</label>
                                 <select id="month-select-2" name="month-select-2" required> <!-- Add name attribute -->
-                                    <option value="" disabled selected>Select a month</option> 
-                                    <option value="maios_">May</option>
-                                    <option value="ioynios_">June</option>
-                                    <option value="ioylios_">July</option>
-                                    <option value="aygoystos_">August</option>
-                                    <option value="septemvrios_">September</option>
-                                    <option value="oktovrios_">October</option>
+                                    <option value="" disabled selected>Επιλέξτε μήνα</option> 
+                                    <option value="maios_">Μάιος</option>
+                                    <option value="ioynios_">Ιούνιος</option>
+                                    <option value="ioylios_">Ιούλιος</option>
+                                    <option value="aygoystos_">Αύγουστος</option>
+                                    <option value="septemvrios_">Σεπτέμβριος</option>
+                                    <option value="oktovrios_">Οκτώβριος</option>
                                 </select>
-                                <button class="btn" type="submit" id="butdata-2">Remove the Table</button> <!-- Ensure it's a submit button -->
+                                <button class="btn" type="submit" id="butdata-2">Αφαίρεση</button> <!-- Ensure it's a submit button -->
                             </form>
                             <div id="tablermmes"></div>
                         </section>
@@ -334,12 +336,12 @@
 
                     <div class="content-section text-center p-5" id="section6" style="display:none;">
                         <section id ="dForm-2-beach">  
-                            <h2>Select Table base on GRSTATION to Remove</h2>
+                            <h2>Επιλέξτε παραλία σύμφωνα με το GRSTATION της για διαγραφή</h2>
                             <form id="dataForm-2-beach" action="RemoveBeach" method="get"> <!-- Change action to your servlet -->
 
-                                <label for="year-select-2-beach">Year:</label>
+                                <label for="year-select-2-beach">Χρονιά:</label>
                                 <select id="year-select-2-beach" name="year-select-2-beach" required> <!-- Add name attribute -->
-                                    <option value="" disabled selected>Select a year</option> 
+                                    <option value="" disabled selected>Επιλέξτε χρονιά</option> 
                                     <option value="2016">2016</option>
                                     <option value="2017">2017</option>
                                     <option value="2018">2018</option>
@@ -350,19 +352,19 @@
                                     <option value="2023">2023</option>
                                     <option value="2024">2024</option>
                                 </select>    
-                                <label for="month-select-2-beach">Month:</label>
+                                <label for="month-select-2-beach">Μήνας:</label>
                                 <select id="month-select-2-beach" name="month-select-2-beach" required> <!-- Add name attribute -->
-                                    <option value="" disabled selected>Select a month</option> 
-                                    <option value="maios_">May</option>
-                                    <option value="ioynios_">June</option>
-                                    <option value="ioylios_">July</option>
-                                    <option value="aygoystos_">August</option>
-                                    <option value="septemvrios_">September</option>
-                                    <option value="oktovrios_">October</option>
+                                    <option value="" disabled selected>Επιλέξτε μήνα</option> 
+                                    <option value="maios_">Μάιος</option>
+                                    <option value="_ioynios_">Ιούνιος</option>
+                                    <option value="ioylios_">Ιούλιος</option>
+                                    <option value="aygoystos_">Αύγουστος</option>
+                                    <option value="septemvrios_">Σεπτέμβριος</option>
+                                    <option value="oktovrios_">Οκτώβριος</option>
                                 </select>
-                                <label for="code2">code of beach:</label>
+                                <label for="code2">Κωδικός παραλίας:</label>
                                 <input type="text" id="code2" name="code2" required>
-                                <button class="btn" type="submit" id="butdata-2-beach">Remove the beach from Table</button> <!-- Ensure it's a submit button -->
+                                <button class="btn" type="submit" id="butdata-2-beach">Αφαίρεση παραλίας</button> <!-- Ensure it's a submit button -->
 
                             </form>
                             <div id="tablermmesbeach"></div>
@@ -373,169 +375,169 @@
                     <div class="content-section text-center p-5" id="section7" style="display: none;">
                         <section id ="secform">
 
-                            <h2>Insert Data</h2>
+                            <h2>Εισαγωγή δεδομένων</h2>
                             <form id="dataForm-3" method="post" class="container mt-4">
-                                <h3>Beach Data Form</h3>
+                                <h3>Φόρμα δεδομένων παραλίας</h3>
                                 <div class="form-group row">
-                                    <label for="Perunit" class="col-sm-2 col-form-label">Perunit:</label>
+                                    <label for="Perunit" class="col-sm-2 col-form-label">Περιφερειακή Ενότητα:</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="Perunit" name="Perunit" class="form-control" maxlength="9" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Municipal" class="col-sm-2 col-form-label">Municipal:</label>
+                                    <label for="Municipal" class="col-sm-2 col-form-label">Δήμος:</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="Municipal" name="Municipal" class="form-control" maxlength="19" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Coast" class="col-sm-2 col-form-label">Coast:</label>
+                                    <label for="Coast" class="col-sm-2 col-form-label">Ακτή:</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="Coast" name="Coast" class="form-control" maxlength="49" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="StationCode" class="col-sm-2 col-form-label">Station Code:</label>
+                                    <label for="StationCode" class="col-sm-2 col-form-label">Κωδικός Σταθμού:</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="StationCode" name="StationCode" class="form-control" maxlength="16" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Description" class="col-sm-2 col-form-label">Description:</label>
+                                    <label for="Description" class="col-sm-2 col-form-label">Περιγραφή:</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="Description" name="Description" class="form-control" maxlength="59" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="SampleDate" class="col-sm-2 col-form-label">Sample Date:</label>
+                                    <label for="SampleDate" class="col-sm-2 col-form-label">Ημ/νία δειγμ/ας ΗΗ/ΜΜ/ΕΕΕΕ:</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="SampleDate" name="SampleDate" class="form-control" maxlength="9" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="SampleTime" class="col-sm-2 col-form-label">Sample Time:</label>
+                                    <label for="SampleTime" class="col-sm-2 col-form-label">Ώρα δειγμ/ας ΩΩ:ΛΛ (24ωρη):</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="SampleTime" name="SampleTime" class="form-control" maxlength="11" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="DeliveryDate" class="col-sm-2 col-form-label">Delivery Date:</label>
+                                    <label for="DeliveryDate" class="col-sm-2 col-form-label">Ημ/νία παράδοσης στο εργ/ριο:</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="DeliveryDate" name="DeliveryDate" class="form-control" maxlength="9" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="AnalyseDate" class="col-sm-2 col-form-label">Analyse Date:</label>
+                                    <label for="AnalyseDate" class="col-sm-2 col-form-label">Ημ/νία ανάλυσης:</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="AnalyseDate" name="AnalyseDate" class="form-control" maxlength="9" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Intenterococci" class="col-sm-2 col-form-label">Intenterococci:</label>
+                                    <label for="Intenterococci" class="col-sm-2 col-form-label">Intestinal enterococci (cfu/100ml ):</label>
                                     <div class="col-sm-10">
                                         <input type="number" id="Intenterococci" name="Intenterococci" class="form-control" max="99" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Ecoli" class="col-sm-2 col-form-label">E. coli:</label>
+                                    <label for="Ecoli" class="col-sm-2 col-form-label">Escherichia coli (cfu/100ml):</label>
                                     <div class="col-sm-10">
                                         <input type="number" id="Ecoli" name="Ecoli" class="form-control" max="99" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Tar" class="col-sm-2 col-form-label">Tar:</label>
+                                    <label for="Tar" class="col-sm-2 col-form-label">ΚΑΤΑΛΟΙΠΑ ΠΙΣΣΑΣ:</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="Tar" name="Tar" class="form-control" maxlength="3">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Glass" class="col-sm-2 col-form-label">Glass:</label>
+                                    <label for="Glass" class="col-sm-2 col-form-label">ΓΥΑΛΙΑ:</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="Glass" name="Glass" class="form-control" maxlength="3">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Plastic" class="col-sm-2 col-form-label">Plastic:</label>
+                                    <label for="Plastic" class="col-sm-2 col-form-label">ΠΛΑΣΤΙΚΑ :</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="Plastic" name="Plastic" class="form-control" maxlength="3">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Caoutchouc" class="col-sm-2 col-form-label">Caoutchouc:</label>
+                                    <label for="Caoutchouc" class="col-sm-2 col-form-label">ΚΑΟΥΤΣΟΥΚ:</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="Caoutchouc" name="Caoutchouc" class="form-control" maxlength="3">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Garbage" class="col-sm-2 col-form-label">Garbage:</label>
+                                    <label for="Garbage" class="col-sm-2 col-form-label">ΑΠΟΡΡΙΜΜΑΤΑ  ΑΛΛΑ :</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="Garbage" name="Garbage" class="form-control" maxlength="3">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Wave" class="col-sm-2 col-form-label">Wave:</label>
+                                    <label for="Wave" class="col-sm-2 col-form-label">Κατάσταση Υδάτινης Επιφάνειας (Ήρεμη - Ελαφρά Κυματώδης - Πολύ κυματώδης):</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="Wave" name="Wave" class="form-control" maxlength="16">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Airdirection" class="col-sm-2 col-form-label">Air Direction:</label>
+                                    <label for="Airdirection" class="col-sm-2 col-form-label">Διεύθυνση Ανέμου:</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="Airdirection" name="Airdirection" class="form-control" maxlength="6">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Rainfail" class="col-sm-2 col-form-label">Rainfall:</label>
+                                    <label for="Rainfail" class="col-sm-2 col-form-label">Βροχόπτωση της ημέρας δειγματοληψίας (YES - NO):</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="Rainfail" name="Rainfail" class="form-control" maxlength="3">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="Yestrainfail" class="col-sm-2 col-form-label">Yesterday's Rainfall:</label>
+                                    <label for="Yestrainfail" class="col-sm-2 col-form-label">Βροχόπτωση την προηγούμενη μέρα δειγματοληψίας (YES - NO):</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="Yestrainfail" name="Yestrainfail" class="form-control" maxlength="3">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="month-select-3" class="col-sm-2 col-form-label">Month:</label>
+                                    <label for="month-select-3" class="col-sm-2 col-form-label">Μήνας:</label>
                                     <div class="col-sm-10">
                                         <select id="month-select-3" name="month-select-3" class="form-control" required>
-                                            <option value="" disabled selected>Select a month</option>
-                                            <option value="maios_">May</option>
-                                            <option value="ioynios_">June</option>
-                                            <option value="ioylios_">July</option>
-                                            <option value="aygoystos_">August</option>
-                                            <option value="septemvrios_">September</option>
-                                            <option value="oktovrios_">October</option>
+                                            <option value="" disabled selected>Επιλέξτε μήνα</option>
+                                            <option value="maios_">Μάιος</option>
+                                            <option value="ioynios_">Ιούνιος</option>
+                                            <option value="ioylios_">Ιούλιος</option>
+                                            <option value="aygoystos_">Αύγουστος</option>
+                                            <option value="septemvrios_">Σεπτέμβριος</option>
+                                            <option value="oktovrios_">Οκτώβριος</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="year-select-3" class="col-sm-2 col-form-label">Year:</label>
+                                    <label for="year-select-3" class="col-sm-2 col-form-label">Χρονιά:</label>
                                     <div class="col-sm-10">
                                         <select id="year-select-3" name="year-select-3" class="form-control" required>
-                                            <option value="" disabled selected>Select a year</option>
+                                            <option value="" disabled selected>Επιλέξτε χρονιά</option>
                                             <option value="2016">2016</option>
                                             <option value="2017">2017</option>
                                             <option value="2018">2018</option>
@@ -549,7 +551,7 @@
                                     </div>
                                 </div>
 
-                                <button class="btn btn-primary" type="submit">Submit</button>
+                                <button id="bb2" class="btn btn-primary" type="submit">Υποβολή</button>
                             </form>
 
                             <div id="addInsertResponse" class="mt-4"></div>
@@ -558,34 +560,58 @@
                 </main>
             </div>
         </div>
-        
-    <div id="md" class="modal" tabindex="-1" style="display:none;">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content p-3">
-                <span class="close" onclick="closeContactForm()">&times;</span>
-                <h2>Contact Us</h2>
-                <form id="contactForm" action="ContactServlet" method="POST" enctype="multipart/form-data">
-                    <label for="subject">Subject:</label>
-                    <input type="text" id="subject" name="subject" class="form-control mb-2" required>
-                    <label for="contactEmail">Email:</label>
-                    <input type="email" id="contactEmail" name="contactEmail" class="form-control mb-2" required>
-                    <label for="contactMessage">Message:</label>
-                    <textarea id="contactMessage" name="contactMessage" class="form-control mb-2" rows="4" required></textarea>
-                    <button type="submit" id="contb" class="btn btn-primary btn-block">Send Message</button>
-                </form>
+
+        <div id="md" class="modal" tabindex="-1" style="display:none;">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content p-3">
+                    <span class="close" onclick="closeContactForm()">&times;</span>
+                    <h2>Επικοινωνήστε μαζί μας</h2>
+                    <form id="contactForm" action="ContactServlet" method="POST" enctype="multipart/form-data">
+                        <label for="subject">Θέμα:</label>
+                        <input type="text" id="subject" name="subject" class="form-control mb-2" required>
+                        <label for="contactEmail">Email:</label>
+                        <input type="email" id="contactEmail" name="contactEmail" class="form-control mb-2" required>
+                        <label for="contactMessage">Μήνυμα:</label>
+                        <textarea id="contactMessage" name="contactMessage" class="form-control mb-2" rows="4" required></textarea>
+                        <button type="submit" id="contb" class="btn btn-primary btn-block">Αποστολή</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-        <footer class="text-center p-3 bg-light border-top">
-            <p>&copy; 2024 Beach Discover. All rights reserved.</p>
-            <ul>
-                <li><a href="#md" onclick="openContactForm()">Contact Us</a></li>
-            </ul>
-        </footer>
+         <footer>
+            <div class="footer-container">
+                <div class="footer-section about">
+                    <h3>Σχετικά με εμάς</h3>
+                    <p>
+                       Είμαστε μια πλατφόρμα υπεύθυνη για την παρακολούθηση της ποιότητας των υδάτων κολύμβησης της Περιφέρειας Κρήτης
+                    </p>
+                </div>
+                <div class="footer-section links">
+                    <h3>Χρήσιμοι σύνδεσμοι</h3>
+                    <ul>
+                        <li><a href="#contactModal" onclick="openContactForm()">Επικοινωνία</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section contact">
+                    <h3>Επικοινωνήστε μαζί μας</h3>
+                    <p>Email: stavrgiannis5@gmail.com</p>
+                    <p>Phone: 6977146698</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Beach Reviews. All rights reserved.</p>
+            </div>
+        </footer> 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-               <script src="admin.js"></script>
+        <script src="admin.js"></script>
     </body>
 </html>

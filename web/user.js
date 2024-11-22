@@ -17,7 +17,7 @@ function logout() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             window.location.href = "./index.html";
         } else if (xhr.status !== 200) {
-            alert('Request failed. Returned status of ' + xhr.status);
+            alert('Το αίτημα απέτυχε. Επιστράφηκε η κατάσταση του' + xhr.status);
         }
     };
     xhr.open('POST', 'servlet_Logout');
@@ -81,7 +81,7 @@ function onMapClick(e) {
     // Add a new marker at the clicked location
     currentMarker = L.marker([userLat, userLon], {icon: redIcon})
             .addTo(map2)
-            .bindPopup(`Selected Position: ${userLat.toFixed(5)}, ${userLon.toFixed(5)}`)
+            .bindPopup(`Επιλεγμένη τοποθεσία: ${userLat.toFixed(5)}, ${userLon.toFixed(5)}`)
             .openPopup();
 
     // Optionally, add a popup to show coordinates
@@ -93,7 +93,7 @@ function createBeachPopup(beachName, destinationLat, destinationLng) {
     const popupContent = `
         <div>
             <h3>${beachName}</h3>
-            <button onclick="findPathToBeach(${destinationLat}, ${destinationLng})" class="btn-primary">Find Path</button>
+            <button onclick="findPathToBeach(${destinationLat}, ${destinationLng})" class="btn-primary">Διαδρομή</button>
         </div>
     `;
     return popupContent;
@@ -109,7 +109,7 @@ function getUserLocation(callback) {
             showError(error); // Handle errors if location fetching fails
         });
     } else {
-        alert("Geolocation is not supported by this browser.");
+        alert("Geolocation δεν υποστηρίζεται από το πρόγραμμα περιήγησης.");
     }
 }
 // Function to find path to the beach when "Find Path" button is clicked
@@ -209,7 +209,7 @@ function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
     } else {
-        alert("Geolocation is not supported by this browser.");
+        alert("Geolocation δεν υποστηρίζεται από το πρόγραμμα περιήγησης.");
     }
     /*
      setTimeout(() => {
@@ -294,7 +294,7 @@ function fetchReviews(stationCode) {
                 // Handle errors
                 console.error('Request failed:', xhr.status, xhr.statusText);
                 const reviewsContainer = document.getElementById(`reviewsContainer-${stationCode}`);
-                reviewsContainer.innerHTML = '<p>Failed to load reviews. Please try again later.</p>';
+                reviewsContainer.innerHTML = '<p>Αποτυχία φόρτωσης κριτικών. Δοκιμάστε ξανά αργότερα.</p>';
             }
         }
     };
@@ -361,7 +361,7 @@ function closeModal() {
 function displayReviews(reviews, stationCode) {
     const reviewsContainer = document.getElementById("allreviews");
 
-    // Clear previous content
+    // Clear previous contentσ
     reviewsContainer.innerHTML = '';
     if (reviews.length > 0) {
         const totalStars = reviews.reduce((sum, review) => sum + review.starRating, 0);
@@ -370,7 +370,7 @@ function displayReviews(reviews, stationCode) {
         const averageRatingDiv = document.createElement('div');
         averageRatingDiv.classList.add('average-rating');
         averageRatingDiv.innerHTML = `
-            <h4>Average Rating: <span class="average-score">${averageRating}</span></h4>
+            <h4>Μέση Βαθμολογία: <span class="average-score">${averageRating}</span></h4>
         `;
         reviewsContainer.appendChild(averageRatingDiv);
         // Loop through each review and create the structure
@@ -402,7 +402,7 @@ function displayReviews(reviews, stationCode) {
             reviewsContainer.appendChild(reviewItem);
         });
     } else {
-        reviewsContainer.innerHTML = '<p>No reviews available for this beach.</p>';
+        reviewsContainer.innerHTML = '<p>Δεν υπάρχουν διαθέσιμες κριτικές για αυτήν την παραλία.</p>';
     }
 }
 
@@ -444,20 +444,20 @@ function plotBeachesOnMap(beaches) {
         marker.bindPopup(` <div id="popd">
         <h4>${name}</h4>
         <h4>${stationCode}</h4>
-        <p>Cleanliness Score: ${cleanliness}</p>
+        <p>Βαθμολογία ποιότητας υδάτων: ${cleanliness}</p>
         <ul>
-            <li>Tar: ${tar}</li>
-            <li>Glass: ${glass}</li>
-            <li>Plastic: ${plastic}</li>
-            <li>Caoutchouc: ${caoutchouc}</li>
-            <li>Garbage: ${garbage}</li>
-            <li>Intenterococci: ${intenterococci}</li>
-            <li>Ecoli: ${ecoli}</li>
+            <li>Κατάλοιπα πίσσας: ${tar}</li>
+            <li>Γυαλιά: ${glass}</li>
+            <li>Πλαστικά: ${plastic}</li>
+            <li>Καουτσούκ: ${caoutchouc}</li>
+            <li>Απορρίμματα άλλα : ${garbage}</li>
+            <li>Intestinal enterococci (cfu/100ml ): ${intenterococci}</li>
+            <li>Escherichia coli (cfu/100ml): ${ecoli}</li>
         </ul>
-        <button onclick="findPathToBeach(${lat}, ${lon})" class="btn-primary">Find Path</button>
-        <button onclick="openReviewForm('${name}', ${lat}, ${lon},'${stationCode}')" class="btn-primary">Write a Review</button>
-        <button onclick="fetchReviews('${stationCode}')" class="btn-primary">See Reviews</button>
-        <button onclick="openBooking(${lat}, ${lon})" class="btn-primary">Find your place to stay</button>
+        <button onclick="findPathToBeach(${lat}, ${lon})" class="btn-primary">Διαδρομή</button>
+        <button onclick="openReviewForm('${name}', ${lat}, ${lon},'${stationCode}')" class="btn-primary">Γράψε μια κριτική</button>
+        <button onclick="fetchReviews('${stationCode}')" class="btn-primary">Κριτικές</button>
+        <button onclick="openBooking(${lat}, ${lon})" class="btn-primary">Βρες μέρος διαμονής</button>
         
     </div>`);
 
@@ -530,18 +530,18 @@ function showError(error) {
     switch (error.code) {
         case error.PERMISSION_DENIED:
             // Ask user to enable location services manually
-            alert("User denied the request for Geolocation. Please enable location services or input your location manually.");
+            alert("Ο χρήστης απέρριψε το αίτημα για γεωγραφική τοποθεσία. Ενεργοποιήστε τις υπηρεσίες τοποθεσίας ή εισαγάγετε την τοποθεσία σας με μη αυτόματο τρόπο.");
             // Optionally, provide a prompt to enter latitude and longitude
             promptForManualLocation();
             break;
         case error.POSITION_UNAVAILABLE:
-            alert("Location information is unavailable.");
+            alert("Οι πληροφορίες τοποθεσίας δεν είναι διαθέσιμες.");
             break;
         case error.TIMEOUT:
-            alert("The request to get user location timed out.");
+            alert("Το αίτημα για λήψη της τοποθεσίας χρήστη έληξε.");
             break;
         case error.UNKNOWN_ERROR:
-            alert("An unknown error occurred.");
+            alert("Παρουσιάστηκε άγνωστο σφάλμα.");
             break;
     }
 }
@@ -625,7 +625,7 @@ function openReviewForm(beachName, lat, lon, stationCode) {
     currentLat = lat;
     currentLon = lon;
     // Update modal content
-    document.getElementById('modalBeachName').innerText = `Write a Review for ${beachName}`;
+    document.getElementById('modalBeachName').innerText = `Γράψε μια κριτική για την παραλία ${beachName}`;
     const stationCodeInput = document.getElementById('stCode');
 ;
     if (!stationCodeInput) {
@@ -653,7 +653,7 @@ window.onclick = function (event) {
     if (event.target.classList.contains('modal')) {
         event.target.style.display = 'none';
     }
-}
+};
 
 function openReviewsModal() {
     // Show the reviews modal
@@ -694,7 +694,7 @@ document.getElementById('contactForm').addEventListener('submit', function (even
                  document.getElementById("contb").disabled = true;
                 console.log("Server response:", jsonResponse); // Log the response for debugging
                  const successMessage = document.createElement('p');
-                        successMessage.textContent = "Message submitted successfully!";
+                        successMessage.textContent = "Το μήνυμα υποβλήθηκε με επιτυχία!";
                         successMessage.style.color = "green";
                         document.getElementById('contactForm').appendChild(successMessage);
                         setTimeout(() => {
@@ -705,7 +705,7 @@ document.getElementById('contactForm').addEventListener('submit', function (even
                 const jsonResponse = JSON.parse(xhr.responseText);
                 console.log("Server response:", jsonResponse); // Log the response for debugging
                 const successMessage = document.createElement('p');
-                        successMessage.textContent = "Message was not sent!";
+                        successMessage.textContent = "Το μήνυμα δεν στάλθηκε!";
                         successMessage.style.color = "red";
                         document.getElementById('contactForm').appendChild(successMessage);
                         setTimeout(() => {
@@ -746,7 +746,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                             // Show success message in the form
                          const successMessage = document.createElement('p');
-                        successMessage.textContent = "Review submitted successfully!";
+                        successMessage.textContent = "Η κριτική υποβλήθηκε με επιτυχία!";
                         successMessage.style.color = "green";
                         document.getElementById('revv').appendChild(successMessage);
 
@@ -761,7 +761,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     } catch (e) {
                         console.error("Invalid JSON response:", xhr.responseText);
-                        alert('Unexpected server response. Please try again.');
+                        alert('Απροσδόκητη απόκριση διακομιστή. Δοκιμάστε ξανά.');
                     }
                 }
             };
@@ -781,7 +781,7 @@ document.getElementById("changePasswordForm").addEventListener("submit", functio
     const confirmNewPassword = document.getElementById("confirmNewPassword").value;
     // Check if new passwords match
     if (newPassword !== confirmNewPassword) {
-        alert("New passwords do not match. Please try again.");
+        alert("Οι κωδικοί δεν ταιριάζουν, προσπαθήστε ξανα.");
         return;
     }
 
@@ -795,12 +795,12 @@ document.getElementById("changePasswordForm").addEventListener("submit", functio
             if (xhr.status === 200) {
                 const jsonResponse = JSON.parse(xhr.responseText);
                 console.log("Server response:", jsonResponse); // Log the response for debugging
-                alert('password submitted successfully!');
+                alert('Η αλλαγή κωδικού ολοκληρώθηκε με επιτυχία !');
                 closeReviewForm(); // Close the form on success
             } else {
                 const jsonResponse = JSON.parse(xhr.responseText);
                 console.log("Server response:", jsonResponse); // Log the response for debugging
-                alert('Error submitting password. Please try again.');
+                alert('Σφάλμα κατά την υποβολή κωδικού πρόσβασης. Δοκιμάστε ξανά.');
             }
         }
        
