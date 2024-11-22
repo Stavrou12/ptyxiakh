@@ -62,10 +62,10 @@ public class UploadServlet extends HttpServlet {
                     if (count > 0) {
                         response.setContentType("text/html");
                         response.getWriter().write("<html><body>");
-                        response.getWriter().write("<h3>File already exists in the table: " + fileName + "</h3>");
-                        response.getWriter().write("<p>Skipping data insertion.</p>");
+                        response.getWriter().write("<h3>Το αρχείο υπάρχει ήδη: " + fileName + "</h3>");
+                        response.getWriter().write("<p>Παράλειψη εισαγωγής δεδομένων.</p>");
                         
-                                response.getWriter().write("<p>You will be redirected to the admin page in 5 seconds...</p>");
+                                response.getWriter().write("<p>Θα ανακατευθυνθείτε στη σελίδα διαχειριστή σε 5 δευτερόλεπτα..</p>");
         
         // JavaScript for redirection after 5 seconds
         response.getWriter().write("<script type='text/javascript'>");
@@ -124,10 +124,10 @@ public class UploadServlet extends HttpServlet {
                 
 response.setContentType("text/html");
                         response.getWriter().write("<html><body>");
-                        response.getWriter().write("<h3>File was uploaded " + fileName + "</h3>");
+                        response.getWriter().write("<h3>Το αρχείο ανέβηκε " + fileName + "</h3>");
                         
                         
-                                response.getWriter().write("<p>You will be redirected to the admin page in 5 seconds...</p>");
+                                response.getWriter().write("<p>Θα ανακατευθυνθείτε στη σελίδα διαχειριστή σε 5 δευτερόλεπτα..</p>");
         
         // JavaScript for redirection after 5 seconds
         response.getWriter().write("<script type='text/javascript'>");

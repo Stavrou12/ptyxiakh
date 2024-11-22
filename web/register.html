@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>My_form</title>
+        <title>Φόρμα_εγγραφής</title>
         <!-- Bootstrap CSS -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="regc.css">
@@ -23,9 +23,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="gotoform()">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="showLoginModal()">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contactModal" onclick="openContactForm()">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="gotoform()">Αρχική</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showLoginModal()">Σύνδεση</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contactModal" onclick="openContactForm()">Επικοινωνία</a></li>
                 </ul>
             </div>
         </nav>
@@ -43,7 +43,7 @@
                                     <legend>Συμπληρώστε την φόρμα:</legend>
 
                                     <div class="form-group">
-                                        <label for="txtUserName">UserName:</label>
+                                        <label for="txtUserName">Username:</label>
                                         <input type="text" class="form-control" id="txtUserName" name="username" onchange="USERNAME()" autocomplete="on" pattern="[0-9a-zA-Z]{8,}" required="required">
                                         <small id="requsername" class="form-text text-muted"></small>
                                     </div>
@@ -55,7 +55,7 @@
                                     </div>
 
                                     <div class="form-group" id="pass">
-                                        <label>Password:</label>
+                                        <label>Κωδικός:</label>
                                         <div class="input-group">
                                             <input id="p1" type="password" class="form-control" name="password" pattern="(?=.*[A-Za-z])(?=.*[@$!%*#?&])(?=.*[0-9]).{8,12}" required="required" onchange="checkPasswordStrength()">
                                             <div class="input-group-append">
@@ -66,7 +66,7 @@
                                     </div>
 
                                     <div class="form-group" id="pass2">
-                                        <label>Επιβεβαίωση password:</label>
+                                        <label>Επιβεβαίωση κωδικού:</label>
                                         <div class="input-group">
                                             <input id="p2" type="password" class="form-control" name="password2" pattern="(?=.*[A-Za-z])(?=.*[@$!%*#?&])(?=.*[0-9]).{8,12}" required="required">
                                             <div class="input-group-append">
@@ -107,23 +107,23 @@
         <footer>
             <div class="footer-container">
                 <div class="footer-section about">
-                    <h3>About Us</h3>
+                    <h3>Σχετικά με εμάς</h3>
                     <p>
-                        We are a beach review platform dedicated to providing accurate and helpful reviews of beaches from around the world.
+                        Είμαστε μια πλατφόρμα υπεύθυνη για την παρακολούθηση της ποιότητας των υδάτων κολύμβησης της Περιφέρειας Κρήτης
                     </p>
                 </div>
                 <div class="footer-section links">
-                    <h3>Useful Links</h3>
+                    <h3>Χρήσιμοι σύνδεσμοι</h3>
                     <ul>
-                        <li><a href="#" onclick="gotoform()">Home</a></li>
-                        <li><a href="#contactModal" onclick="openContactForm()">Contact Us</a></li>
+                        <li><a href="#" onclick="gotoform()">Αρχική</a></li>
+                        <li><a href="#contactModal" onclick="openContactForm()">Επικοινωνία</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section contact">
-                    <h3>Contact Us</h3>
-                    <p>Email: contact@beachreviews.com</p>
-                    <p>Phone: +123 456 7890</p>
+                    <h3>Επικοινωνήστε μαζί μας</h3>
+                    <p>Email: stavrgiannis5@gmail.com</p>
+                    <p>Phone: 6977146698</p>
                     <div class="social-icons">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -141,13 +141,13 @@
                 <span class="close" onclick="closeContactForm()">&times;</span>
                 <h2>Contact Us</h2>
                 <form id="contactForm" action="ContactServlet" method="POST" enctype="multipart/form-data">
-                    <label for="subject">Subject:</label>
+                    <label for="subject">Θέμα:</label>
                     <input type="text" id="subject" name="subject" class="form-control mb-2" required>
                     <label for="contactEmail">Email:</label>
                     <input type="email" id="contactEmail" name="contactEmail" class="form-control mb-2" required>
-                    <label for="contactMessage">Message:</label>
+                    <label for="contactMessage">Μήνυμα:</label>
                     <textarea id="contactMessage" name="contactMessage" class="form-control mb-2" rows="4" required></textarea>
-                    <button id="contb" type="submit" class="btn btn-primary btn-block">Send Message</button>
+                    <button id="contb" type="submit" class="btn btn-primary btn-block">Αποστολή</button>
                 </form>
             </div>
         </div>
@@ -157,13 +157,13 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content p-3">
                 <span class="close" onclick="closeLoginModal()">&times;</span>
-                <h2>Login to Beach-Discover</h2>
+                <h2>Σύνδεση χρήστη</h2>
                 <form id="myForm" action="#" onsubmit="login_post(event); return false;">
                     <label for="username">Username:</label>
                     <input id="username" name="username" type="text" placeholder="Please enter" class="form-control mb-2" required>
-                    <label for="password">Password:</label>
+                    <label for="password">Κωδικός:</label>
                     <input id="password" name="password" type="password" placeholder="Please enter" class="form-control mb-2" required>
-                    <button class="btn btn-primary btn-block" id="login-butt" type="submit">Login</button>
+                    <button class="btn btn-primary btn-block" id="login-butt" type="submit">Σύνδεση</button>
                 </form>
                  <div id="msg-login" class="message"></div>
         

@@ -4,7 +4,9 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+#ii:hover{
+    cursor:pointer;
+}
 #navbarNav{
     font-size: 20px;
 }
