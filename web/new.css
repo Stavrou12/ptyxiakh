@@ -6,6 +6,90 @@
     font-family: 'Arial', sans-serif;
 }
 
+
+footer {
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
+    padding: 20px 0;
+    text-align: center;
+    font-size: 14px;
+    width: 100%;
+    margin-top: auto; /* Push the footer to the bottom of the page */
+    z-index: 1000;
+}
+
+footer .footer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    flex-wrap: wrap;
+}
+
+footer .footer-section {
+    flex: 1;
+    margin: 10px 20px;
+}
+
+footer .footer-section h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #fff;
+}
+
+footer .footer-section p,
+footer .footer-section ul {
+    font-size: 14px;
+    color: #ddd;
+}
+
+footer .footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .footer-section ul li {
+    margin-bottom: 10px;
+}
+
+footer .footer-section ul li a {
+    color: #ddd;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer .footer-section ul li a:hover {
+    color: #007bff;
+}
+
+footer .social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #fff;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+footer .social-icons a:hover {
+    color: #007bff;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: #222;
+    color: #bbb;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 14px;
+}
+
+
 body {
     background-color: #f0f8ff;
     background-image: url('view-sea-sandy-beach.jpg'); /* Background image */
@@ -14,7 +98,8 @@ body {
     color: #333;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+ 
+      min-height: 100vh;
 }
 
 /* Header styles */
@@ -175,15 +260,9 @@ header {
 #md button:hover {
     background-color: #0056b3;
 }
-/* Footer styles */
-footer {
-    text-align: center;
-    padding: 10px 0;
-    background: #3c8dbc;
-    color: white;
-    width: 100%;
-     margin-top: auto; /* Ensure footer stays at the bottom */
-}
+
+
+
 
 .hidden{
      display: none; 
@@ -290,11 +369,6 @@ footer {
     max-width: 500px;
 }
 
-footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
 
 /* Modal style tweaks */
 .close {

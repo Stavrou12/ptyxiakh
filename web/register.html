@@ -23,7 +23,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="gotoform()">Αρχική</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="back()">Αρχική</a></li>
                     <li class="nav-item"><a class="nav-link" href="#" onclick="showLoginModal()">Σύνδεση</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contactModal" onclick="openContactForm()">Επικοινωνία</a></li>
                 </ul>
@@ -115,7 +115,7 @@
                 <div class="footer-section links">
                     <h3>Χρήσιμοι σύνδεσμοι</h3>
                     <ul>
-                        <li><a href="#" onclick="gotoform()">Αρχική</a></li>
+                        <li><a href="#" onclick="back()">Αρχική</a></li>
                         <li><a href="#contactModal" onclick="openContactForm()">Επικοινωνία</a></li>
                     </ul>
                 </div>
@@ -139,7 +139,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content p-3">
                 <span class="close" onclick="closeContactForm()">&times;</span>
-                <h2>Contact Us</h2>
+                <h2>Επικοινωνία</h2>
                 <form id="contactForm" action="ContactServlet" method="POST" enctype="multipart/form-data">
                     <label for="subject">Θέμα:</label>
                     <input type="text" id="subject" name="subject" class="form-control mb-2" required>

@@ -6,6 +6,7 @@
     <title>Welcome to Beach-Discover</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="new.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="login.js"></script>
@@ -53,10 +54,10 @@ function closeContactForm() {
             </nav>
             <nav class="d-none d-lg-flex"> <!-- Show only on larger screens -->
                 <ul class="nav">
-                    <li class="nav-item"><a href="#" class="nav-link text-white" onclick="gototop()">Home</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white" onclick="gotobot()">About Us</a></li>
-                    <li class="nav-item"><a href="#" onclick="openContactForm()" class="nav-link text-white">Contact</a></li>
-                    <li class="nav-item"><a href="#" onclick="showLoginModal()" class="nav-link text-white">Login</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link text-white" onclick="gototop()">Αρχική</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link text-white" onclick="gotobot()">Σχετικά με εμάς</a></li>
+                    <li class="nav-item"><a href="#" onclick="openContactForm()" class="nav-link text-white">Επικοινωνία</a></li>
+                    <li class="nav-item"><a href="#" onclick="showLoginModal()" class="nav-link text-white">Σύνδεση</a></li>
                 </ul>
             </nav>
         </div>
@@ -65,8 +66,8 @@ function closeContactForm() {
     <div id="sidebar" class="sidebar bg-primary text-white d-lg-none">
         <button class="close-btn" onclick="toggleSidebar()">&times;</button>
         <ul class="nav flex-column">
-            <li class="nav-item"><a href="#" class="nav-link text-white">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link text-white">About Us</a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-white">Αρχική</a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-white">Σχετικά με εμάς</a></li>
             <li class="nav-item"><a href="#" onclick="openContactForm()" class="nav-link text-white">Contact</a></li>
             <li class="nav-item"><a href="#" onclick="showLoginModal()" class="nav-link text-white">Login</a></li>
         </ul>
@@ -75,26 +76,25 @@ function closeContactForm() {
     <!-- Main Content -->
     <main class="container my-4">
         <!-- Hero Section -->
-        <section class="hero-section text-center p-4 bg-white rounded shadow-sm mb-4">
-            <h2>Welcome to Beach-Discover</h2>
-            <p>Discover the pristine beaches of Crete with insights on water quality and accessibility.</p>
+        <section class="hero-section text-center p-4 rounded shadow-sm mb-4 llb">
+            <h2>Καλώς ήρθατε στο Beach-Discover</h2>
         </section>
 
         <!-- Features Section -->
-        <section class="features-section bg-white p-4 rounded shadow-sm mb-4">
-            <h3>Why Choose Beach-Discover?</h3>
-            <p>Our platform provides:</p>
+        <section class="features-section p-4 rounded shadow-sm mb-4">
+            <h3>Γιατί να επιλέξετε το Beach-Discover?</h3>
+            <p>Η πλατφόρμα μας υποστηρίζει:</p>
             <ul class="list-unstyled">
-                <li><i class="fas fa-water"></i> Real-time water quality updates</li>
-                <li><i class="fas fa-star"></i> Comprehensive reviews and ratings</li>
-                <li><i class="fas fa-map-marker-alt"></i> Maps and directions to hidden gems</li>
-                <li><i class="fas fa-users"></i> Community recommendations</li>
+                <li><i class="fas fa-water"></i> Συλλογή δεδομένων σχετικά με την ποιότητα των υδάτων κολύμβησης της Περιφέρειας Κρήτης από το έτος 2016 και εξής.</li>
+                <li><i class="fas fa-water"></i> Εφαρμογή φίλτρων για τις παραλίες, εμφάνιση πληροφοριών στον χάρτη και στον πίνακα παρακολούθησης. 
+                <li><i class="fas fa-star"></i> Ολοκληρωμένες κριτικές και βαθμολογίες από πραγματικούς χρήστες</li>
+                <li><i class="fas fa-star"></i> Βρείτε την πιο καθαρή παραλίά κοντά σας, οδηγίες προσεύλευσης σε αυτήν και τόπο διαμονής</li>
             </ul>
         </section>
 
         <!-- Beach Resources Section -->
-        <section class="beach-resources bg-white p-4 rounded shadow-sm">
-            <h3>Explore More Cretan Beaches</h3>
+        <section class="beach-resources p-4 rounded shadow-sm">
+            <h3>Εξερευνήστε περισσότερες παραλίες της Κρήτης</h3>
             <ul class="list-unstyled">
                 <li><a href="https://www.cretanbeaches.com/" target="_blank">Cretan Beaches</a></li>
                 <li><a href="https://www.visitgreece.gr/islands/crete/" target="_blank">Visit Greece - Crete</a></li>
@@ -104,28 +104,53 @@ function closeContactForm() {
             </ul>
         </section>
     </main>
+ <footer>
+            <div class="footer-container">
+                <div class="footer-section about">
+                    <h3>Σχετικά με εμάς</h3>
+                    <p>
+                        Είμαστε μια πλατφόρμα υπεύθυνη για την παρακολούθηση της ποιότητας των υδάτων κολύμβησης της Περιφέρειας Κρήτης
+                    </p>
+                </div>
+                <div class="footer-section links">
+                    <h3>Χρήσιμοι σύνδεσμοι</h3>
+                    <ul>
+                        <li><a href="#" onclick="back()">Αρχική</a></li>
+                        <li><a href="#contactModal" onclick="openContactForm()">Επικοινωνία</a></li>
+                    </ul>
+                </div>
 
-    <!-- Footer -->
-    <footer class="bg-primary text-white text-center py-2">
-        <p>&copy; 2024 Beach-Discover. All rights reserved.</p>
-    </footer>
-
+                <div class="footer-section contact">
+                    <h3>Επικοινωνήστε μαζί μας</h3>
+                    <p>Email: stavrgiannis5@gmail.com</p>
+                    <p>Phone: 6977146698</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Beach Reviews. All rights reserved.</p>
+            </div>
+        </footer> 
     <!-- Modals for Login and Contact Form -->
     <div id="loginModal" class="modal" tabindex="-1" style="display:none;">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content p-3">
                 <span class="close" onclick="closeLoginModal()">&times;</span>
-                <h2>Login to Beach-Discover</h2>
+                <h2>Σύνδεση στο Beach-Discover</h2>
                 <form id="myForm" action="#" onsubmit="login_post(event); return false;">
                     <label for="username">Username:</label>
                     <input id="username" name="username" type="text" placeholder="Please enter" class="form-control mb-2" required>
                     <label for="password">Password:</label>
                     <input id="password" name="password" type="password" placeholder="Please enter" class="form-control mb-2" required>
-                    <button class="btn btn-primary btn-block" id="login-butt" type="submit">Login</button>
+                    <button class="btn btn-primary btn-block" id="login-butt" type="submit">Σύνδεση</button>
                 </form>
                  <div id="msg-login" class="message"></div>
                             <div class="button-group">
-                    <button class="reg-button" id="eggr" onclick="gotoform()">Sign up for free</button>
+                    <button class="reg-button" id="eggr" onclick="gotoform()">Δωρεάν εγγραφή</button>
                   
                 </div>
             </div>
@@ -136,13 +161,13 @@ function closeContactForm() {
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content p-3">
                 <span class="close" onclick="closeContactForm()">&times;</span>
-                <h2>Contact Us</h2>
+                <h2>Επικοινωνία</h2>
                 <form id="contactForm" action="ContactServlet" method="POST" enctype="multipart/form-data">
-                    <label for="subject">Subject:</label>
+                    <label for="subject">Θέμα:</label>
                     <input type="text" id="subject" name="subject" class="form-control mb-2" required>
                     <label for="contactEmail">Email:</label>
                     <input type="email" id="contactEmail" name="contactEmail" class="form-control mb-2" required>
-                    <label for="contactMessage">Message:</label>
+                    <label for="contactMessage">Μήνυμα:</label>
                     <textarea id="contactMessage" name="contactMessage" class="form-control mb-2" rows="4" required></textarea>
                     <button id="contb" type="submit" class="btn btn-primary btn-block">Send Message</button>
                 </form>
@@ -150,5 +175,6 @@ function closeContactForm() {
         </div>
     </div>
      <script src="login.js"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

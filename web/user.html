@@ -48,6 +48,7 @@
                     <label for="trackLocation">Να επιτρέπεται στο πρόγραμμα περιήγησης να παρακολουθεί την τοποθεσία μου</label>
                     <input type="radio" id="chooseOnMap" name="locationOption" value="map" onchange="handleLocationSelection()">
                     <label for="chooseOnMap">Επιλέξτε τοποθεσία στο χάρτη</label>
+                    <p style="font-size: 14px;">*Δείκτης ποιότητας νερού: Όσο πιο κοντά στο 0 είναι η βαθμολογία ποιότητας των υδάτων, τόσο πιο καθαρή είναι η παραλία.</p>
                 </div>
                 <button id="findBeachBtn" class="btn btn-primary mt-3">Ψάξε!</button>
             </div>
@@ -71,7 +72,7 @@
                     </div>
                     <div id ="fmenu" class="col-lg-4 filter-menu p-4 bg-light rounded shadow hidden">
 
-                        <span class="close" onclick="closeFilter()">&times;</span>
+                        <span class="close9" id="ppp" style="display: none;" onclick="closeFilter()">&times;</span>
                         <div id="filterMenu" class="p-3 bg-light border rounded hidden">
                             <h3>Φίλτρα</h3>
                             <label for="year">Επιλέξτε χρονιά:</label>
@@ -263,7 +264,7 @@
                     <div class="footer-section links">
                         <h3>Χρήσιμοι σύνδεσμοι</h3>
                         <ul>
-                            <li><a href="">Αρχική</a></li>
+                            <li><a href="" onclick="gotoform()">Αρχική</a></li>
                             <li><a href="#contactModal" onclick="openContactForm()">Επικοινωνία</a></li>
                         </ul>
                     </div>
@@ -290,6 +291,24 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="user.js"></script>
+         <script>
+        function toggleCloseButton() {
+            const closeButton = document.getElementById('ppp');
+            const fmenu = document.getElementById('fmenu');
+            if (window.innerWidth <= 768) {
+                closeButton.style.display = 'inline'; // Show for 768px or smaller
+            } else {
+                closeButton.style.display = 'none'; // Hide for larger screens
+                fmenu.style.display="inline";
+            }
+        }
+
+        // Run on page load
+        toggleCloseButton();
+
+        // Run on window resize
+        window.addEventListener('resize', toggleCloseButton);
+    </script>
 
     </body>
 </html>

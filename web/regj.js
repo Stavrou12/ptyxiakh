@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
+function back(){
+      window.location.href = './index.html';
+}
 function gotoform() {
  //   window.location.href = '/PTYXIAKH/index.html';
  window.scrollTo({ top: 0, behavior: 'smooth' });
