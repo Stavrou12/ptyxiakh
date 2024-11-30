@@ -52,6 +52,24 @@
                 </div>
                 <button id="findBeachBtn" class="btn btn-primary mt-3">Ψάξε!</button>
             </div>
+              <div class="location-section text-center p-4">
+                <!-- Option to track user's location -->
+                <div>
+                    <p style="font-size: 14px;">Η ποιότητα του νερού αξιολογείται μέσω δειγμάτων που δείχνουν την κατάσταση του τη στιγμή της δειγματοληψίας, αν και το νερό μπορεί να αλλάξει ακόμα και μέσα σε μία μέρα. Στα δείγματα ελέγχουμε για βακτήρια που υποδεικνύουν την ύπαρξη κοπρανώδους ύλης, γνωστά ως "οργανισμοί δείκτες κοπρανωδών" (FIOs), όπως τα Escherichia coli (E. coli) και Intestinal enterococci (IE). Αυτά μπορεί να προέρχονται από λύματα, ζώα, πτηνά ή απορροές δρόμων.
+
+Όταν τα επίπεδα FIOs αυξάνονται, οι κίνδυνοι για την υγεία των λουομένων μεγαλώνουν.
+Κατηγορίες & Όρια για Παράκτια Νερά:
+
+Άριστη: E. coli ≤250 cfu/100ml, IE ≤100 cfu/100ml (95%)
+Καλή: E. coli ≤500 cfu/100ml, IE ≤200 cfu/100ml (95%)
+Επαρκής: E. coli ≤500 cfu/100ml, IE ≤185 cfu/100ml (90%)
+Κακή: Χειρότερα από τα όρια της "Επαρκούς".
+                    
+cfu/100ml: Δείχνει τη συγκέντρωση βακτηρίων (μονάδες σχηματισμού αποικιών ανά 100 ml νερού).
+Όσο χαμηλότερα είναι αυτά τα επίπεδα, τόσο καλύτερη είναι η ποιότητα του νερού και ασφαλέστερη η κολύμβηση.</p>
+                </div>
+            </div>
+            
 
 
             <div class="map-filter-section">
@@ -109,13 +127,13 @@
                                 <input type="checkbox" id="garbage" name="garbage" value="NO" onchange="updateCheckboxValue(this)"> <!-- Checkbox for Garbage -->
                                 <label for="intenterococciRange">Επιλέξτε Intestinal enterococci (cfu/100ml):</label>
                                 <div class="range-slider">
-                                    <input type="range" id="intenterococciRange" name="intenterococci" min="0" max="100" value="0" oninput="updateIntenterococciValue(this.value)">
-                                    <span id="intenterococciValue">0</span> / 100
+                                    <input type="range" id="intenterococciRange" name="intenterococci" min="0" max="500" value="0" oninput="updateIntenterococciValue(this.value)">
+                                    <span id="intenterococciValue">0</span> / 500
                                 </div>
                                 <label for="ecoliRange">Επιλέξτε Escherichia coli (cfu/100ml):</label>
                                 <div class="range-slider">
-                                    <input type="range" id="ecoliRange" name="ecoli" min="0" max="100" value="0" oninput="updateEcoliValue(this.value)">
-                                    <span id="ecoliValue">0</span> / 100
+                                    <input type="range" id="ecoliRange" name="ecoli" min="0" max="500" value="0" oninput="updateEcoliValue(this.value)">
+                                    <span id="ecoliValue">0</span> / 500
                                 </div>
                                 <button id="filterBtn" class="btn btn-primary mt-3">Εφαρμογή</button>
                             </div>

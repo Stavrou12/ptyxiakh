@@ -708,6 +708,21 @@ function logout() {
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send();
 }
+
+
+function logout2() {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.location.href = "./index.html";
+        } else if (xhr.status !== 200) {
+            alert('Το αίτημα απέτυχε. Επιστράφηκε η κατάσταση του ' + xhr.status);
+        }
+    };
+    xhr.open('POST', 'servlet_Logout');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send();
+}
 document.getElementById('uploadLocationForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the default form submission
 
