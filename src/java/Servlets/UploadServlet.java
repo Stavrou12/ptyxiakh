@@ -28,7 +28,7 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         Part filePart = request.getPart("file");  // Get the uploaded file
         if (filePart == null || filePart.getSize() == 0) {
             response.getWriter().write("No file uploaded.");
@@ -60,20 +60,8 @@ public class UploadServlet extends HttpServlet {
                     
                     // If the record exists, respond or handle accordingly
                     if (count > 0) {
-                        response.setContentType("text/html");
-                        response.getWriter().write("<html><body>");
-                        response.getWriter().write("<h3>Το αρχείο υπάρχει ήδη: " + fileName + "</h3>");
-                        response.getWriter().write("<p>Παράλειψη εισαγωγής δεδομένων.</p>");
-                        
-                                response.getWriter().write("<p>Θα ανακατευθυνθείτε στη σελίδα διαχειριστή σε 5 δευτερόλεπτα..</p>");
-        
-        // JavaScript for redirection after 5 seconds
-        response.getWriter().write("<script type='text/javascript'>");
-        response.getWriter().write("setTimeout(function() {");
-        response.getWriter().write("window.location.href = 'admin.html';"); // Change to your admin page URL
-        response.getWriter().write("}, 5000);"); // 5000 milliseconds = 5 seconds
-        response.getWriter().write("</script>");
-                        response.getWriter().write("</body></html>");
+                        response.setContentType("application/json; charset=UTF-8");
+    response.getWriter().write("{\"status\":\"exists\", \"message\":\"Το αρχείο υπάρχει ήδη: " + fileName + "\"}");
                         return;  // Exit to avoid insertion
                     }
                 }
@@ -122,20 +110,8 @@ public class UploadServlet extends HttpServlet {
                     }
                 }
                 
-response.setContentType("text/html");
-                        response.getWriter().write("<html><body>");
-                        response.getWriter().write("<h3>Το αρχείο ανέβηκε " + fileName + "</h3>");
-                        
-                        
-                                response.getWriter().write("<p>Θα ανακατευθυνθείτε στη σελίδα διαχειριστή σε 5 δευτερόλεπτα..</p>");
-        
-        // JavaScript for redirection after 5 seconds
-        response.getWriter().write("<script type='text/javascript'>");
-        response.getWriter().write("setTimeout(function() {");
-        response.getWriter().write("window.location.href = 'admin.html';"); // Change to your admin page URL
-        response.getWriter().write("}, 5000);"); // 5000 milliseconds = 5 seconds
-        response.getWriter().write("</script>");
-                        response.getWriter().write("</body></html>");
+ response.setContentType("application/json; charset=UTF-8");
+response.getWriter().write("{\"status\":\"success\", \"message\":\"Το αρχείο ανέβηκε με επιτυχία!\"}");
                         return;  // Exit to avoid insertion
             } catch (SQLException e) {
                 e.printStackTrace();

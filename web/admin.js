@@ -737,20 +737,22 @@ document.getElementById('uploadLocationForm').addEventListener('submit', functio
 
     // Create a FormData object to hold the file
     const formData = new FormData();
-    formData.append('file', file);
-
+    formData.append('file2', file);
+    console.log(file);
     // Create an XMLHttpRequest to send the file
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'uploadLocationServlet', true);
 
     xhr.onload = function () {
         if (xhr.status === 200) {
-            alert('Το αρχείο μεταφορτώθηκε με επιτυχία!');
-            // Optionally, refresh the page or redirect
-            // location.reload();
-        } else {
-            alert('Η μεταφόρτωση του αρχείου απέτυχε. Δοκιμάστε ξανά.');
+           const response = JSON.parse(xhr.responseText); // Parse the JSON response
+        if (response.status === "exists") {
+            alert(response.message); // Show the message
+        } else if (response.status === "success") {
+            alert(response.message);
+            window.location.href = 'admin.html'; // Redirect to admin page
         }
+    }
     };
 
     xhr.onerror = function () {
@@ -783,12 +785,15 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
 
     xhr.onload = function () {
         if (xhr.status === 200) {
-            alert('Το αρχείο μεταφορτώθηκε με επιτυχία!');
-            // Optionally, refresh the page or redirect
-            // location.reload();
-        } else {
-            alert('Η μεταφόρτωση του αρχείου απέτυχε. Δοκιμάστε ξανά.');
+
+           const response = JSON.parse(xhr.responseText); // Parse the JSON response
+        if (response.status === "exists") {
+            alert(response.message); // Show the message
+        } else if (response.status === "success") {
+            alert(response.message);
+            window.location.href = 'admin.html'; // Redirect to admin page
         }
+    }
     };
 
     xhr.onerror = function () {

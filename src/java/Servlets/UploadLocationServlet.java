@@ -26,6 +26,7 @@ import javax.servlet.http.Part;
 import com.opencsv.CSVReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,7 +35,7 @@ import java.util.List;
 @WebServlet("/uploadLocationServlet")
 @MultipartConfig
 public class UploadLocationServlet extends HttpServlet {
-
+ private static final Logger LOGGER = Logger.getLogger(UploadLocationServlet.class.getName());
     private String getSafeValue(String[] array, int index) {
         return index < array.length ? array[index] : null;
     }
@@ -42,6 +43,7 @@ public class UploadLocationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         LOGGER.info("Servlet invoked successfully.");
         Part filePart = request.getPart("file2");  // Get the uploaded file
         if (filePart == null || filePart.getSize() == 0) {
             response.getWriter().write("No file uploaded.");
@@ -67,19 +69,8 @@ public class UploadLocationServlet extends HttpServlet {
                         int count = rs.getInt(1);
                         // If the record exists, respond or handle accordingly
                         if (count > 0) {
-                            response.setContentType("text/html");
-                            response.getWriter().write("<html><body>");
-                            response.getWriter().write("<h3>File already exists in the table: " + fileName + "</h3>");
-                            response.getWriter().write("<p>Skipping data insertion.</p>");
-                            response.getWriter().write("<p>You will be redirected to the admin page in 5 seconds...</p>");
-
-                            // JavaScript for redirection after 5 seconds
-                            response.getWriter().write("<script type='text/javascript'>");
-                            response.getWriter().write("setTimeout(function() {");
-                            response.getWriter().write("window.location.href = 'admin.html';"); // Change to your admin page URL
-                            response.getWriter().write("}, 5000);"); // 5000 milliseconds = 5 seconds
-                            response.getWriter().write("</script>");
-                            response.getWriter().write("</body></html>");
+ response.setContentType("application/json; charset=UTF-8");
+    response.getWriter().write("{\"status\":\"exists\", \"message\":\"Το αρχείο υπάρχει ήδη: " + fileName + "\"}");
                             return;  // Exit to avoid insertion
                         }
                     }
@@ -111,19 +102,8 @@ public class UploadLocationServlet extends HttpServlet {
                     }
                 }
 
-                response.setContentType("text/html");
-                response.getWriter().write("<html><body>");
-                response.getWriter().write("<h3>File was uploaded " + fileName + "</h3>");
-
-                response.getWriter().write("<p>You will be redirected to the admin page in 5 seconds...</p>");
-
-                // JavaScript for redirection after 5 seconds
-                response.getWriter().write("<script type='text/javascript'>");
-                response.getWriter().write("setTimeout(function() {");
-                response.getWriter().write("window.location.href = 'admin.html';"); // Change to your admin page URL
-                response.getWriter().write("}, 5000);"); // 5000 milliseconds = 5 seconds
-                response.getWriter().write("</script>");
-                response.getWriter().write("</body></html>");
+ response.setContentType("application/json; charset=UTF-8");
+response.getWriter().write("{\"status\":\"success\", \"message\":\"Το αρχείο ανέβηκε με επιτυχία!\"}");
                 return;  // Exit to avoid insertion
             } catch (SQLException e) {
                 e.printStackTrace();
