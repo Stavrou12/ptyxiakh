@@ -199,6 +199,7 @@ System.out.println("limit: " + limit);
         Connection conn = null;
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=UTF-8");
+
         try {
             conn = DB_Connection.getConnection();
             String sql = "SELECT sp.code_1 as stationcode, m.Ecoli as Ecoli, m.Intenterococci as Intenterococci,sp.acth as name, sp.Y AS lat, sp.X AS lon, "
