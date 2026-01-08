@@ -1,5 +1,4 @@
 # Beach-Discover
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/Stavrou12/ptyxiakh)
 
 Beach-Discover is a web application designed to help users find the cleanest beaches in Crete based on official water quality data. The platform provides detailed information about beach cleanliness, allows for user reviews, and includes an administrative panel for data management. This project was developed as a university thesis.
 
@@ -86,3 +85,7 @@ The application processes and displays data on coastal water quality from 2016 o
     ├── META-INF/
     └── WEB-INF/
         └── web.xml        # Servlet mappings and deployment configuration
+
+
+https://drive.google.com/file/d/1eCZZ_JHSP21AbVV0XVBmUKNVgllRzNtn/view?usp=sharing
+https://drive.google.com/file/d/1ir1UW5sAQpUXfbR7Y5PBno5ojExKcxxN/view?usp=drive_link
