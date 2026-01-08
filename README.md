@@ -68,6 +68,8 @@ The application processes and displays data on coastal water quality from 2016 o
     -   The user dashboard is at `user.html`.
     -   The admin panel is at `admin.html`. Default admin credentials are `admin` / `admin12!`.
 
+https://drive.google.com/file/d/1eCZZ_JHSP21AbVV0XVBmUKNVgllRzNtn/view?usp=sharing
+https://drive.google.com/file/d/1ir1UW5sAQpUXfbR7Y5PBno5ojExKcxxN/view?usp=drive_link
 ## File Structure
 
 ```
@@ -87,5 +89,4 @@ The application processes and displays data on coastal water quality from 2016 o
         └── web.xml        # Servlet mappings and deployment configuration
 
 
-https://drive.google.com/file/d/1eCZZ_JHSP21AbVV0XVBmUKNVgllRzNtn/view?usp=sharing
-https://drive.google.com/file/d/1ir1UW5sAQpUXfbR7Y5PBno5ojExKcxxN/view?usp=drive_link
+
