@@ -59,17 +59,9 @@ The application processes and displays data on coastal water quality from 2016 o
 3.  **Dependencies**:
     -   Ensure all required JAR files (`gson`, `mysql-connector`, `opencsv`, `javax.mail`, etc.) are included in the project's classpath. The project is configured for NetBeans, which manages these dependencies via `nbproject/project.properties`.
 
-4.  **Deployment**:
-    -   Build the project into a `.war` file.
-    -   Deploy the generated `PTYXIAKH.war` file to your Apache Tomcat server.
-
-5.  **Accessing the Application**:
-    -   The main page is available at `http://localhost:8080/PTYXIAKH/`.
-    -   The user dashboard is at `user.html`.
-    -   The admin panel is at `admin.html`. Default admin credentials are `admin` / `admin12!`.
-
 https://drive.google.com/file/d/1eCZZ_JHSP21AbVV0XVBmUKNVgllRzNtn/view?usp=sharing
 https://drive.google.com/file/d/1ir1UW5sAQpUXfbR7Y5PBno5ojExKcxxN/view?usp=drive_link
+
 ## File Structure
 
 ```
@@ -87,6 +79,10 @@ https://drive.google.com/file/d/1ir1UW5sAQpUXfbR7Y5PBno5ojExKcxxN/view?usp=drive
     ├── META-INF/
     └── WEB-INF/
         └── web.xml        # Servlet mappings and deployment configuration
+
+
+
+
 
 
 
